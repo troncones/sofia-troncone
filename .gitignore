@@ -1,1 +1,7 @@
 .claude/skills/github-pages/
+
+# First 30 (module4-app): working files stay local; only the public site, app and videos are published
+module4-app/*.md
+module4-app/brand/
+module4-app/motion/*.html
+module4-app/motion/*.png

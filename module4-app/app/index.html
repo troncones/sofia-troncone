@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="First 30">
+<meta name="theme-color" content="#FFFFFF">
+<title>First 30 app</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #16163A; --ink-2: #2E2E57; --peri: #4F5BFF; --apr: #FF9A76; --apr-ink: #D9673F;
+    --bg: #F2F2F8; --card: #FFFFFF; --muted: #8A8AA3; --sep: rgba(60,60,90,0.14); --fill: #E9E9F3;
+    --green-ok: #4F5BFF;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Geist", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; height: 100%; }
+  body { background: #DCDCEA; color: var(--ink); -webkit-font-smoothing: antialiased; display: grid; place-items: center; }
+  button, input { font: inherit; color: inherit; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* Device frame on desktop; full screen on a phone */
+  .device { width: 393px; height: 852px; border-radius: 58px; background: #0d0d1f; padding: 12px; box-shadow: 0 40px 100px rgba(22,22,58,0.35); position: relative; }
+  .island { position: absolute; top: 23px; left: 50%; width: 124px; height: 36px; margin-left: -62px; background: #000; border-radius: 20px; z-index: 50; }
+  .app { position: relative; width: 100%; height: 100%; border-radius: 46px; overflow: hidden; background: var(--bg); }
+  @media (max-width: 500px) {
+    body { display: block; background: var(--bg); }
+    .device { width: 100%; height: 100dvh; border-radius: 0; padding: 0; box-shadow: none; }
+    .island { display: none; }
+    .app { border-radius: 0; }
+    .status { display: none; }
+  }
+  .status { position: absolute; top: 0; left: 0; right: 0; height: 54px; display: flex; justify-content: space-between; align-items: center; padding: 6px 34px 0 42px; font-weight: 600; font-size: 16px; z-index: 40; pointer-events: none; }
+  .status .r { display: flex; gap: 6px; align-items: center; }
+
+  /* Screens */
+  .screens { position: absolute; inset: 0; }
+  .screen { position: absolute; inset: 0; overflow-y: auto; padding: calc(54px + env(safe-area-inset-top)) 16px calc(110px + env(safe-area-inset-bottom)); opacity: 0; pointer-events: none; transform: translateX(14px); transition: opacity .25s, transform .35s cubic-bezier(.2,.8,.2,1); scrollbar-width: none; }
+  .screen::-webkit-scrollbar { display: none; }
+  .screen.on { opacity: 1; pointer-events: auto; transform: none; }
+  .large { font-size: 34px; font-weight: 800; letter-spacing: -0.02em; margin: 8px 4px 14px; }
+  .sub { color: var(--muted); font-size: 15px; margin: -8px 4px 16px; }
+  .section-h { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; margin: 22px 16px 7px; }
+
+  /* Cards & grouped lists */
+  .card { background: var(--card); border-radius: 22px; padding: 18px; }
+  .group { background: var(--card); border-radius: 14px; overflow: hidden; }
+  .row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; min-height: 48px; position: relative; }
+  .row + .row::before { content: ""; position: absolute; top: 0; left: 16px; right: 0; height: 0.5px; background: var(--sep); }
+  .row .t { flex: 1; font-size: 17px; }
+  .row .d { color: var(--muted); font-size: 17px; }
+  .row small { display: block; color: var(--muted); font-size: 13px; }
+  .ic { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; flex: none; color: #fff; }
+  .chev { color: #C4C4D4; }
+
+  /* iOS switch */
+  .switch { position: relative; width: 51px; height: 31px; flex: none; }
+  .switch input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; z-index: 1; }
+  .switch span { position: absolute; inset: 0; border-radius: 16px; background: #E4E4EE; transition: background .25s; }
+  .switch span::after { content: ""; position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; border-radius: 50%; background: #fff; box-shadow: 0 3px 8px rgba(0,0,0,0.15), 0 1px 1px rgba(0,0,0,0.16); transition: transform .3s cubic-bezier(.3,1.3,.5,1); }
+  .switch input:checked + span { background: var(--peri); }
+  .switch input:checked + span::after { transform: translateX(20px); }
+  .switch input:disabled + span { opacity: 0.45; }
+
+  /* Segmented control */
+  .seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; background: #E6E6F0; border-radius: 9px; padding: 2px; position: relative; }
+  .seg button { border: 0; background: transparent; padding: 7px 8px; font-size: 14px; font-weight: 600; border-radius: 7px; cursor: pointer; position: relative; z-index: 1; }
+  .seg button.sel { background: #fff; box-shadow: 0 3px 8px rgba(0,0,0,0.12), 0 0 0 0.5px rgba(0,0,0,0.04); }
+
+  /* Slider */
+  .slide { padding: 14px 16px 16px; }
+  .slide-h { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .slide-h b { font-size: 17px; font-weight: 600; }
+  .slide-h span { font-weight: 700; font-size: 17px; }
+  .slide-h span small { color: var(--muted); font-weight: 500; }
+  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; background: transparent; height: 30px; margin: 0; --p: 50%; --c: var(--ink); touch-action: pan-y; }
+  input[type=range]::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: linear-gradient(to right, var(--c) var(--p), #E4E4EE var(--p)); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; margin-top: -11px; border-radius: 50%; background: #fff; box-shadow: 0 3px 8px rgba(0,0,0,0.15), 0 0.5px 4px rgba(0,0,0,0.12); }
+  input[type=range]::-moz-range-track { height: 6px; border-radius: 3px; background: #E4E4EE; }
+  input[type=range]::-moz-range-progress { height: 6px; border-radius: 3px; background: var(--c); }
+  input[type=range]::-moz-range-thumb { width: 26px; height: 26px; border: 0; border-radius: 50%; background: #fff; box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
+
+  /* Buttons */
+  .btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; border: 0; border-radius: 16px; padding: 16px; font-size: 17px; font-weight: 700; cursor: pointer; transition: transform .15s, opacity .2s; }
+  .btn:active { transform: scale(0.97); }
+  .btn-ink { background: var(--ink); color: #fff; }
+  .btn-peri { background: var(--peri); color: #fff; }
+  .btn-white { background: #fff; color: var(--ink); }
+  .btn-ghost { background: transparent; color: var(--peri); }
+  .btn[disabled] { opacity: 0.4; pointer-events: none; }
+
+  /* Home */
+  .hello { display: flex; justify-content: space-between; align-items: center; margin: 6px 4px 14px; }
+  .hello .date { color: var(--muted); font-size: 13px; font-weight: 600; text-transform: uppercase; }
+  .hello h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; margin: 2px 0 0; }
+  .avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+  .payday { border-radius: 24px; padding: 20px; color: #fff; background: var(--peri); position: relative; overflow: hidden; transition: background .3s; }
+  .payday.idle { background: var(--card); color: var(--ink); }
+  .payday.adjusted { background: var(--apr); color: var(--ink); }
+  .payday.done { background: var(--ink); }
+  .payday .k { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; opacity: 0.8; text-transform: uppercase; }
+  .payday .m { font-size: 20px; font-weight: 700; line-height: 1.3; margin-top: 6px; letter-spacing: -0.01em; }
+  .payday .acts { display: flex; gap: 8px; margin-top: 16px; }
+  .payday .acts .btn { padding: 12px; font-size: 15px; border-radius: 12px; }
+  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  .tile { background: var(--card); border-radius: 22px; padding: 16px; }
+  .tile .l { color: var(--muted); font-size: 13px; font-weight: 600; }
+  .tile .v { font-size: 26px; font-weight: 800; letter-spacing: -0.03em; margin-top: 4px; }
+  .tile .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+  .proj .big { font-size: 40px; font-weight: 800; letter-spacing: -0.04em; margin-top: 4px; }
+  .bar { display: flex; height: 10px; border-radius: 5px; overflow: hidden; background: var(--fill); gap: 2px; margin-top: 14px; }
+  .bar i { background: #CFCFE6; } .bar b { background: var(--apr); }
+  .legend { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .legend b { color: var(--apr-ink); }
+  .ms { display: flex; align-items: center; gap: 14px; }
+  .ring { width: 56px; height: 56px; flex: none; }
+  .ms .t { font-weight: 700; font-size: 17px; }
+  .ms small { color: var(--muted); font-size: 14px; }
+
+  /* Milestones */
+  .rung .ic { background: var(--fill); color: var(--muted); font-weight: 700; font-size: 14px; border-radius: 50%; }
+  .rung.done .ic { background: var(--ink); color: #fff; }
+  .rung.next .ic { background: #fff; color: var(--peri); box-shadow: inset 0 0 0 2px var(--peri); }
+  .prog { height: 4px; border-radius: 2px; background: var(--fill); margin-top: 6px; overflow: hidden; }
+  .prog i { display: block; height: 100%; background: var(--peri); border-radius: 2px; }
+
+  /* Activity */
+  .amt { font-weight: 700; }
+  .amt.save { color: var(--ink); } .amt.inv { color: var(--peri); }
+
+  /* Tab bar */
+  .tabbar { position: absolute; left: 0; right: 0; bottom: 0; height: calc(84px + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom); background: rgba(250,250,255,0.86); backdrop-filter: blur(20px) saturate(1.6); -webkit-backdrop-filter: blur(20px) saturate(1.6); border-top: 0.5px solid var(--sep); display: grid; grid-template-columns: repeat(4, 1fr); z-index: 30; }
+  .tabbar button { border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; gap: 3px; padding-top: 8px; font-size: 10px; font-weight: 600; color: #A0A0B8; cursor: pointer; }
+  .tabbar button.on { color: var(--peri); }
+  .tabbar svg { width: 26px; height: 26px; }
+
+  /* Sheet + onboarding */
+  .overlay { position: absolute; inset: 0; z-index: 60; background: rgba(22,22,58,0.35); opacity: 0; pointer-events: none; transition: opacity .3s; }
+  .overlay.on { opacity: 1; pointer-events: auto; }
+  .sheet { position: absolute; left: 0; right: 0; bottom: 0; background: var(--bg); border-radius: 16px 16px 0 0; padding: 10px 16px calc(24px + env(safe-area-inset-bottom)); transform: translateY(105%); transition: transform .45s cubic-bezier(.2,.9,.25,1); z-index: 61; }
+  .sheet.on { transform: none; }
+  .grab { width: 36px; height: 5px; border-radius: 3px; background: #CFCFDF; margin: 0 auto 14px; }
+  .onb { position: absolute; inset: 0; z-index: 70; background: #fff; display: flex; flex-direction: column; padding: calc(70px + env(safe-area-inset-top)) 24px calc(30px + env(safe-area-inset-bottom)); transition: transform .5s cubic-bezier(.2,.9,.25,1), opacity .4s; }
+  .onb.gone { transform: translateY(100%); opacity: 0; pointer-events: none; }
+  .step { display: none; flex-direction: column; flex: 1; animation: in .45s cubic-bezier(.2,.8,.2,1); }
+  .step.on { display: flex; }
+  @keyframes in { from { opacity: 0; transform: translateX(24px); } }
+  .dots { display: flex; gap: 6px; justify-content: center; margin-bottom: 18px; }
+  .dots i { width: 7px; height: 7px; border-radius: 4px; background: #DCDCEA; transition: width .3s, background .3s; }
+  .dots i.on { width: 22px; background: var(--ink); }
+  .onb h2 { font-size: 34px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin: 0 0 10px; }
+  .onb p { color: var(--muted); font-size: 17px; line-height: 1.45; margin: 0 0 24px; }
+  .onb .spacer { flex: 1; }
+  .field { width: 100%; border: 0; background: var(--bg); border-radius: 14px; padding: 16px; font-size: 20px; font-weight: 600; outline: none; }
+  .field:focus { box-shadow: 0 0 0 2px var(--peri); }
+  .bigpay { font-size: 64px; font-weight: 800; letter-spacing: -0.04em; text-align: center; margin: 10px 0 4px; }
+  .live { background: var(--bg); border-radius: 18px; padding: 16px; margin-top: 8px; }
+  .live .big { font-size: 34px; font-weight: 800; letter-spacing: -0.03em; }
+  .bankrow { display: flex; align-items: center; gap: 14px; background: var(--bg); border-radius: 16px; padding: 14px 16px; margin-bottom: 10px; cursor: pointer; border: 2px solid transparent; }
+  .bankrow.sel { border-color: var(--peri); background: #F0F1FF; }
+  .bankrow .ic { background: var(--ink); width: 40px; height: 40px; border-radius: 12px; }
+  .logo { display: inline-flex; align-items: center; font-weight: 900; letter-spacing: -0.055em; line-height: 1; }
+  .logo svg { width: 0.8em; height: 1em; margin-left: 0.02em; overflow: visible; }
+
+  /* Toast + bills */
+  .toast { position: absolute; left: 16px; right: 16px; top: calc(58px + env(safe-area-inset-top)); z-index: 80; background: rgba(22,22,58,0.94); color: #fff; border-radius: 20px; padding: 14px 16px; display: flex; gap: 12px; align-items: center; transform: translateY(-160%); transition: transform .5s cubic-bezier(.3,1.25,.5,1); }
+  .toast.on { transform: none; }
+  .toast .ic { background: var(--apr); color: var(--ink); border-radius: 50%; }
+  .toast b { display: block; font-size: 15px; } .toast small { color: #C9C9E0; font-size: 13px; }
+  .rain { position: absolute; inset: 0; pointer-events: none; z-index: 75; overflow: hidden; }
+  .bill { position: absolute; top: -60px; width: 70px; height: 34px; border-radius: 4px; background: var(--apr); animation: fall var(--dur) cubic-bezier(.35,0,.7,1) var(--delay) forwards; opacity: 0; }
+  .bill::before { content: ""; position: absolute; inset: 3px; border: 1.5px solid #C2522E; border-radius: 2px; }
+  .bill::after { content: "$"; position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; transform: translate(-50%,-50%); border-radius: 50%; background: #FFD3C4; color: #7A2A14; font-weight: 800; font-size: 13px; line-height: 20px; text-align: center; }
+  @keyframes fall { 0% { opacity: 0; transform: translate(0,0) rotate(var(--r0)); } 10% { opacity: 1; } 50% { transform: translate(var(--sway), 50vh) rotate(calc(var(--r0) + 120deg)) scaleY(0.4); } 90% { opacity: 1; } 100% { opacity: 0; transform: translate(0, 110vh) rotate(calc(var(--r0) + 240deg)); } }
+  @media (prefers-reduced-motion: reduce) { .screen, .step, .sheet, .toast, .onb { transition: none; animation: none; } }
+</style>
+</head>
+<body>
+<div class="device">
+  <div class="island"></div>
+  <div class="app" id="app">
+    <div class="status"><span id="clock">9:41</span><span class="r">
+      <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="#16163A"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="#16163A"/><rect x="10" y="3" width="3" height="9" rx="1" fill="#16163A"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#16163A"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 11.5 L10.4 8.6 A3.8 3.8 0 0 0 5.6 8.6 Z" fill="#16163A"/><path d="M3.3 6.2 A6.8 6.8 0 0 1 12.7 6.2" stroke="#16163A" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M1 3.5 A10 10 0 0 1 15 3.5" stroke="#16163A" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+      <svg width="27" height="13" viewBox="0 0 27 13"><rect x="0.5" y="0.5" width="23" height="12" rx="3.5" fill="none" stroke="#16163A" opacity="0.4"/><rect x="2" y="2" width="18" height="9" rx="2" fill="#16163A"/><rect x="24.5" y="4.5" width="2" height="4" rx="1" fill="#16163A" opacity="0.4"/></svg>
+    </span></div>
+
+    <div class="screens">
+      <!-- HOME -->
+      <section class="screen on" id="sc-home">
+        <div class="hello">
+          <div><div class="date" id="today"></div><h1 id="hi">Hi</h1></div>
+          <span class="avatar" id="avatar">ST</span>
+        </div>
+        <div class="payday idle" id="payCard">
+          <div class="k" id="payK">Next payday</div>
+          <div class="m" id="payM"></div>
+          <div class="acts" id="payActs"></div>
+        </div>
+        <div class="tiles">
+          <div class="tile"><div class="l"><span class="dot" style="background:#8B8BB0"></span>Savings</div><div class="v num" id="tSave">$0</div></div>
+          <div class="tile"><div class="l"><span class="dot" style="background:var(--peri)"></span>Investing</div><div class="v num" id="tInv">$0</div></div>
+        </div>
+        <div class="section-h">Your money at work</div>
+        <div class="card proj">
+          <div style="color:var(--muted);font-size:14px;font-weight:600">If you keep this plan, investing by 40</div>
+          <div class="big num" id="by40">$0</div>
+          <div class="bar"><i id="pIn"></i><b id="pEarn"></b></div>
+          <div class="legend"><span>You put in <span class="num" id="lIn"></span></span><b>Money earned <span class="num" id="lEarn"></span></b></div>
+        </div>
+        <div class="section-h">Next milestone</div>
+        <div class="card ms" id="nextMs"></div>
+        <button class="btn btn-ghost" id="simBtn" style="margin-top:14px">⚡ Simulate a payday (demo)</button>
+      </section>
+
+      <!-- PLAN -->
+      <section class="screen" id="sc-plan">
+        <div class="large">Plan</div>
+        <div class="section-h">Paycheck</div>
+        <div class="group">
+          <div class="row"><span class="t">How often</span></div>
+          <div style="padding:0 16px 14px"><div class="seg" id="freqSeg"><button data-v="52">Weekly</button><button data-v="26">Every 2 weeks</button></div></div>
+          <div class="slide" style="padding-top:4px"><div class="slide-h"><b>Each paycheck</b><span class="num" id="oPay"></span></div><input type="range" id="rPay" min="100" max="2500" step="25"></div>
+        </div>
+        <div class="section-h">Your split</div>
+        <div class="group">
+          <div class="slide"><div class="slide-h"><b>To savings</b><span class="num" id="oSave"></span></div><input type="range" id="rSave" min="0" max="40" step="1" style="--c:#8B8BB0"></div>
+          <div class="slide" style="border-top:0.5px solid var(--sep)"><div class="slide-h"><b>To investing</b><span class="num" id="oInv"></span></div><input type="range" id="rInv" min="0" max="40" step="1" style="--c:var(--peri)"></div>
+          <div class="row"><span class="t">Always keep in checking<small>A cushion First 30 never touches</small></span><span class="d num" id="oCush"></span></div>
+        </div>
+        <div class="section-h">Bills before next payday</div>
+        <div class="group" id="billsList"></div>
+        <div class="section-h">Automation</div>
+        <div class="group">
+          <div class="row"><span class="ic" style="background:var(--peri)">↻</span><span class="t">Autopilot<small id="apNote"></small></span><label class="switch"><input type="checkbox" id="apSwitch"><span></span></label></div>
+          <div class="row"><span class="ic" style="background:var(--apr);color:var(--ink)">⏸</span><span class="t">Pause this payday</span><label class="switch"><input type="checkbox" id="pauseSwitch"><span></span></label></div>
+        </div>
+        <p class="sub" style="margin:14px 16px 0">First 30 only moves money between your own accounts. It never picks investments for you.</p>
+      </section>
+
+      <!-- MILESTONES -->
+      <section class="screen" id="sc-ms">
+        <div class="large">Milestones</div>
+        <div class="sub">In the order that builds wealth.</div>
+        <div class="group" id="ladder"></div>
+        <div class="section-h">Your goals</div>
+        <div class="group" id="goals"></div>
+        <button class="btn btn-ghost" id="addGoal" style="margin-top:6px">+ Add a goal</button>
+      </section>
+
+      <!-- ACTIVITY -->
+      <section class="screen" id="sc-act">
+        <div class="large">Activity</div>
+        <div class="group" id="history"></div>
+        <div class="section-h">Accounts</div>
+        <div class="group">
+          <div class="row"><span class="ic" style="background:var(--ink)">🏦</span><span class="t">Checking<small id="acctName">Not connected</small></span><span class="chev">›</span></div>
+          <div class="row"><span class="ic" style="background:#8B8BB0">◎</span><span class="t">High-yield savings<small>Your account</small></span><span class="chev">›</span></div>
+          <div class="row"><span class="ic" style="background:var(--peri)">↗</span><span class="t">Investing account<small>Your account · you choose investments</small></span><span class="chev">›</span></div>
+        </div>
+        <button class="btn btn-ghost" id="resetBtn" style="margin-top:18px;color:var(--apr-ink)">Start over (demo)</button>
+      </section>
+    </div>
+
+    <nav class="tabbar" id="tabs">
+      <button class="on" data-s="home"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2 3 10.4V20a1 1 0 0 0 1 1h5.5v-6h5v6H20a1 1 0 0 0 1-1v-9.6z"/></svg>Home</button>
+      <button data-s="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.4"/><circle cx="10" cy="17" r="2.4"/></svg>Plan</button>
+      <button data-s="ms"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="14" width="5" height="7" rx="1.5"/><rect x="9.5" y="9" width="5" height="12" rx="1.5"/><rect x="16" y="3" width="5" height="18" rx="1.5"/></svg>Milestones</button>
+      <button data-s="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>Activity</button>
+    </nav>
+
+    <!-- Sheet -->
+    <div class="overlay" id="overlay"></div>
+    <div class="sheet" id="sheet"><div class="grab"></div><div id="sheetBody"></div></div>
+
+    <!-- Onboarding -->
+    <div class="onb" id="onb">
+      <div class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i></div>
+
+      <div class="step on" data-step="0">
+        <span class="logo" style="font-size:54px;margin-bottom:30px">first3<svg viewBox="0 0 48 60"><path d="M24 7 C 38 7, 42 20, 42 30 C 42 44, 34 53, 24 53 C 12 53, 6 42, 6 30 C 6 20, 10 12, 17 9" fill="none" stroke="#4F5BFF" stroke-width="8" stroke-linecap="round"/><path d="M10 2 L19 9 L10 17" fill="none" stroke="#FF9A76" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h2>Your paycheck has a plan now.</h2>
+        <p>On payday, First 30 works out how much is safe to save, moves it to your own accounts, and puts your money to work.</p>
+        <input class="field" id="nameIn" placeholder="What should we call you?" autocomplete="given-name" maxlength="24">
+        <div class="spacer"></div>
+        <button class="btn btn-ink" data-next>Get started</button>
+      </div>
+
+      <div class="step" data-step="1">
+        <h2>How do you get paid?</h2>
+        <p>Your paycheck after taxes. You can change it anytime.</p>
+        <div class="seg" id="oFreq"><button data-v="52">Weekly</button><button data-v="26" class="sel">Every 2 weeks</button></div>
+        <div class="bigpay num" id="oBig">$275</div>
+        <div style="text-align:center;color:var(--muted);margin-bottom:10px">each paycheck</div>
+        <input type="range" id="oPayR" min="100" max="2500" step="25" value="275">
+        <div class="spacer"></div>
+        <button class="btn btn-ink" data-next>Continue</button>
+      </div>
+
+      <div class="step" data-step="2">
+        <h2>Set your split.</h2>
+        <p>Pick what goes where. Watch what it turns into.</p>
+        <div class="slide" style="padding:0 0 10px"><div class="slide-h"><b>To savings</b><span class="num" id="o2Save"></span></div><input type="range" id="o2SaveR" min="0" max="40" value="10" style="--c:#8B8BB0"></div>
+        <div class="slide" style="padding:0 0 4px"><div class="slide-h"><b>To investing</b><span class="num" id="o2Inv"></span></div><input type="range" id="o2InvR" min="0" max="40" value="17" style="--c:var(--peri)"></div>
+        <div class="live">
+          <div style="color:var(--muted);font-size:14px;font-weight:600">Your investing by age 40</div>
+          <div class="big num" id="o2By40">$0</div>
+          <div class="legend" style="margin-top:4px"><span>You put in <span class="num" id="o2In"></span></span><b>Money earned <span class="num" id="o2Earn"></span></b></div>
+        </div>
+        <div class="spacer"></div>
+        <button class="btn btn-ink" data-next>Looks good</button>
+      </div>
+
+      <div class="step" data-step="3">
+        <h2>Connect your checking.</h2>
+        <p>First 30 sees your balance, paychecks and upcoming bills. Nothing else. (Demo: no real bank is connected.)</p>
+        <div id="banks"></div>
+        <div class="spacer"></div>
+        <button class="btn btn-ink" id="finishOnb" disabled>Connect &amp; finish</button>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"><span class="ic">✓</span><div><b id="toastT"></b><small id="toastS"></small></div></div>
+  </div>
+</div>
+
+<script>
+/* ---------- State (kept on this device only) ---------- */
+const DEFAULT = { onboarded: false, name: "", freq: 26, pay: 275, save: 10, inv: 17, bank: "", saved: 0, invested: 0, paydays: 0, streak: 0,
+  autopilot: false, pause: false, bills: [{ n: "Rent (your share)", amt: 160, on: false }, { n: "Phone", amt: 45, on: false }],
+  history: [], goals: [{ n: "Spring break trip", amt: 600 }], pending: null };
+let S;
+try { S = Object.assign(structuredClone(DEFAULT), JSON.parse(localStorage.getItem("first30") || "{}")); } catch (e) { S = structuredClone(DEFAULT); }
+const save = () => { try { localStorage.setItem("first30", JSON.stringify(S)); } catch (e) {} };
+
+const $ = id => document.getElementById(id);
+const money = (n, d = 0) => "$" + Number(n).toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+const fill = el => el.style.setProperty("--p", ((el.value - el.min) / (el.max - el.min) * 100) + "%");
+const haptic = () => { try { navigator.vibrate && navigator.vibrate(8); } catch (e) {} };
+
+/* ---------- Money math ---------- */
+const AGE = 20;
+function by40(perCheck, freq, rate = 0.07) {
+  const n = (40 - AGE) * freq, r = Math.pow(1 + rate, 1 / freq) - 1;
+  const total = perCheck * ((Math.pow(1 + r, n) - 1) / r);
+  return { total, putIn: perCheck * n, earned: total - perCheck * n };
+}
+const amounts = () => ({ s: S.pay * S.save / 100, i: S.pay * S.inv / 100 });
+const cushion = () => S.pay * 0.25;
+function safeSplit() {
+  const { s, i } = amounts(), target = s + i;
+  const billTotal = S.bills.filter(b => b.on).reduce((a, b) => a + b.amt, 0);
+  const safe = Math.max(0, Math.min(target, S.pay - billTotal - cushion()));
+  const k = target ? safe / target : 0;
+  return { s: s * k, i: i * k, target, safe, adjusted: safe < target - 0.5, billTotal };
+}
+
+/* ---------- Milestones ---------- */
+const LADDER = [
+  { n: "First paycheck saved", sub: "Move money on one payday", p: () => Math.min(1, S.paydays / 1) },
+  { n: "4 paydays in a row", sub: "Unlocks Autopilot", p: () => Math.min(1, S.streak / 4) },
+  { n: "$500 emergency fund", sub: "In savings", p: () => Math.min(1, S.saved / 500) },
+  { n: "First $500 invested", sub: "In your investing account", p: () => Math.min(1, S.invested / 500) },
+  { n: "One month of expenses", sub: "About $1,200 saved", p: () => Math.min(1, S.saved / 1200) },
+  { n: "Roth IRA opened", sub: "A tax-free home for investing", p: () => 0 },
+];
+
+/* ---------- Render ---------- */
+function render() {
+  const d = new Date();
+  $("today").textContent = d.toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" });
+  const h = d.getHours();
+  $("hi").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + (S.name ? ", " + S.name : "");
+  $("avatar").textContent = (S.name || "You").slice(0, 2).toUpperCase();
+  $("clock").textContent = d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }).replace(/ (AM|PM)/, "");
+
+  // Payday card
+  const card = $("payCard"), acts = $("payActs");
+  card.className = "payday";
+  acts.innerHTML = "";
+  if (S.pending && S.pending.state === "ask") {
+    const p = S.pending;
+    card.classList.toggle("adjusted", p.adjusted);
+    $("payK").textContent = p.adjusted ? "Payday · bills come first" : "Payday · " + money(S.pay) + " just landed";
+    $("payM").textContent = p.adjusted
+      ? (p.safe < 1 ? "Bills take this whole paycheck. Skip saving this time; you're still on track." : `${p.billNames} due first. Move ${money(p.s, 2)} to savings and ${money(p.i, 2)} to investing this time.`)
+      : `Move ${money(p.s, 2)} to savings and ${money(p.i, 2)} to investing?`;
+    acts.innerHTML = `<button class="btn ${p.adjusted ? "btn-ink" : "btn-white"}" id="moveBtn">${p.safe < 1 ? "OK" : "Move it"}</button><button class="btn" style="background:rgba(255,255,255,0.18);color:inherit" id="skipBtn">Skip</button>`;
+    $("moveBtn").onclick = () => confirmMove();
+    $("skipBtn").onclick = () => { S.pending = null; S.streak = 0; log("Skipped a payday", 0, 0); save(); render(); };
+  } else if (S.pending && S.pending.state === "done") {
+    card.classList.add("done");
+    $("payK").textContent = S.autopilot ? "Autopilot · done for you" : "Done";
+    $("payM").textContent = `✓ ${money(S.pending.s + S.pending.i, 2)} moved. Future you says thanks.`;
+  } else {
+    card.classList.add("idle");
+    const sp = safeSplit();
+    $("payK").textContent = "Next payday · Friday";
+    $("payM").textContent = S.pause ? "Paused for this payday. Nothing will move." : `Plan: ${money(sp.s, 2)} to savings, ${money(sp.i, 2)} to investing.`;
+  }
+
+  $("tSave").textContent = money(S.saved, 2);
+  $("tInv").textContent = money(S.invested, 2);
+  const { i } = amounts(), pr = by40(i, S.freq);
+  $("by40").textContent = money(pr.total);
+  $("lIn").textContent = money(pr.putIn); $("lEarn").textContent = money(pr.earned);
+  $("pIn").style.width = (pr.total ? pr.putIn / pr.total * 100 : 100) + "%";
+  $("pEarn").style.width = (pr.total ? pr.earned / pr.total * 100 : 0) + "%";
+
+  const next = LADDER.find(m => m.p() < 1) || LADDER[LADDER.length - 1];
+  const pct = next.p(), C = 2 * Math.PI * 23;
+  $("nextMs").innerHTML = `<svg class="ring" viewBox="0 0 56 56"><circle cx="28" cy="28" r="23" fill="none" stroke="#E9E9F3" stroke-width="7"/><circle cx="28" cy="28" r="23" fill="none" stroke="#4F5BFF" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - pct)}" transform="rotate(-90 28 28)"/><text x="28" y="33" text-anchor="middle" font-size="13" font-weight="700" fill="#16163A">${Math.round(pct * 100)}%</text></svg><div><div class="t">${next.n}</div><small>${next.sub}</small></div>`;
+
+  // Plan
+  document.querySelectorAll("#freqSeg button").forEach(b => b.classList.toggle("sel", +b.dataset.v === S.freq));
+  $("rPay").value = S.pay; $("rSave").value = S.save; $("rInv").value = S.inv;
+  [$("rPay"), $("rSave"), $("rInv")].forEach(fill);
+  const a = amounts();
+  $("oPay").textContent = money(S.pay);
+  $("oSave").innerHTML = `${S.save}% <small>· ${money(a.s, 2)}</small>`;
+  $("oInv").innerHTML = `${S.inv}% <small>· ${money(a.i, 2)}</small>`;
+  $("oCush").textContent = money(cushion());
+  $("billsList").innerHTML = S.bills.map((b, k) => `<div class="row"><span class="ic" style="background:var(--apr);color:var(--ink)">${b.n.startsWith("Rent") ? "🏠" : "📱"}</span><span class="t">${b.n}<small>${money(b.amt)}</small></span><label class="switch"><input type="checkbox" data-bill="${k}" ${b.on ? "checked" : ""}><span></span></label></div>`).join("");
+  document.querySelectorAll("[data-bill]").forEach(el => el.onchange = () => { S.bills[+el.dataset.bill].on = el.checked; haptic(); save(); render(); });
+  const unlocked = S.streak >= 4 || S.autopilot;
+  $("apSwitch").checked = S.autopilot; $("apSwitch").disabled = !unlocked;
+  $("apNote").textContent = unlocked ? (S.autopilot ? "On: money moves on payday by itself" : "Unlocked") : `Confirm ${Math.max(0, 4 - S.streak)} more payday${4 - S.streak === 1 ? "" : "s"} in a row to unlock`;
+  $("pauseSwitch").checked = S.pause;
+
+  // Milestones
+  $("ladder").innerHTML = LADDER.map((m, k) => {
+    const p = m.p(), done = p >= 1, isNext = m === next && !done;
+    return `<div class="row rung ${done ? "done" : isNext ? "next" : ""}"><span class="ic">${done ? "✓" : k + 1}</span><span class="t">${m.n}<small>${m.sub}</small>${!done && p > 0 ? `<div class="prog"><i style="width:${p * 100}%"></i></div>` : ""}</span></div>`;
+  }).join("");
+  $("goals").innerHTML = S.goals.map(g => { const p = Math.min(1, S.saved / g.amt); return `<div class="row"><span class="ic" style="background:var(--peri)">★</span><span class="t">${esc(g.n)}<small>${money(Math.min(S.saved, g.amt))} of ${money(g.amt)}</small><div class="prog"><i style="width:${p * 100}%"></i></div></span></div>`; }).join("") || `<div class="row"><span class="t" style="color:var(--muted)">No goals yet</span></div>`;
+
+  // Activity
+  $("history").innerHTML = S.history.length ? S.history.slice().reverse().map(h => `<div class="row"><span class="t">${h.t}<small>${h.d}</small></span>${h.s || h.i ? `<span class="num" style="text-align:right"><span class="amt save">+${money(h.s, 2)}</span><small style="color:var(--peri)">+${money(h.i, 2)} invested</small></span>` : ""}</div>`).join("")
+    : `<div class="row"><span class="t" style="color:var(--muted)">No paydays yet. Tap "Simulate a payday" on Home.</span></div>`;
+  $("acctName").textContent = S.bank ? S.bank + " checking ••4821" : "Not connected";
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+/* ---------- Payday flow ---------- */
+function log(t, s, i) { S.history.push({ t, d: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" }), s, i }); }
+function simulatePayday() {
+  if (S.pause) { toast("Paused", "This payday was skipped. Turn off Pause in Plan."); S.pause = false; save(); render(); return; }
+  const sp = safeSplit();
+  const billNames = S.bills.filter(b => b.on).map(b => b.n).join(" and ");
+  S.pending = { state: "ask", s: sp.s, i: sp.i, safe: sp.safe, adjusted: sp.adjusted, billNames };
+  haptic();
+  if (S.autopilot) { confirmMove(true); return; }
+  save(); render(); go("home");
+  toast("It's payday", money(S.pay) + " just landed in checking.");
+}
+function confirmMove(auto = false) {
+  const p = S.pending; if (!p) return;
+  const before = LADDER.map(m => m.p() >= 1);
+  S.saved += p.s; S.invested += p.i; S.paydays++; S.streak++;
+  log(auto ? "Autopilot payday" : "Payday", p.s, p.i);
+  p.state = "done";
+  haptic(); save(); render();
+  if (p.s + p.i > 0) rain(16);
+  const newly = LADDER.find((m, k) => !before[k] && m.p() >= 1);
+  if (newly) setTimeout(() => toast("Milestone unlocked", newly.n), 600);
+  if (S.streak === 4 && !S.autopilot) setTimeout(() => openSheet(autopilotOffer()), 1300);
+}
+function autopilotOffer() {
+  return `<div style="text-align:center;padding:8px 6px 4px">
+    <div style="width:64px;height:64px;border-radius:20px;background:var(--peri);color:#fff;display:grid;place-items:center;font-size:32px;margin:0 auto 14px">↻</div>
+    <div style="font-size:24px;font-weight:800;letter-spacing:-0.02em">4 paydays in a row.</div>
+    <p style="color:var(--muted);font-size:16px;line-height:1.45;margin:8px 0 20px">Want this to happen automatically? First 30 will move the safe amount every payday and tell you after. Pause anytime.</p>
+    <button class="btn btn-peri" id="apYes">Turn on Autopilot</button>
+    <button class="btn btn-ghost" id="apNo" style="margin-top:4px">Not yet</button></div>`;
+}
+
+/* ---------- UI helpers ---------- */
+function go(s) {
+  document.querySelectorAll(".screen").forEach(x => x.classList.toggle("on", x.id === "sc-" + s));
+  document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.s === s));
+}
+document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => { haptic(); go(b.dataset.s); });
+let tt;
+function toast(t, s) { $("toastT").textContent = t; $("toastS").textContent = s; $("toast").classList.add("on"); clearTimeout(tt); tt = setTimeout(() => $("toast").classList.remove("on"), 2600); }
+function openSheet(html) {
+  $("sheetBody").innerHTML = html; $("overlay").classList.add("on"); $("sheet").classList.add("on");
+  const y = $("apYes"), n = $("apNo");
+  if (y) y.onclick = () => { S.autopilot = true; save(); render(); closeSheet(); toast("Autopilot is on", "Paydays now run themselves."); };
+  if (n) n.onclick = closeSheet;
+}
+function closeSheet() { $("overlay").classList.remove("on"); $("sheet").classList.remove("on"); }
+$("overlay").onclick = closeSheet;
+function rain(n) {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const box = document.createElement("div"); box.className = "rain";
+  for (let k = 0; k < n; k++) { const b = document.createElement("div"); b.className = "bill"; b.style.left = Math.random() * 100 + "%"; b.style.scale = (0.6 + Math.random() * 0.6).toFixed(2);
+    b.style.setProperty("--dur", (1.4 + Math.random()).toFixed(2) + "s"); b.style.setProperty("--delay", (Math.random() * 0.4).toFixed(2) + "s");
+    b.style.setProperty("--r0", (Math.random() * 60 - 30) + "deg"); b.style.setProperty("--sway", (Math.random() * 80 - 40) + "px"); box.appendChild(b); }
+  $("app").appendChild(box); setTimeout(() => box.remove(), 2800);
+}
+
+/* ---------- Plan controls ---------- */
+document.querySelectorAll("#freqSeg button").forEach(b => b.onclick = () => { S.freq = +b.dataset.v; haptic(); save(); render(); });
+$("rPay").oninput = e => { S.pay = +e.target.value; save(); render(); };
+$("rSave").oninput = e => { S.save = +e.target.value; save(); render(); };
+$("rInv").oninput = e => { S.inv = +e.target.value; save(); render(); };
+$("apSwitch").onchange = e => { S.autopilot = e.target.checked; haptic(); save(); render(); if (S.autopilot) toast("Autopilot is on", "Paydays now run themselves."); };
+$("pauseSwitch").onchange = e => { S.pause = e.target.checked; haptic(); save(); render(); };
+$("simBtn").onclick = simulatePayday;
+$("addGoal").onclick = () => {
+  openSheet(`<div style="font-size:22px;font-weight:800;margin:4px 4px 14px">New goal</div>
+    <input class="field" id="gName" placeholder="What are you saving for?" maxlength="30" style="margin-bottom:10px">
+    <input class="field" id="gAmt" placeholder="Amount" inputmode="numeric" style="margin-bottom:16px">
+    <button class="btn btn-ink" id="gSave">Add goal</button>`);
+  $("gSave").onclick = () => { const n = $("gName").value.trim(), a = parseFloat($("gAmt").value.replace(/[^0-9.]/g, "")); if (!n || !(a > 0)) return; S.goals.push({ n, amt: a }); save(); render(); closeSheet(); };
+};
+$("resetBtn").onclick = () => { if (!confirm("Start over? This clears the demo on this device.")) return; S = structuredClone(DEFAULT); save(); location.reload(); };
+
+/* ---------- Onboarding ---------- */
+let step = 0;
+function showStep(k) {
+  step = k;
+  document.querySelectorAll(".step").forEach(s => s.classList.toggle("on", +s.dataset.step === k));
+  document.querySelectorAll("#dots i").forEach((d, j) => d.classList.toggle("on", j === k));
+}
+document.querySelectorAll("[data-next]").forEach(b => b.onclick = () => { haptic(); if (step === 0) S.name = $("nameIn").value.trim(); showStep(step + 1); onbRender(); });
+document.querySelectorAll("#oFreq button").forEach(b => b.onclick = () => { S.freq = +b.dataset.v; document.querySelectorAll("#oFreq button").forEach(x => x.classList.toggle("sel", x === b)); onbRender(); });
+$("oPayR").oninput = e => { S.pay = +e.target.value; onbRender(); };
+$("o2SaveR").oninput = e => { S.save = +e.target.value; onbRender(); };
+$("o2InvR").oninput = e => { S.inv = +e.target.value; onbRender(); };
+function onbRender() {
+  $("oPayR").value = S.pay; $("o2SaveR").value = S.save; $("o2InvR").value = S.inv;
+  [$("oPayR"), $("o2SaveR"), $("o2InvR")].forEach(fill);
+  $("oBig").textContent = money(S.pay);
+  const a = amounts();
+  $("o2Save").innerHTML = `${S.save}% <small>· ${money(a.s, 2)}</small>`;
+  $("o2Inv").innerHTML = `${S.inv}% <small>· ${money(a.i, 2)}</small>`;
+  const pr = by40(a.i, S.freq);
+  $("o2By40").textContent = money(pr.total); $("o2In").textContent = money(pr.putIn); $("o2Earn").textContent = money(pr.earned);
+}
+const BANKS = ["Chase", "Bank of America", "Wells Fargo", "Fifth Third", "Other bank"];
+$("banks").innerHTML = BANKS.map(b => `<div class="bankrow" data-bank="${b}"><span class="ic">🏦</span><b style="flex:1">${b}</b><span class="chev">›</span></div>`).join("");
+document.querySelectorAll("[data-bank]").forEach(r => r.onclick = () => { document.querySelectorAll("[data-bank]").forEach(x => x.classList.toggle("sel", x === r)); S.bank = r.dataset.bank; $("finishOnb").disabled = false; haptic(); });
+$("finishOnb").onclick = () => {
+  $("finishOnb").textContent = "Connecting…";
+  setTimeout(() => { S.onboarded = true; save(); render(); $("onb").classList.add("gone"); toast("You're set up", "Your first payday plan is ready."); }, 900);
+};
+
+if (S.onboarded) $("onb").classList.add("gone"); else onbRender();
+render();
+setInterval(() => render(), 60000);
+</script>
+</body>
+</html>

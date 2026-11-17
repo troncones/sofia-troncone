@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>First 30</title>
+<meta name="description" content="On every payday, First 30 works out how much you can safely save, moves it to your own savings and investing accounts, and shows how far you've come.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2216%22%20fill%3D%22%234F5BFF%22/%3E%3Cg%20transform%3D%22translate%2814%206%29%20scale%280.75%29%22%3E%3Cpath%20d%3D%22M24%207%20C%2038%207%2C%2042%2020%2C%2042%2030%20C%2042%2044%2C%2034%2053%2C%2024%2053%20C%2012%2053%2C%206%2042%2C%206%2030%20C%206%2020%2C%2010%2012%2C%2017%209%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%228%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M10%202%20L19%209%20L10%2017%22%20fill%3D%22none%22%20stroke%3D%22%23FF9A76%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-2: #F6F6FD;
+    --card: #F5F5FF;
+    --ink: #16163A;
+    --ink-2: #2E2E57;
+    --muted: #6E6E8A;
+    --line: #E6E6F3;
+    --soft: #ECECFA;
+    --radius: 24px;
+    --max: 1160px;
+    --cobalt: #4F5BFF;
+    --cobalt-hover: #3D49F0;
+    --coral: #FF9A76;
+    --coral-ink: #D9673F;
+    --shadow: 0 1px 2px rgba(22,22,58,0.04), 0 10px 32px rgba(22,22,58,0.06);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  img, video, svg { display: block; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  section { padding: 120px 0; }
+  h1, h2, h3 { margin: 0; letter-spacing: -0.035em; line-height: 1.04; }
+  h1 { font-size: clamp(3rem, 7.2vw, 5.6rem); font-weight: 800; }
+  h2 { font-size: clamp(2.2rem, 4.6vw, 3.6rem); font-weight: 800; }
+  h3 { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.015em; line-height: 1.25; }
+  p { margin: 0; }
+  .lead { font-size: clamp(1.1rem, 1.6vw, 1.3rem); color: var(--muted); max-width: 560px; margin-top: 22px; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 0.82rem; font-weight: 600; color: var(--muted); margin-bottom: 22px; }
+  .eyebrow::before { content: ""; width: 18px; height: 2px; background: var(--ink); border-radius: 2px; }
+  .mono { font-family: "Geist Mono", ui-monospace, monospace; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 26px; border-radius: 999px; font-weight: 600; font-size: 1rem; text-decoration: none; border: 0; cursor: pointer; font-family: inherit; transition: transform .2s cubic-bezier(.2,.8,.2,1), background .2s; }
+  .btn:active { transform: scale(0.97); }
+  .btn-dark { background: var(--ink); color: #fff; }
+  .btn-dark:hover { background: var(--ink-2); }
+  .btn-light { background: var(--card); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+  .btn-light:hover { box-shadow: inset 0 0 0 1px #DCDCF2; }
+  .btn svg { transition: transform .2s; }
+  .btn:hover svg { transform: translateX(3px); }
+  .text-link { color: var(--muted); font-weight: 500; text-decoration: none; }
+  .text-link:hover { color: var(--ink); }
+
+  /* Nav */
+  nav { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.82); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); border-bottom: 1px solid transparent; transition: border-color .2s; }
+  nav.scrolled { border-bottom-color: var(--line); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .logo { display: inline-flex; align-items: center; font-weight: 900; font-size: 1.55rem; letter-spacing: -0.055em; line-height: 1; text-decoration: none; color: var(--ink); }
+  .logo .loop { width: 0.8em; height: 1em; margin-left: 0.02em; transform: translateY(-0.02em); overflow: visible; transition: transform .6s cubic-bezier(.3,1.3,.5,1); }
+  .logo:hover .loop { transform: translateY(-0.02em) rotate(360deg); }
+  @media (prefers-reduced-motion: reduce) { .logo:hover .loop { transform: translateY(-0.02em); } }
+  .nav-links { display: flex; gap: 30px; font-size: 0.95rem; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-weight: 500; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { padding: 10px 18px; font-size: 0.92rem; }
+  @media (max-width: 860px) { .nav-links { display: none; } }
+
+  /* Hero */
+  .hero { padding: 72px 0 100px; }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+  @media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr; gap: 48px; } }
+  .hero-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 36px; }
+  .hero-note { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 40px; color: var(--muted); font-size: 0.9rem; }
+  .hero-note span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero-media { position: relative; aspect-ratio: 1 / 1; border-radius: 32px; overflow: hidden; background: #F3F3FF; box-shadow: var(--shadow); }
+  .hero-media video { width: 100%; height: 100%; object-fit: cover; }
+  .hero-media .fallback { position: absolute; inset: 0; display: grid; place-items: center; }
+  .pill-demo { background: var(--ink); color: #fff; border-radius: 999px; padding: 22px 34px; font-weight: 600; font-size: 1.4rem; display: inline-flex; gap: 12px; align-items: center; }
+
+  /* Problem */
+  .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  @media (max-width: 960px) { .problem-grid { grid-template-columns: 1fr; gap: 40px; } }
+  .balance { background: var(--card); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); }
+  .balance-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
+  .balance-head .big { font-size: 2.6rem; font-weight: 800; letter-spacing: -0.04em; }
+  .bars { display: grid; grid-template-columns: repeat(14, 1fr); gap: 6px; align-items: end; height: 170px; }
+  .bar { background: var(--ink); border-radius: 6px 6px 3px 3px; height: 4px; transition: height 0.9s cubic-bezier(.2,.8,.2,1); }
+  .bar.empty { background: var(--bg-2); }
+  .bar-labels { display: flex; justify-content: space-between; margin-top: 12px; font-size: 0.8rem; color: var(--muted); }
+
+  /* Cost */
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 56px; }
+  @media (max-width: 860px) { .stats { grid-template-columns: 1fr; } }
+  .stat { background: var(--card); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); }
+  .stat .label { color: var(--muted); font-size: 0.95rem; }
+  .stat .value { font-size: clamp(3rem, 5.2vw, 4.3rem); font-weight: 800; letter-spacing: -0.05em; line-height: 1; margin-top: 18px; white-space: nowrap; }
+  .stat .label { font-size: 1.05rem; }
+  .approx { font-size: 0.45em; vertical-align: 0.75em; margin-right: 0.1em; opacity: 0.45; font-weight: 700; }
+  .stat.dark { background: var(--ink); color: #fff; }
+  .stat.dark .label { color: #A9A9C8; }
+  .work { background: var(--card); border-radius: var(--radius); padding: 28px 32px; box-shadow: var(--shadow); margin-top: 16px; display: grid; gap: 16px; }
+  .work-row { display: grid; grid-template-columns: 210px 1fr 190px; gap: 18px; align-items: center; }
+  @media (max-width: 700px) { .work-row { grid-template-columns: 1fr; gap: 8px; } }
+  .work-label { font-weight: 600; font-size: 0.95rem; }
+  .work-num { font-weight: 800; font-size: 1.35rem; letter-spacing: -0.02em; text-align: right; }
+  @media (max-width: 700px) { .work-num { text-align: left; } }
+  .work-bar { display: flex; height: 16px; border-radius: 8px; overflow: hidden; background: var(--soft); gap: 2px; }
+  .work-bar i { background: #DCDCF2; border-radius: 8px 3px 3px 8px; }
+  .work-bar b { background: var(--coral); border-radius: 3px 8px 8px 3px; transform-origin: left; transform: scaleX(0); transition: transform 1.1s cubic-bezier(.2,.8,.2,1) .35s; }
+  .work.in .work-bar b { transform: scaleX(1); }
+  .earned { margin-top: 18px; }
+  .earned .work-bar { height: 12px; }
+  .earned .work-bar b { transform: none; transition: width .2s; }
+  .earned-row { display: flex; justify-content: space-between; font-size: 0.88rem; color: var(--muted); margin-top: 8px; gap: 12px; }
+  .earned-row b { color: var(--ink); }
+  .earned-row .g { color: var(--coral-ink); }
+  .fine { font-size: 0.82rem; color: var(--muted); margin-top: 18px; }
+
+  /* Steps */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px; }
+  @media (max-width: 1000px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .steps { grid-template-columns: 1fr; } }
+  .step { background: var(--card); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+  .step .n { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
+  .step h3 { margin-top: 10px; }
+  .step p { color: var(--muted); margin-top: 8px; font-size: 0.95rem; }
+  .vignette { margin-top: auto; padding-top: 26px; }
+  .vg { background: var(--soft); border-radius: 16px; padding: 18px; min-height: 108px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  .mini-track { height: 8px; border-radius: 4px; background: var(--line); position: relative; }
+  .mini-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; background: var(--ink); }
+  .mini-knob { position: absolute; top: 50%; width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 2px solid var(--ink); transform: translate(-50%, -50%); }
+  .mini-row { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; }
+  .mini-row span:last-child { color: var(--muted); font-weight: 500; }
+  .chip { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 12px; padding: 12px 14px; box-shadow: inset 0 0 0 1px var(--line); font-size: 0.9rem; font-weight: 600; }
+  .chip .ic { width: 30px; height: 30px; border-radius: 8px; background: var(--ink); display: grid; place-items: center; flex: none; }
+  .chip .ok { margin-left: auto; width: 22px; height: 22px; border-radius: 50%; background: var(--ink); display: grid; place-items: center; }
+  .notif { background: var(--ink); color: #fff; border-radius: 14px; padding: 14px 16px; font-size: 0.86rem; line-height: 1.4; }
+  .notif b { display: block; font-size: 0.75rem; color: #A9A9C8; font-weight: 600; margin-bottom: 4px; }
+  .tgl { display: flex; align-items: center; justify-content: space-between; font-weight: 700; }
+  .tgl small { display: block; color: var(--muted); font-weight: 500; font-size: 0.8rem; }
+  .switch { width: 54px; height: 32px; border-radius: 16px; background: var(--ink); position: relative; flex: none; }
+  .switch::after { content: ""; position: absolute; top: 4px; right: 4px; width: 24px; height: 24px; border-radius: 50%; background: #fff; }
+
+  /* Demo */
+  .demo { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 16px; margin-top: 56px; }
+  @media (max-width: 960px) { .demo { grid-template-columns: 1fr; } }
+  .panel { background: var(--card); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); }
+  .control + .control { margin-top: 26px; }
+  .control-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; gap: 12px; }
+  .control-head label { font-weight: 600; }
+  .control-head output { font-weight: 700; }
+  .control-head output small { color: var(--muted); font-weight: 500; font-size: 0.9em; }
+  input[type=range] { width: 100%; height: 30px; background: transparent; -webkit-appearance: none; appearance: none; margin: 0; touch-action: pan-y; cursor: pointer; --p: 50%; }
+  input[type=range]::-webkit-slider-runnable-track { height: 8px; border-radius: 4px; background: linear-gradient(to right, var(--ink) var(--p), var(--line) var(--p)); }
+  input[type=range]::-moz-range-track { height: 8px; border-radius: 4px; background: var(--line); }
+  input[type=range]::-moz-range-progress { height: 8px; border-radius: 4px; background: var(--ink); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 2.5px solid var(--ink); margin-top: -9px; box-shadow: 0 2px 6px rgba(0,0,0,0.12); transition: transform .15s; }
+  input[type=range]:active::-webkit-slider-thumb { transform: scale(1.15); }
+  input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 2.5px solid var(--ink); }
+  input[type=range]:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 4px; }
+  .seg { position: relative; display: grid; grid-template-columns: 1fr 1fr; background: var(--soft); border-radius: 999px; padding: 4px; box-shadow: inset 0 0 0 1px var(--line); margin-bottom: 28px; }
+  .seg input { position: absolute; opacity: 0; pointer-events: none; }
+  .seg label { position: relative; z-index: 1; text-align: center; padding: 10px 12px; border-radius: 999px; font-weight: 600; font-size: 0.95rem; color: var(--muted); cursor: pointer; transition: color .25s; user-select: none; }
+  .seg input:checked + label { color: #fff; }
+  .seg input:focus-visible + label { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .seg .thumb { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 999px; background: var(--ink); transition: transform .35s cubic-bezier(.3,1.3,.5,1); }
+  .seg.right .thumb { transform: translateX(100%); }
+  .split { display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin: 28px 0 12px; gap: 3px; }
+  .split div { transition: flex-basis .2s; border-radius: 3px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.85rem; color: var(--muted); }
+  .sw { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .divider { height: 1px; background: var(--line); margin: 28px 0; }
+  .payday { border-radius: 16px; padding: 18px 20px; background: var(--cobalt); color: #fff; display: flex; gap: 14px; align-items: flex-start; transition: background .25s; }
+  .payday .dot { width: 10px; height: 10px; border-radius: 50%; background: #fff; margin-top: 7px; flex: none; }
+  .payday .t { font-size: 0.75rem; color: rgba(255,255,255,0.75); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+  .payday .m { font-weight: 500; margin-top: 2px; }
+  .payday.adjusted { background: var(--ink); }
+  .result-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+  .result-top .k { color: var(--muted); font-size: 0.95rem; }
+  .result-top .v { font-size: clamp(2.8rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.045em; line-height: 1; margin-top: 8px; }
+  .result-top .cmp { text-align: right; color: var(--muted); font-size: 0.95rem; }
+  .result-top .cmp b { color: var(--ink); display: block; font-size: 1.3rem; letter-spacing: -0.02em; }
+  .chart { margin-top: 26px; width: 100%; height: auto; }
+  .chart text { font-family: "Geist", sans-serif; font-size: 12px; fill: var(--muted); }
+  .rows { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 22px; }
+  .rows div { background: var(--soft); border-radius: 14px; padding: 14px 16px; }
+  .rows span { display: block; color: var(--muted); font-size: 0.8rem; }
+  .rows b { font-size: 1.15rem; letter-spacing: -0.02em; }
+
+  /* Milestones */
+  .ladder { margin-top: 64px; position: relative; display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  @media (max-width: 900px) { .ladder { grid-template-columns: repeat(2, 1fr); } .ladder::before, .ladder::after { display: none; } }
+  .ladder::before { content: ""; position: absolute; left: 6%; right: 6%; top: 21px; height: 2px; background: var(--line); }
+  .ladder::after { content: ""; position: absolute; left: 6%; top: 21px; height: 2px; background: var(--ink); width: 0; transition: width 1.2s cubic-bezier(.2,.8,.2,1) .2s; }
+  .ladder.in::after { width: 16%; }
+  .rung { position: relative; text-align: center; }
+  .rung .node { width: 44px; height: 44px; border-radius: 50%; margin: 0 auto; display: grid; place-items: center; background: var(--card); box-shadow: inset 0 0 0 2px var(--line); font-weight: 700; color: var(--muted); position: relative; z-index: 1; }
+  .rung.done .node { background: var(--ink); box-shadow: none; color: #fff; }
+  .rung.next .node { box-shadow: inset 0 0 0 2px var(--ink); color: var(--ink); }
+  .rung .lbl { margin-top: 16px; font-weight: 600; font-size: 0.95rem; letter-spacing: -0.01em; }
+  .rung .sub { color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
+  .goals { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 48px; align-items: center; }
+  .goal { background: var(--card); border-radius: 999px; padding: 10px 18px; font-weight: 500; font-size: 0.92rem; box-shadow: inset 0 0 0 1px var(--line); }
+
+  /* Trust */
+  .trust { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px; }
+  @media (max-width: 1000px) { .trust { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .trust { grid-template-columns: 1fr; } }
+  .trust div { background: var(--card); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); }
+  .trust svg { margin-bottom: 20px; }
+  .trust p { font-weight: 600; letter-spacing: -0.01em; }
+
+  /* CTA band */
+  .band { background: var(--ink); color: #fff; border-radius: 36px; padding: clamp(48px, 8vw, 96px); text-align: center; }
+  .band h2 { max-width: 760px; margin: 0 auto; }
+  .band .hero-ctas { justify-content: center; }
+  .band .btn-dark { background: #fff; color: var(--ink); }
+  .band .text-link { color: #A9A9C8; }
+  .band .text-link:hover { color: #fff; }
+
+  /* Orgs */
+  .org-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 56px 0 36px; }
+  @media (max-width: 860px) { .org-grid { grid-template-columns: 1fr; } }
+  .org-grid div { background: var(--card); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); }
+  .org-grid p { color: var(--muted); margin-top: 10px; }
+  .model { display: flex; flex-wrap: wrap; gap: 28px; color: var(--muted); font-size: 0.95rem; margin-bottom: 36px; }
+  .model b { color: var(--ink); }
+
+  footer { border-top: 1px solid var(--line); padding: 36px 0 48px; color: var(--muted); font-size: 0.9rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: center; }
+
+  /* Personality */
+
+
+  .caption { margin-top: 16px; font-size: 0.92rem; color: var(--muted); }
+  .caption b { color: var(--ink); }
+
+  .note { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 16px; margin-top: 56px; }
+  @media (max-width: 960px) { .note { grid-template-columns: 1fr; } }
+  .letter { background: var(--card); border-radius: var(--radius); padding: clamp(28px, 4vw, 48px); box-shadow: var(--shadow); }
+  .letter p { font-size: 1.15rem; line-height: 1.65; color: var(--ink-2); }
+  .letter p + p { margin-top: 16px; }
+  .letter { display: flex; flex-direction: column; }
+  .letter .sig { margin-top: auto; padding-top: 28px; display: flex; align-items: center; gap: 14px; }
+  .letter .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-weight: 700; }
+  .letter .sig small { display: block; color: var(--muted); }
+  .build { background: var(--ink); color: #fff; border-radius: var(--radius); padding: clamp(28px, 4vw, 40px); }
+  .build h3 { font-size: 1rem; color: #A9A9C8; font-weight: 600; }
+  .build ol { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 14px; }
+  .build li { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; }
+  .build li i { font-style: normal; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid #3A3A66; display: grid; place-items: center; font-size: 0.8rem; color: #A9A9C8; }
+  .build li.done i { background: #fff; border-color: #fff; color: var(--ink); }
+  .build li b { display: block; font-weight: 600; }
+  .build li span { color: #A9A9C8; font-size: 0.9rem; }
+  .stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+  .stack span { border: 1px solid #3A3A66; border-radius: 999px; padding: 6px 12px; font-size: 0.82rem; color: #D6D6EA; }
+
+  .psst { font-size: 0.85rem; }
+  kbd { font-family: "Geist Mono", monospace; font-size: 0.8rem; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 1px 6px; background: var(--card); color: var(--ink); }
+
+  /* Bill rain + toast */
+  .rain { position: fixed; inset: 0; pointer-events: none; z-index: 50; overflow: hidden; }
+  .bill { position: absolute; top: -80px; width: 92px; height: 44px; border-radius: 4px; background: var(--coral); box-shadow: 0 2px 6px rgba(120,40,20,0.18); animation: fall var(--dur) cubic-bezier(.35,0,.7,1) var(--delay) forwards; opacity: 0; }
+  .bill::before { content: ""; position: absolute; inset: 4px; border: 1.5px solid #B84A2C; border-radius: 2px; }
+  .bill::after { content: "$"; position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; transform: translate(-50%,-50%); border-radius: 50%; background: #FFC9B8; color: #7A2A14; font-weight: 700; font-size: 18px; line-height: 26px; text-align: center; }
+  @keyframes fall {
+    0% { opacity: 0; transform: translate(0, 0) rotate(var(--r0)) scaleY(1); }
+    8% { opacity: 1; }
+    30% { transform: translate(calc(var(--sway) * 0.5), 32vh) rotate(calc(var(--r0) + 60deg)) scaleY(0.35); }
+    60% { transform: translate(var(--sway), 66vh) rotate(calc(var(--r0) + 140deg)) scaleY(1); }
+    85% { opacity: 1; }
+    100% { opacity: 0; transform: translate(calc(var(--sway) * 0.6), 110vh) rotate(calc(var(--r0) + 220deg)) scaleY(0.5); }
+  }
+  .toast { position: fixed; left: 50%; bottom: 28px; z-index: 60; transform: translate(-50%, 140%); background: var(--ink); color: #fff; border-radius: 999px; padding: 12px 22px 12px 14px; display: flex; align-items: center; gap: 12px; font-weight: 600; box-shadow: 0 12px 40px rgba(0,0,0,0.25); transition: transform .5s cubic-bezier(.3,1.2,.5,1), visibility 0s .5s; max-width: calc(100vw - 32px); visibility: hidden; }
+  .toast.show { transform: translate(-50%, 0); visibility: visible; transition: transform .5s cubic-bezier(.3,1.2,.5,1); }
+  .toast .ck { width: 30px; height: 30px; border-radius: 50%; background: #fff; display: grid; place-items: center; flex: none; }
+  .toast small { display: block; color: #A9A9C8; font-weight: 500; }
+
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .d1 { transition-delay: .06s; } .d2 { transition-delay: .12s; } .d3 { transition-delay: .18s; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .bar, .ladder::after { transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="First 30, home"><span class="wm">first3</span><svg class="loop" viewBox="0 0 48 60" aria-hidden="true"><path d="M24 7 C 38 7, 42 20, 42 30 C 42 44, 34 53, 24 53 C 12 53, 6 42, 6 30 C 6 20, 10 12, 17 9" fill="none" stroke="var(--cobalt)" stroke-width="8" stroke-linecap="round"/><path d="M10 2 L19 9 L10 17" fill="none" stroke="var(--coral)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <div class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#demo">Demo</a>
+      <a href="#milestones">Milestones</a>
+      <a href="#orgs">For organizations</a>
+    </div>
+    <a class="btn btn-dark nav-cta" href="#demo">Build my plan</a>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1 class="reveal d1">Your paycheck has a <span style="color:var(--cobalt)">plan</span> now.</h1>
+        <p class="lead reveal d2">On every payday, First 30 works out how much you can safely save, moves it to your own savings and investing accounts, and puts your money to work for you.</p>
+        <div class="hero-ctas reveal d3">
+          <a class="btn btn-dark" href="#demo">Build my plan
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="text-link" href="#" data-todo="notify-form">Get notified at launch →</a>
+        </div>
+        <div class="hero-note reveal d3">
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Your money stays in your accounts</span>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Pause anytime</span>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Free for students</span>
+        </div>
+      </div>
+      <div class="hero-media reveal d2">
+        <div class="fallback"><span class="pill-demo">Build my plan →</span></div>
+        <video src="motion/first30-motion.mp4" autoplay muted loop playsinline aria-label="First 30 interface animation: payday, savings slider, autopilot and milestones"></video>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- Problem -->
+  <section>
+    <div class="wrap problem-grid">
+      <div>
+        <h2 class="reveal d1">Gone in 2 days?</h2>
+        <p class="lead reveal d2">Payday hits. Two days later, it's spent. You meant to save some. You even have the savings account. But moving money takes remembering, and you're never sure how much is safe to move.</p>
+      </div>
+      <div class="balance reveal d2" id="balance">
+        <div class="balance-head">
+          <div><div class="fine" style="margin:0">Checking balance, one pay period</div></div>
+          <div class="big num" id="balNow">$275</div>
+        </div>
+        <div class="bars" id="bars"></div>
+        <div class="bar-labels"><span>Payday</span><span>Day 2</span><span>Day 14</span></div>
+        <p class="caption"><b>Day 1:</b> $275. <b>Day 2:</b> where did it go? <b>Days 3–14:</b> waiting.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cost -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2 class="reveal d1">You earn it once.<br>Then it earns for you.</h2>
+      <p class="lead reveal d2">$46 a paycheck is about $100 a month. Invest it from age 20 to 40 and you put in $24,000. Your money earns the rest, on its own.</p>
+      <div class="stats">
+        <div class="stat reveal"><div class="label">You put in</div><div class="value num" data-count="24000"><span class="approx">≈</span>$24,000</div></div>
+        <div class="stat dark reveal d1"><div class="label">Your money earned</div><div class="value num" data-count="25200"><span class="approx">≈</span>$25,200</div></div>
+        <div class="stat reveal d2"><div class="label">Total at 40</div><div class="value num" data-count="49200"><span class="approx">≈</span>$49,200</div></div>
+      </div>
+      <div class="work reveal">
+        <div class="work-row"><span class="work-label">Invested, 7% a year</span><div class="work-bar"><i style="width:48.8%" class="in-bar"></i><b style="width:51.2%" class="earn-bar"></b></div><span class="work-num num">$25,200 earned</span></div>
+        <div class="work-row"><span class="work-label">Left in savings, 4% a year</span><div class="work-bar"><i style="width:48.8%" class="in-bar"></i><b style="width:23.9%" class="earn-bar"></b></div><span class="work-num num">$11,700 earned</span></div>
+        <div class="legend" style="margin-top:6px"><span><span class="sw" style="background:#DCDCF2"></span>What you put in</span><span><span class="sw" style="background:var(--coral)"></span>What your money earned</span></div>
+      </div>
+      <p class="fine">Same $24,000 in. Invested, your money does more than twice the work. Example only: $100 a month for 20 years, 7% a year invested, 4% a year in savings, compounded yearly. Returns are not guaranteed.</p>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" style="background:var(--bg-2)">
+    <div class="wrap">
+      <h2 class="reveal d1">Set it once.<br>Then it runs on payday.</h2>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="n">01</div><h3>Set your plan.</h3>
+          <p>Slide to choose how much of each paycheck goes to savings and to investing.</p>
+          <div class="vignette"><div class="vg">
+            <div class="mini-row"><span>Save</span><span>25% · $68.75</span></div>
+            <div class="mini-track"><div class="mini-fill" style="width:62%"></div><div class="mini-knob" style="left:62%"></div></div>
+          </div></div>
+        </div>
+        <div class="step reveal d1">
+          <div class="n">02</div><h3>Connect your bank.</h3>
+          <p>First 30 sees your balance, your paychecks and your upcoming bills. Nothing else.</p>
+          <div class="vignette"><div class="vg">
+            <div class="chip">
+              <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/></svg></span>
+              Checking ••4821
+              <span class="ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span>
+            </div>
+          </div></div>
+        </div>
+        <div class="step reveal d2">
+          <div class="n">03</div><h3>Get a safe amount.</h3>
+          <p>Your plan is the target. If a bill is due before your next paycheck, the amount drops.</p>
+          <div class="vignette"><div class="vg">
+            <div class="notif"><b>PAYDAY</b>Rent is due Friday. Save $20 this time instead of $40.</div>
+          </div></div>
+        </div>
+        <div class="step reveal d3">
+          <div class="n">04</div><h3>Tap. Then go automatic.</h3>
+          <p>At first it asks. After 4 paydays in a row, turn on Autopilot. Pause anytime.</p>
+          <div class="vignette"><div class="vg">
+            <div class="tgl"><div>Autopilot<small>Every payday</small></div><span class="switch"></span></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo -->
+  <section id="demo">
+    <div class="wrap">
+      <h2 class="reveal d1">Set your plan.</h2>
+      <p class="lead reveal d2">Drag the sliders. Sample numbers only; nothing connects to a bank.</p>
+
+      <div class="demo">
+        <div class="panel reveal">
+          <div class="seg" id="freq" role="radiogroup" aria-label="How often you're paid">
+            <span class="thumb" aria-hidden="true"></span>
+            <input type="radio" name="freq" id="fWeekly" value="52"><label for="fWeekly">Weekly</label>
+            <input type="radio" name="freq" id="fBiweekly" value="26" checked><label for="fBiweekly">Every two weeks</label>
+          </div>
+          <div class="control">
+            <div class="control-head"><label for="pay">Paycheck</label><output id="payOut" class="num"></output></div>
+            <input type="range" id="pay" min="100" max="2500" step="25" value="275">
+          </div>
+          <div class="control">
+            <div class="control-head"><label for="save">To savings</label><output id="saveOut" class="num"></output></div>
+            <input type="range" id="save" min="0" max="40" step="1" value="15">
+          </div>
+          <div class="control">
+            <div class="control-head"><label for="invest">To investing</label><output id="investOut" class="num"></output></div>
+            <input type="range" id="invest" min="0" max="40" step="1" value="10">
+          </div>
+          <div class="split" aria-hidden="true">
+            <div id="barSave" style="background:#8B8BB0"></div>
+            <div id="barInvest" style="background:var(--ink)"></div>
+            <div id="barSpend" style="background:var(--line)"></div>
+          </div>
+          <div class="legend">
+            <span><span class="sw" style="background:#8B8BB0"></span>Savings</span>
+            <span><span class="sw" style="background:var(--ink)"></span>Investing</span>
+            <span><span class="sw" style="background:var(--line)"></span>Yours to spend</span>
+          </div>
+          <div class="divider"></div>
+          <div class="control">
+            <div class="control-head"><label for="bills">Bills due before next payday</label><output id="billsOut" class="num"></output></div>
+            <input type="range" id="bills" min="0" max="2000" step="10" value="0">
+          </div>
+          <div class="control">
+            <div class="control-head"><label for="age">Your age</label><output id="ageOut" class="num"></output></div>
+            <input type="range" id="age" min="16" max="39" step="1" value="20">
+          </div>
+        </div>
+
+        <div class="panel reveal d1">
+          <div class="payday" id="paydayBox" aria-live="polite">
+            <span class="dot"></span>
+            <div><div class="t">Payday</div><div class="m" id="paydayMsg"></div></div>
+          </div>
+          <div class="result-top" style="margin-top:30px">
+            <div>
+              <div class="k">Your investing by age 40</div>
+              <div class="v num" id="grow40"></div>
+            </div>
+            <div class="cmp">If it sat in savings<b class="num" id="cash40"></b></div>
+          </div>
+          <svg class="chart" id="chart" viewBox="0 0 600 240" role="img" aria-label="Growth chart: investing versus savings by age 40">
+            <g stroke="#ECECF6" stroke-width="1">
+              <line x1="0" x2="600" y1="200" y2="200"/><line x1="0" x2="600" y1="133" y2="133"/><line x1="0" x2="600" y1="66" y2="66"/>
+            </g>
+            <path id="pathCash" fill="none" stroke="#B8B8D4" stroke-width="2.5" stroke-dasharray="5 6" stroke-linecap="round"/>
+            <path id="pathInv" fill="none" stroke="#16163A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle id="endDot" r="6" fill="#fff" stroke="#16163A" stroke-width="3"/>
+            <text x="0" y="226" id="axStart">20</text><text x="600" y="226" text-anchor="end">40</text>
+          </svg>
+          <div class="earned" aria-live="polite">
+            <div class="work-bar"><i id="eIn" class="in-bar"></i><b id="eEarn" class="earn-bar"></b></div>
+            <div class="earned-row"><span>You put in <b class="num" id="putIn"></b></span><span class="g">Your money earned <b class="num g" id="earnedAmt"></b></span></div>
+          </div>
+          <div class="rows">
+            <div><span>Each paycheck</span><b class="num" id="perPay"></b></div>
+            <div><span>Each month</span><b class="num" id="perMonth"></b></div>
+            <div><span>Each year</span><b class="num" id="perYear"></b></div>
+          </div>
+          <p class="fine">Uses your planned amounts, not the payday adjustment. Investing assumes 7% a year, savings 4% a year, compounded each paycheck. Example only, not a prediction or advice.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Milestones -->
+  <section id="milestones" style="padding-top:40px">
+    <div class="wrap">
+      <h2 class="reveal d1">Know exactly where you stand.</h2>
+      <p class="lead reveal d2">Every paycheck moves you up the ladder, in the order that builds wealth.</p>
+      <div class="ladder reveal" id="ladder">
+        <div class="rung done"><div class="node"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div><div class="lbl">First paycheck saved</div><div class="sub">Done</div></div>
+        <div class="rung next"><div class="node">2</div><div class="lbl">A full semester of paydays</div><div class="sub">Up next</div></div>
+        <div class="rung"><div class="node">3</div><div class="lbl">$500 emergency fund</div></div>
+        <div class="rung"><div class="node">4</div><div class="lbl">First $500 invested</div></div>
+        <div class="rung"><div class="node">5</div><div class="lbl">One month of expenses saved</div></div>
+        <div class="rung"><div class="node">6</div><div class="lbl">Roth IRA opened</div></div>
+      </div>
+      <div class="goals reveal">
+        <span class="fine" style="margin:0 8px 0 0">Plus your own goals:</span>
+        <span class="goal">✈️ Spring break trip</span><span class="goal">🚗 First car</span><span class="goal">🔑 Apartment deposit</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust -->
+  <section style="padding-top:40px">
+    <div class="wrap">
+      <h2 class="reveal d1">Your money stays yours.</h2>
+      <div class="trust">
+        <div class="reveal"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16163A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg><p>It moves money only between your own accounts.</p></div>
+        <div class="reveal d1"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16163A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg><p>It never tells you what to invest in. You choose.</p></div>
+        <div class="reveal d2"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16163A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M4 19L20 5"/></svg><p>No loans. No credit. No cash advances.</p></div>
+        <div class="reveal d3"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16163A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6v12M15 6v12"/></svg><p>Pause or change anything, anytime.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why I'm building this -->
+  <section id="why" style="padding-top:40px">
+    <div class="wrap">
+      <h2 class="reveal d1">It started with my own paycheck.</h2>
+      <div class="note">
+        <div class="letter reveal">
+          <p>I get $275 every two weeks from a part-time job. For a long time it was gone in two days.</p>
+          <p>I wasn't missing the tools. I had a high-yield savings account, and I'd just opened an investing app. I was missing a moment: money only moved when I remembered, and I was never sure how much was safe to move.</p>
+          <p>So I'm building the thing I needed. It shows up on payday, does the math, and moves the money before I can spend it.</p>
+          <div class="sig">
+            <span class="avatar">ST</span>
+            <div><b>Sofia Troncone</b><small>Founder, First 30</small></div>
+          </div>
+        </div>
+        <div class="build reveal d1">
+          <h3>Behind the build</h3>
+          <ol>
+            <li class="done"><i>✓</i><div><b>Problem</b><span>Started from one real paycheck, with the numbers</span></div></li>
+            <li class="done"><i>✓</i><div><b>Solution</b><span>Every feature traced back to a reason saving fails</span></div></li>
+            <li class="done"><i>✓</i><div><b>Working demo</b><span>The sliders above, with real compounding math</span></div></li>
+            <li class="done"><i>✓</i><div><b>Motion piece</b><span>The hero video, coded frame by frame on a 120 BPM beat grid</span></div></li>
+            <li><i>5</i><div><b>Evidence</b><span>Student survey in progress</span></div></li>
+          </ol>
+          <div class="stack"><span>Product thinking</span><span>HTML · CSS · JS</span><span>Python</span><span>Built with AI tools</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA band -->
+  <section style="padding-top:20px">
+    <div class="wrap">
+      <div class="band reveal">
+        <h2>Your next paycheck could be the first one with a plan.</h2>
+        <div class="hero-ctas">
+          <a class="btn btn-dark" href="#demo">Build my plan
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="text-link" href="#" data-todo="notify-form">Get notified at launch →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Organizations -->
+  <section id="orgs" style="padding-top:40px">
+    <div class="wrap">
+      <h2 class="reveal d1">Give your people a plan for every paycheck.</h2>
+      <p class="lead reveal d2">First 30 is free for students and members. Organizations license it and offer it under their own brand.</p>
+      <div class="org-grid">
+        <div class="reveal"><h3>Financial education programs</h3><p>Your members learn what to do with their money. First 30 makes sure they do it, every payday.</p></div>
+        <div class="reveal d1"><h3>Universities</h3><p>Students get it before graduation, so the habit is in place before the first full-time paycheck.</p></div>
+      </div>
+      <div class="model reveal">
+        <span><b>Free</b> for every user</span>
+        <span><b>Your brand</b> on the app</span>
+        <span><b>One license</b> for your whole program</span>
+      </div>
+      <a class="btn btn-light reveal" href="#" data-todo="contact-form">Get in touch
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><a class="logo" href="#top" style="font-size:1.15rem" aria-label="First 30, home"><span class="wm">first3</span><svg class="loop" viewBox="0 0 48 60" aria-hidden="true"><path d="M24 7 C 38 7, 42 20, 42 30 C 42 44, 34 53, 24 53 C 12 53, 6 42, 6 30 C 6 20, 10 12, 17 9" fill="none" stroke="var(--cobalt)" stroke-width="8" stroke-linecap="round"/><path d="M10 2 L19 9 L10 17" fill="none" stroke="var(--coral)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></span>
+    <span>A concept by Sofia Troncone.</span>
+    <span class="psst">psst: press <kbd>$</kbd></span>
+    <a class="text-link" href="../">Back to homepage</a>
+  </div>
+</footer>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const money = n => "$" + Math.round(n).toLocaleString("en-US");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Nav border on scroll */
+  const nav = $("nav");
+  addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 8), { passive: true });
+
+  /* Hero video: hide the fallback once it plays */
+  const vid = document.querySelector(".hero-media video");
+  vid.addEventListener("playing", () => document.querySelector(".hero-media .fallback").style.display = "none");
+  vid.addEventListener("error", () => vid.remove());
+
+  /* Balance bars: $275 on payday, gone by day 2 */
+  const BAL = [275, 120, 8, 6, 5, 5, 4, 4, 3, 3, 2, 2, 1, 1];
+  const barsEl = $("bars");
+  BAL.forEach(() => { const b = document.createElement("div"); b.className = "bar"; barsEl.appendChild(b); });
+  function playBars() {
+    [...barsEl.children].forEach((b, i) => {
+      setTimeout(() => {
+        b.style.height = Math.max(4, BAL[i] / 275 * 170) + "px";
+        if (BAL[i] < 10) b.classList.add("empty");
+      }, reduce ? 0 : i * 70);
+    });
+    if (reduce) { $("balNow").textContent = "$1"; return; }
+    let i = 0;
+    const tick = setInterval(() => { $("balNow").textContent = money(BAL[i]); if (++i >= BAL.length) clearInterval(tick); }, 70);
+  }
+
+  /* Count-up numbers */
+  function countUp(el) {
+    const end = +el.dataset.count;
+    if (reduce) return;
+    const t0 = performance.now(), dur = 1100;
+    const step = now => {
+      const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      el.innerHTML = '<span class="approx">≈</span>' + money(Math.round(end * e / 100) * 100);
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  /* Reveal on scroll */
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add("in");
+    if (e.target.id === "balance") playBars();
+    e.target.querySelectorAll("[data-count]").forEach(countUp);
+    io.unobserve(e.target);
+  }), { threshold: 0.2 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+  /* Demo */
+  let PERIODS = 26;   // paychecks per year: 52 weekly, 26 every two weeks
+  function fvSeries(per, rate, years) {
+    const r = Math.pow(1 + rate, 1 / PERIODS) - 1, out = [], stepK = PERIODS / 13;
+    for (let k = 0; k <= years * PERIODS; k += stepK) out.push(per * ((Math.pow(1 + r, k) - 1) / r));
+    return out;
+  }
+  function pathFor(series, max) {
+    const n = series.length - 1;
+    return series.map((v, i) => (i ? "L" : "M") + (i / n * 600).toFixed(1) + " " + (200 - v / max * 180).toFixed(1)).join(" ");
+  }
+  function setFill(input) {
+    const p = (input.value - input.min) / (input.max - input.min) * 100;
+    input.style.setProperty("--p", p + "%");
+  }
+  function update() {
+    const pay = +$("pay").value, savePct = +$("save").value, investPct = +$("invest").value;
+    const bills = +$("bills").value, age = +$("age").value;
+    const saveAmt = pay * savePct / 100, investAmt = pay * investPct / 100, target = saveAmt + investAmt;
+    const safe = Math.max(0, Math.min(target, pay - bills - pay * 0.25));
+    const scale = target > 0 ? safe / target : 0;
+
+    $("payOut").textContent = money(pay);
+    $("saveOut").innerHTML = `${savePct}% <small>· ${money(saveAmt)}</small>`;
+    $("investOut").innerHTML = `${investPct}% <small>· ${money(investAmt)}</small>`;
+    $("billsOut").textContent = money(bills);
+    $("ageOut").textContent = age;
+    document.querySelectorAll("input[type=range]").forEach(setFill);
+
+    $("barSave").style.flexBasis = savePct + "%";
+    $("barInvest").style.flexBasis = investPct + "%";
+    $("barSpend").style.flexBasis = Math.max(0, 100 - savePct - investPct) + "%";
+
+    const box = $("paydayBox");
+    if (target === 0) { box.classList.remove("adjusted"); $("paydayMsg").textContent = "Set a savings or investing amount to get a payday plan."; }
+    else if (safe < target - 0.5) {
+      box.classList.add("adjusted");
+      $("paydayMsg").textContent = safe < 1 ? "Bills take this whole paycheck. Skip saving this time; you're still on track."
+        : `Bills are due first. Move ${money(saveAmt * scale)} to savings and ${money(investAmt * scale)} to investing this time, instead of ${money(target)}.`;
+    } else { box.classList.remove("adjusted"); $("paydayMsg").textContent = `Move ${money(saveAmt)} to savings and ${money(investAmt)} to investing?`; }
+
+    $("perPay").textContent = money(target);
+    $("perMonth").textContent = money(target * PERIODS / 12);
+    $("perYear").textContent = money(target * PERIODS);
+
+    const years = 40 - age;
+    const inv = fvSeries(investAmt, 0.07, years), cash = fvSeries(investAmt, 0.04, years);
+    const end = inv[inv.length - 1], max = Math.max(end, 1);
+    $("grow40").textContent = money(end);
+    $("cash40").textContent = money(cash[cash.length - 1]);
+    $("pathInv").setAttribute("d", pathFor(inv, max));
+    $("pathCash").setAttribute("d", pathFor(cash, max));
+    $("endDot").setAttribute("cx", 600);
+    $("endDot").setAttribute("cy", (200 - end / max * 180).toFixed(1));
+    $("axStart").textContent = age;
+    // Your money at work: contributions vs. what the money earned on its own
+    const putIn = investAmt * PERIODS * years, earned = Math.max(0, end - putIn);
+    $("putIn").textContent = money(putIn);
+    $("earnedAmt").textContent = money(earned);
+    $("eIn").style.width = (end > 0 ? putIn / end * 100 : 100) + "%";
+    $("eEarn").style.width = (end > 0 ? earned / end * 100 : 0) + "%";
+  }
+  ["pay", "save", "invest", "bills", "age"].forEach(id => $(id).addEventListener("input", update));
+  // Weekly / every two weeks: the slider is the amount of each paycheck; the frequency sets how many a year
+  document.querySelectorAll('input[name=freq]').forEach(r => r.addEventListener("change", () => {
+    PERIODS = +r.value;
+    $("freq").classList.toggle("right", PERIODS === 26);
+    update();
+  }));
+  $("freq").classList.add("right");
+  update();
+
+  /* Forms not built yet */
+  document.querySelectorAll("[data-todo]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); alert("Coming soon: this form isn't set up yet."); }));
+
+
+  /* Payday rain: green bills fall, plus a toast */
+  let raining = false;
+  function makeItRain(count = 26) {
+    if (reduce || raining) return;
+    raining = true;
+    const box = document.createElement("div"); box.className = "rain";
+    for (let i = 0; i < count; i++) {
+      const b = document.createElement("div"); b.className = "bill";
+      const s = 0.55 + Math.random() * 0.75;
+      b.style.left = (Math.random() * 100) + "vw";
+      b.style.scale = s.toFixed(2);
+      b.style.setProperty("--dur", (1.6 + Math.random() * 1.0).toFixed(2) + "s");
+      b.style.setProperty("--delay", (Math.random() * 0.5).toFixed(2) + "s");
+      b.style.setProperty("--r0", (Math.random() * 60 - 30).toFixed(0) + "deg");
+      b.style.setProperty("--sway", (Math.random() * 120 - 60).toFixed(0) + "px");
+      b.style.opacity = (0.5 + s * 0.5).toFixed(2);
+      box.appendChild(b);
+    }
+    document.body.appendChild(box);
+    setTimeout(() => { box.remove(); raining = false; }, 3300);
+  }
+  const toastEl = document.createElement("div");
+  toastEl.className = "toast"; toastEl.setAttribute("role", "status");
+  toastEl.innerHTML = `<span class="ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16163A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><div><span id="toastTitle"></span><small id="toastSub"></small></div>`;
+  document.body.appendChild(toastEl);
+  let toastTimer;
+  function toast(title, sub) {
+    $("toastTitle").textContent = title; $("toastSub").textContent = sub;
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => toastEl.classList.remove("show"), 3200);
+  }
+
+  // Easter egg: press $
+  addEventListener("keydown", e => {
+    if (e.key === "$" && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { makeItRain(); toast("It's payday", "Future you says thanks."); }
+  });
+
+  // Demo milestones: celebrate crossing a 20% plan, and $50,000 by 40
+  let was20 = false, was50 = false;
+  function celebrate() {
+    const pct = +$("save").value + +$("invest").value;
+    const end = +$("grow40").textContent.replace(/[^0-9]/g, "");
+    if (pct >= 20 && !was20 && pctSeen) { toast("Milestone unlocked: a 20% plan", "Most of your paycheck is still yours to spend."); }
+    if (end >= 50000 && !was50 && pctSeen) { makeItRain(); toast("Milestone unlocked: $50,000 by 40", "From one paycheck at a time."); }
+    was20 = pct >= 20; was50 = end >= 50000;
+  }
+  let pctSeen = false;
+  ["pay", "save", "invest", "age"].forEach(id => $(id).addEventListener("input", () => { pctSeen = true; celebrate(); }));
+  document.querySelectorAll('input[name=freq]').forEach(r => r.addEventListener("change", () => { pctSeen = true; celebrate(); }));
+  celebrate();
+
+  // A little rain the first time someone clicks "Build my plan"
+  let firstBuild = true;
+  document.querySelectorAll('a[href="#demo"]').forEach(a => a.addEventListener("click", () => {
+    if (firstBuild) { firstBuild = false; setTimeout(() => makeItRain(16), 450); }
+  }));
+
+  /* Ladder progress line */
+  new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { $("ladder").classList.add("in"); o.disconnect(); } }), { threshold: 0.3 }).observe($("ladder"));
+</script>
+</body>
+</html>
