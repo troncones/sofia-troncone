@@ -5,27 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>First 30</title>
 <meta name="description" content="On every payday, First 30 works out how much you can safely save, moves it to your own savings and investing accounts, and shows how far you've come.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2216%22%20fill%3D%22%234F5BFF%22/%3E%3Cg%20transform%3D%22translate%2814%206%29%20scale%280.75%29%22%3E%3Cpath%20d%3D%22M24%207%20C%2038%207%2C%2042%2020%2C%2042%2030%20C%2042%2044%2C%2034%2053%2C%2024%2053%20C%2012%2053%2C%206%2042%2C%206%2030%20C%206%2020%2C%2010%2012%2C%2017%209%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%228%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M10%202%20L19%209%20L10%2017%22%20fill%3D%22none%22%20stroke%3D%22%23FF9A76%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2216%22%20fill%3D%22%23C7DDFF%22/%3E%3Cg%20transform%3D%22translate%2814%206%29%20scale%280.75%29%22%3E%3Cpath%20d%3D%22M24%207%20C%2038%207%2C%2042%2020%2C%2042%2030%20C%2042%2044%2C%2034%2053%2C%2024%2053%20C%2012%2053%2C%206%2042%2C%206%2030%20C%206%2020%2C%2010%2012%2C%2017%209%22%20fill%3D%22none%22%20stroke%3D%22%23191919%22%20stroke-width%3D%228%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M10%202%20L19%209%20L10%2017%22%20fill%3D%22none%22%20stroke%3D%22%23FF9A76%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #FFFFFF;
-    --bg-2: #F6F6FD;
-    --card: #F5F5FF;
-    --ink: #16163A;
-    --ink-2: #2E2E57;
-    --muted: #6E6E8A;
-    --line: #E6E6F3;
-    --soft: #ECECFA;
+    --sky: #C7DDFF;
+    --bg-2: #EEF5FF;
+    --card: #F4F8FF;
+    --ink: #191919;
+    --ink-2: #333333;
+    --muted: #6B6F7A;
+    --line: #DCE6F5;
+    --soft: #E8F0FF;
     --radius: 24px;
     --max: 1160px;
-    --cobalt: #4F5BFF;
-    --cobalt-hover: #3D49F0;
+    --cobalt: #C7DDFF;
+    --cobalt-hover: #B5D1FF;
     --coral: #FF9A76;
     --coral-ink: #D9673F;
-    --shadow: 0 1px 2px rgba(22,22,58,0.04), 0 10px 32px rgba(22,22,58,0.06);
+    --shadow: 0 1px 2px rgba(25,25,25,0.04), 0 10px 32px rgba(25,40,80,0.06);
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -33,7 +34,7 @@
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: "Lato", system-ui, -apple-system, "Segoe UI", sans-serif;
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
   }
@@ -41,15 +42,15 @@
   img, video, svg { display: block; }
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
   section { padding: 120px 0; }
-  h1, h2, h3 { margin: 0; letter-spacing: -0.035em; line-height: 1.04; }
-  h1 { font-size: clamp(3rem, 7.2vw, 5.6rem); font-weight: 800; }
-  h2 { font-size: clamp(2.2rem, 4.6vw, 3.6rem); font-weight: 800; }
+  h1, h2, h3 { margin: 0; letter-spacing: -0.01em; line-height: 1.12; }
+  h1 { font-size: clamp(2.8rem, 6.2vw, 4.8rem); font-weight: 400; }
+  h2 { font-size: clamp(2rem, 4vw, 3.1rem); font-weight: 400; }
   h3 { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.015em; line-height: 1.25; }
   p { margin: 0; }
-  .lead { font-size: clamp(1.1rem, 1.6vw, 1.3rem); color: var(--muted); max-width: 560px; margin-top: 22px; }
+  .lead { font-size: clamp(1.1rem, 1.6vw, 1.3rem); color: var(--muted); font-weight: 400; max-width: 560px; margin-top: 22px; }
   .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 0.82rem; font-weight: 600; color: var(--muted); margin-bottom: 22px; }
   .eyebrow::before { content: ""; width: 18px; height: 2px; background: var(--ink); border-radius: 2px; }
-  .mono { font-family: "Geist Mono", ui-monospace, monospace; }
+  .mono { font-family: "Lato", sans-serif; }
   .num { font-variant-numeric: tabular-nums; }
 
   /* Buttons */
@@ -58,44 +59,65 @@
   .btn-dark { background: var(--ink); color: #fff; }
   .btn-dark:hover { background: var(--ink-2); }
   .btn-light { background: var(--card); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
-  .btn-light:hover { box-shadow: inset 0 0 0 1px #DCDCF2; }
+  .btn-light:hover { box-shadow: inset 0 0 0 1px #D6E2F5; }
   .btn svg { transition: transform .2s; }
   .btn:hover svg { transform: translateX(3px); }
   .text-link { color: var(--muted); font-weight: 500; text-decoration: none; }
   .text-link:hover { color: var(--ink); }
 
   /* Nav */
-  nav { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.82); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); border-bottom: 1px solid transparent; transition: border-color .2s; }
-  nav.scrolled { border-bottom-color: var(--line); }
-  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-  .logo { display: inline-flex; align-items: center; font-weight: 900; font-size: 1.55rem; letter-spacing: -0.055em; line-height: 1; text-decoration: none; color: var(--ink); }
+  nav { position: sticky; top: 0; z-index: 20; background: var(--sky); transition: background .3s, box-shadow .3s; }
+  nav.scrolled { background: rgba(255,255,255,0.97); box-shadow: 0 6px 24px rgba(25,40,80,0.06); }
+  nav .navbar { display: flex; align-items: center; justify-content: space-between; height: 92px; padding: 0 clamp(20px, 3.4vw, 48px); }
+  .nav-left, .nav-right { display: flex; align-items: center; gap: clamp(20px, 2.6vw, 36px); }
+  .logo { display: inline-flex; align-items: center; font-weight: 900; font-size: 1.55rem; letter-spacing: -0.02em; line-height: 1; text-decoration: none; color: var(--ink); }
   .logo .loop { width: 0.8em; height: 1em; margin-left: 0.02em; transform: translateY(-0.02em); overflow: visible; transition: transform .6s cubic-bezier(.3,1.3,.5,1); }
-  .logo:hover .loop { transform: translateY(-0.02em) rotate(360deg); }
   @media (prefers-reduced-motion: reduce) { .logo:hover .loop { transform: translateY(-0.02em); } }
-  .nav-links { display: flex; gap: 30px; font-size: 0.95rem; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-weight: 500; }
-  .nav-links a:hover { color: var(--ink); }
-  .nav-cta { padding: 10px 18px; font-size: 0.92rem; }
-  @media (max-width: 860px) { .nav-links { display: none; } }
+  .nav-links { display: flex; gap: clamp(20px, 2.6vw, 36px); font-size: 1rem; }
+  .nav-links a, .nav-login { color: var(--ink); text-decoration: none; font-weight: 700; }
+  .nav-links a:hover, .nav-login:hover { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; text-decoration-color: var(--coral); }
+  .nav-cta { height: 52px; padding: 0 30px; font-size: 1rem; font-weight: 700; background: var(--coral); color: var(--ink); }
+  .nav-cta:hover { filter: brightness(0.96); }
+  @media (max-width: 960px) { .nav-links, .nav-login { display: none; } }
 
   /* Hero */
-  .hero { padding: 72px 0 100px; }
-  .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
-  @media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr; gap: 48px; } }
-  .hero-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 36px; }
-  .hero-note { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 40px; color: var(--muted); font-size: 0.9rem; }
-  .hero-note span { display: inline-flex; align-items: center; gap: 8px; }
-  .hero-media { position: relative; aspect-ratio: 1 / 1; border-radius: 32px; overflow: hidden; background: #F3F3FF; box-shadow: var(--shadow); }
-  .hero-media video { width: 100%; height: 100%; object-fit: cover; }
-  .hero-media .fallback { position: absolute; inset: 0; display: grid; place-items: center; }
-  .pill-demo { background: var(--ink); color: #fff; border-radius: 999px; padding: 22px 34px; font-weight: 600; font-size: 1.4rem; display: inline-flex; gap: 12px; align-items: center; }
+  .hero { position: relative; background: var(--sky); height: 640px; text-align: center; padding-top: 86px; overflow: hidden; }
+  .hero-in { max-width: 860px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+  .hero h1 { font-size: clamp(2.4rem, 5.2vw, 4.1rem); line-height: 1.12; }
+  .hero h1 em { font-style: italic; }
+  .hero-sub { font-size: clamp(1.1rem, 1.6vw, 1.375rem); line-height: 1.55; max-width: 560px; margin: 22px auto 34px; color: var(--ink-2); }
+  .hero-btn { height: 58px; padding: 0 36px; font-size: 1.06rem; font-weight: 700; }
+  .hero-phone { position: absolute; right: max(24px, calc(50% - 520px)); top: 350px; width: 304px; height: 640px; border-radius: 56px; padding: 3px;
+    background: linear-gradient(145deg, #D7D7DC 0%, #A9A9B0 30%, #E4E4E8 55%, #9C9CA3 100%);
+    box-shadow: 0 40px 80px rgba(25,40,80,0.28), 0 8px 18px rgba(25,40,80,0.18); }
+  .hero-phone::before, .hero-phone::after { content: ""; position: absolute; width: 4px; border-radius: 2px; background: #A3A3AA; }
+  .hero-phone::before { left: -3px; top: 118px; height: 56px; box-shadow: 0 -40px 0 -0px #A3A3AA, 0 70px 0 0 #A3A3AA; }
+  .hero-phone::after { right: -3px; top: 150px; height: 86px; }
+  .hero-bezel { width: 100%; height: 100%; border-radius: 53px; background: #0B0B0C; padding: 10px; position: relative; }
+  .hero-scr { width: 100%; height: 100%; border-radius: 44px; background: #fff; padding: 0 18px; text-align: left; overflow: hidden; position: relative;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Lato", sans-serif; }
+  .hp-island { position: absolute; top: 11px; left: 50%; width: 82px; height: 26px; margin-left: -41px; border-radius: 20px; background: #000; z-index: 2; }
+  .hp-status { display: flex; justify-content: space-between; align-items: center; height: 50px; padding: 4px 6px 0 14px; font-size: 14px; font-weight: 600; color: #000; }
+  .hp-status .r { display: flex; gap: 5px; align-items: center; }
+  .hp-title { font-size: 26px; font-weight: 700; letter-spacing: -0.01em; margin: 6px 2px 2px; }
+  .hp-hi { font-size: 13px; color: #767676; font-weight: 600; margin: 8px 2px 0; text-transform: uppercase; letter-spacing: 0.02em; }
+  .hp-pay { margin-top: 12px; border-radius: 20px; padding: 16px 18px; background: var(--sky); }
+  .hp-pay small { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; opacity: 0.7; }
+  .hp-pay b { display: block; font-size: 16px; font-weight: 700; margin-top: 4px; line-height: 1.3; }
+  .hp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .hp-row div { background: #F5F5F2; border-radius: 16px; padding: 12px; font-size: 12px; color: #767676; }
+  .hp-row b { display: block; color: #191919; font-size: 20px; font-weight: 700; margin-top: 2px; }
+  .hp-k { margin-top: 14px; font-size: 12px; color: #767676; }
+  .hp-v { font-size: 28px; font-weight: 900; }
+  @media (max-width: 900px) { .hero { height: auto; padding: 64px 0 0; } .hero-phone { position: relative; right: auto; top: auto; margin: 44px auto -300px; } .hero { padding-bottom: 0; } }
+  @media (max-width: 900px) { .hero { overflow: hidden; } .hero::after { content: ""; display: block; height: 1px; } }
 
   /* Problem */
   .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
   @media (max-width: 960px) { .problem-grid { grid-template-columns: 1fr; gap: 40px; } }
   .balance { background: var(--card); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); }
   .balance-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
-  .balance-head .big { font-size: 2.6rem; font-weight: 800; letter-spacing: -0.04em; }
+  .balance-head .big { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.01em; }
   .bars { display: grid; grid-template-columns: repeat(14, 1fr); gap: 6px; align-items: end; height: 170px; }
   .bar { background: var(--ink); border-radius: 6px 6px 3px 3px; height: 4px; transition: height 0.9s cubic-bezier(.2,.8,.2,1); }
   .bar.empty { background: var(--bg-2); }
@@ -106,19 +128,19 @@
   @media (max-width: 860px) { .stats { grid-template-columns: 1fr; } }
   .stat { background: var(--card); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); }
   .stat .label { color: var(--muted); font-size: 0.95rem; }
-  .stat .value { font-size: clamp(3rem, 5.2vw, 4.3rem); font-weight: 800; letter-spacing: -0.05em; line-height: 1; margin-top: 18px; white-space: nowrap; }
+  .stat .value { font-size: clamp(3rem, 5.2vw, 4.3rem); font-weight: 700; letter-spacing: -0.01em; line-height: 1; margin-top: 18px; white-space: nowrap; }
   .stat .label { font-size: 1.05rem; }
   .approx { font-size: 0.45em; vertical-align: 0.75em; margin-right: 0.1em; opacity: 0.45; font-weight: 700; }
-  .stat.dark { background: var(--ink); color: #fff; }
-  .stat.dark .label { color: #A9A9C8; }
+  .stat.dark { background: var(--coral); color: var(--ink); }
+  .stat.dark .label { color: rgba(25,25,25,0.7); }
   .work { background: var(--card); border-radius: var(--radius); padding: 28px 32px; box-shadow: var(--shadow); margin-top: 16px; display: grid; gap: 16px; }
   .work-row { display: grid; grid-template-columns: 210px 1fr 190px; gap: 18px; align-items: center; }
   @media (max-width: 700px) { .work-row { grid-template-columns: 1fr; gap: 8px; } }
   .work-label { font-weight: 600; font-size: 0.95rem; }
-  .work-num { font-weight: 800; font-size: 1.35rem; letter-spacing: -0.02em; text-align: right; }
+  .work-num { font-weight: 700; font-size: 1.35rem; letter-spacing: 0; text-align: right; }
   @media (max-width: 700px) { .work-num { text-align: left; } }
   .work-bar { display: flex; height: 16px; border-radius: 8px; overflow: hidden; background: var(--soft); gap: 2px; }
-  .work-bar i { background: #DCDCF2; border-radius: 8px 3px 3px 8px; }
+  .work-bar i { background: #D6E2F5; border-radius: 8px 3px 3px 8px; }
   .work-bar b { background: var(--coral); border-radius: 3px 8px 8px 3px; transform-origin: left; transform: scaleX(0); transition: transform 1.1s cubic-bezier(.2,.8,.2,1) .35s; }
   .work.in .work-bar b { transform: scaleX(1); }
   .earned { margin-top: 18px; }
@@ -133,8 +155,8 @@
   .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px; }
   @media (max-width: 1000px) { .steps { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 600px) { .steps { grid-template-columns: 1fr; } }
-  .step { background: var(--card); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); display: flex; flex-direction: column; }
-  .step .n { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
+  .step { background: #fff; border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+  .step .n { font-size: 0.95rem; color: var(--coral-ink); font-weight: 900; }
   .step h3 { margin-top: 10px; }
   .step p { color: var(--muted); margin-top: 8px; font-size: 0.95rem; }
   .vignette { margin-top: auto; padding-top: 26px; }
@@ -146,12 +168,12 @@
   .mini-row span:last-child { color: var(--muted); font-weight: 500; }
   .chip { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 12px; padding: 12px 14px; box-shadow: inset 0 0 0 1px var(--line); font-size: 0.9rem; font-weight: 600; }
   .chip .ic { width: 30px; height: 30px; border-radius: 8px; background: var(--ink); display: grid; place-items: center; flex: none; }
-  .chip .ok { margin-left: auto; width: 22px; height: 22px; border-radius: 50%; background: var(--ink); display: grid; place-items: center; }
-  .notif { background: var(--ink); color: #fff; border-radius: 14px; padding: 14px 16px; font-size: 0.86rem; line-height: 1.4; }
-  .notif b { display: block; font-size: 0.75rem; color: #A9A9C8; font-weight: 600; margin-bottom: 4px; }
+  .chip .ok { margin-left: auto; width: 22px; height: 22px; border-radius: 50%; background: var(--coral); display: grid; place-items: center; }
+  .notif { background: var(--sky); color: var(--ink); border-radius: 14px; padding: 14px 16px; font-size: 0.86rem; line-height: 1.4; }
+  .notif b { display: block; font-size: 0.75rem; color: var(--coral-ink); font-weight: 600; margin-bottom: 4px; }
   .tgl { display: flex; align-items: center; justify-content: space-between; font-weight: 700; }
   .tgl small { display: block; color: var(--muted); font-weight: 500; font-size: 0.8rem; }
-  .switch { width: 54px; height: 32px; border-radius: 16px; background: var(--ink); position: relative; flex: none; }
+  .switch { width: 54px; height: 32px; border-radius: 16px; background: var(--coral); position: relative; flex: none; }
   .switch::after { content: ""; position: absolute; top: 4px; right: 4px; width: 24px; height: 24px; border-radius: 50%; background: #fff; }
 
   /* Demo */
@@ -183,18 +205,18 @@
   .legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.85rem; color: var(--muted); }
   .sw { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
   .divider { height: 1px; background: var(--line); margin: 28px 0; }
-  .payday { border-radius: 16px; padding: 18px 20px; background: var(--cobalt); color: #fff; display: flex; gap: 14px; align-items: flex-start; transition: background .25s; }
-  .payday .dot { width: 10px; height: 10px; border-radius: 50%; background: #fff; margin-top: 7px; flex: none; }
-  .payday .t { font-size: 0.75rem; color: rgba(255,255,255,0.75); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+  .payday { border-radius: 16px; padding: 18px 20px; background: var(--sky); color: var(--ink); display: flex; gap: 14px; align-items: flex-start; transition: background .25s; }
+  .payday .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--coral); margin-top: 7px; flex: none; }
+  .payday .t { font-size: 0.75rem; color: rgba(25,25,25,0.6); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
   .payday .m { font-weight: 500; margin-top: 2px; }
-  .payday.adjusted { background: var(--ink); }
+  .payday.adjusted { background: var(--coral); }
   .result-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
   .result-top .k { color: var(--muted); font-size: 0.95rem; }
-  .result-top .v { font-size: clamp(2.8rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.045em; line-height: 1; margin-top: 8px; }
+  .result-top .v { font-size: clamp(2.8rem, 6vw, 4rem); font-weight: 700; letter-spacing: -0.01em; line-height: 1; margin-top: 8px; }
   .result-top .cmp { text-align: right; color: var(--muted); font-size: 0.95rem; }
   .result-top .cmp b { color: var(--ink); display: block; font-size: 1.3rem; letter-spacing: -0.02em; }
   .chart { margin-top: 26px; width: 100%; height: auto; }
-  .chart text { font-family: "Geist", sans-serif; font-size: 12px; fill: var(--muted); }
+  .chart text { font-family: "Lato", sans-serif; font-size: 12px; fill: var(--muted); }
   .rows { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 22px; }
   .rows div { background: var(--soft); border-radius: 14px; padding: 14px 16px; }
   .rows span { display: block; color: var(--muted); font-size: 0.8rem; }
@@ -204,11 +226,11 @@
   .ladder { margin-top: 64px; position: relative; display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
   @media (max-width: 900px) { .ladder { grid-template-columns: repeat(2, 1fr); } .ladder::before, .ladder::after { display: none; } }
   .ladder::before { content: ""; position: absolute; left: 6%; right: 6%; top: 21px; height: 2px; background: var(--line); }
-  .ladder::after { content: ""; position: absolute; left: 6%; top: 21px; height: 2px; background: var(--ink); width: 0; transition: width 1.2s cubic-bezier(.2,.8,.2,1) .2s; }
+  .ladder::after { content: ""; position: absolute; left: 6%; top: 21px; height: 2px; background: var(--coral); width: 0; transition: width 1.2s cubic-bezier(.2,.8,.2,1) .2s; }
   .ladder.in::after { width: 16%; }
   .rung { position: relative; text-align: center; }
   .rung .node { width: 44px; height: 44px; border-radius: 50%; margin: 0 auto; display: grid; place-items: center; background: var(--card); box-shadow: inset 0 0 0 2px var(--line); font-weight: 700; color: var(--muted); position: relative; z-index: 1; }
-  .rung.done .node { background: var(--ink); box-shadow: none; color: #fff; }
+  .rung.done .node { background: var(--coral); box-shadow: none; color: var(--ink); }
   .rung.next .node { box-shadow: inset 0 0 0 2px var(--ink); color: var(--ink); }
   .rung .lbl { margin-top: 16px; font-weight: 600; font-size: 0.95rem; letter-spacing: -0.01em; }
   .rung .sub { color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
@@ -219,17 +241,18 @@
   .trust { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px; }
   @media (max-width: 1000px) { .trust { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 600px) { .trust { grid-template-columns: 1fr; } }
-  .trust div { background: var(--card); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); }
+  .trust div { background: var(--bg-2); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); }
   .trust svg { margin-bottom: 20px; }
   .trust p { font-weight: 600; letter-spacing: -0.01em; }
 
   /* CTA band */
-  .band { background: var(--ink); color: #fff; border-radius: 36px; padding: clamp(48px, 8vw, 96px); text-align: center; }
+  .band { background: var(--sky); color: var(--ink); border-radius: 36px; padding: clamp(48px, 8vw, 96px); text-align: center; }
   .band h2 { max-width: 760px; margin: 0 auto; }
+  .hero-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 36px; }
   .band .hero-ctas { justify-content: center; }
-  .band .btn-dark { background: #fff; color: var(--ink); }
-  .band .text-link { color: #A9A9C8; }
-  .band .text-link:hover { color: #fff; }
+  .band .btn-dark { background: var(--ink); color: #fff; }
+  .band .text-link { color: var(--ink-2); }
+  .band .text-link:hover { color: var(--ink); }
 
   /* Orgs */
   .org-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 56px 0 36px; }
@@ -255,27 +278,27 @@
   .letter p + p { margin-top: 16px; }
   .letter { display: flex; flex-direction: column; }
   .letter .sig { margin-top: auto; padding-top: 28px; display: flex; align-items: center; gap: 14px; }
-  .letter .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-weight: 700; }
+  .letter .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--coral); color: var(--ink); display: grid; place-items: center; font-weight: 700; }
   .letter .sig small { display: block; color: var(--muted); }
-  .build { background: var(--ink); color: #fff; border-radius: var(--radius); padding: clamp(28px, 4vw, 40px); }
-  .build h3 { font-size: 1rem; color: #A9A9C8; font-weight: 600; }
+  .build { background: var(--sky); color: var(--ink); border-radius: var(--radius); padding: clamp(28px, 4vw, 40px); }
+  .build h3 { font-size: 1rem; color: var(--ink-2); font-weight: 600; }
   .build ol { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 14px; }
   .build li { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; }
-  .build li i { font-style: normal; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid #3A3A66; display: grid; place-items: center; font-size: 0.8rem; color: #A9A9C8; }
-  .build li.done i { background: #fff; border-color: #fff; color: var(--ink); }
+  .build li i { font-style: normal; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid rgba(25,25,25,0.35); display: grid; place-items: center; font-size: 0.8rem; color: var(--ink-2); }
+  .build li.done i { background: var(--coral); border-color: var(--coral); color: var(--ink); }
   .build li b { display: block; font-weight: 600; }
-  .build li span { color: #A9A9C8; font-size: 0.9rem; }
+  .build li span { color: var(--ink-2); font-size: 0.9rem; }
   .stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
-  .stack span { border: 1px solid #3A3A66; border-radius: 999px; padding: 6px 12px; font-size: 0.82rem; color: #D6D6EA; }
+  .stack span { background: #fff; border-radius: 999px; padding: 6px 12px; font-size: 0.82rem; color: var(--ink); }
 
   .psst { font-size: 0.85rem; }
-  kbd { font-family: "Geist Mono", monospace; font-size: 0.8rem; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 1px 6px; background: var(--card); color: var(--ink); }
+  kbd { font-family: "Lato", sans-serif; font-size: 0.8rem; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 1px 6px; background: var(--card); color: var(--ink); }
 
   /* Bill rain + toast */
   .rain { position: fixed; inset: 0; pointer-events: none; z-index: 50; overflow: hidden; }
-  .bill { position: absolute; top: -80px; width: 92px; height: 44px; border-radius: 4px; background: var(--coral); box-shadow: 0 2px 6px rgba(120,40,20,0.18); animation: fall var(--dur) cubic-bezier(.35,0,.7,1) var(--delay) forwards; opacity: 0; }
-  .bill::before { content: ""; position: absolute; inset: 4px; border: 1.5px solid #B84A2C; border-radius: 2px; }
-  .bill::after { content: "$"; position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; transform: translate(-50%,-50%); border-radius: 50%; background: #FFC9B8; color: #7A2A14; font-weight: 700; font-size: 18px; line-height: 26px; text-align: center; }
+  .bill { position: absolute; top: -80px; width: 92px; height: 44px; border-radius: 4px; background: #7FB35F; box-shadow: 0 2px 6px rgba(30,60,20,0.18); animation: fall var(--dur) cubic-bezier(.35,0,.7,1) var(--delay) forwards; opacity: 0; }
+  .bill::before { content: ""; position: absolute; inset: 4px; border: 1.5px solid #4C7D36; border-radius: 2px; }
+  .bill::after { content: "$"; position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; transform: translate(-50%,-50%); border-radius: 50%; background: #A7D08A; color: #2F5A20; font-weight: 700; font-size: 18px; line-height: 26px; text-align: center; }
   @keyframes fall {
     0% { opacity: 0; transform: translate(0, 0) rotate(var(--r0)) scaleY(1); }
     8% { opacity: 1; }
@@ -286,9 +309,74 @@
   }
   .toast { position: fixed; left: 50%; bottom: 28px; z-index: 60; transform: translate(-50%, 140%); background: var(--ink); color: #fff; border-radius: 999px; padding: 12px 22px 12px 14px; display: flex; align-items: center; gap: 12px; font-weight: 600; box-shadow: 0 12px 40px rgba(0,0,0,0.25); transition: transform .5s cubic-bezier(.3,1.2,.5,1), visibility 0s .5s; max-width: calc(100vw - 32px); visibility: hidden; }
   .toast.show { transform: translate(-50%, 0); visibility: visible; transition: transform .5s cubic-bezier(.3,1.2,.5,1); }
-  .toast .ck { width: 30px; height: 30px; border-radius: 50%; background: #fff; display: grid; place-items: center; flex: none; }
-  .toast small { display: block; color: #A9A9C8; font-weight: 500; }
+  .toast .ck { width: 30px; height: 30px; border-radius: 50%; background: var(--coral); display: grid; place-items: center; flex: none; }
+  .toast small { display: block; color: #A8A8A8; font-weight: 500; }
 
+  /* Simplified flow */
+  .center { text-align: center; }
+  .lead.center { margin-left: auto; margin-right: auto; }
+  section { padding: 110px 0; }
+  #balance { max-width: 760px; margin: 52px auto 0; text-align: left; }
+  .feat { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(32px, 6vw, 88px); align-items: center; margin-top: 72px; }
+  .feat.rev > :first-child { order: 2; }
+  @media (max-width: 860px) { .feat { grid-template-columns: 1fr; margin-top: 56px; } .feat.rev > :first-child { order: 0; } }
+  .step-n { width: 40px; height: 40px; border-radius: 50%; background: var(--coral); color: var(--ink); display: grid; place-items: center; font-weight: 900; font-size: 1.05rem; }
+  .feat-h { font-size: clamp(1.7rem, 3vw, 2.3rem); font-weight: 400; letter-spacing: -0.01em; margin: 18px 0 12px; line-height: 1.15; }
+  .feat-p { color: var(--muted); font-size: 1.15rem; line-height: 1.6; max-width: 460px; }
+  .vis { background: var(--sky); border-radius: 32px; padding: clamp(28px, 4vw, 52px); display: grid; place-items: center; min-height: 300px; }
+  .mock { background: #fff; border-radius: 22px; padding: 24px; width: 100%; max-width: 400px; box-shadow: 0 12px 32px rgba(25,40,80,0.10); }
+  .mock .notif { background: var(--sky); }
+  .mock-big { font-size: 2.6rem; font-weight: 700; margin-top: 4px; }
+  .assure { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 34px; margin-top: 80px; font-weight: 700; }
+  .assure span { display: inline-flex; align-items: center; gap: 8px; }
+  .letter.solo { max-width: 780px; margin: 0 auto; background: var(--bg-2); box-shadow: none; }
+  .org-line { margin: 34px auto 0; max-width: 620px; color: var(--ink-2); font-size: 1rem; line-height: 1.6; }
+  .org-line a { color: var(--ink); font-weight: 700; text-decoration-color: var(--coral); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+  /* Header: logo centered and bigger; the loop spins on load and on hover */
+  nav .navbar { display: grid; grid-template-columns: 1fr auto 1fr; }
+  .nav-left { justify-self: start; }
+  .nav-right { justify-self: end; }
+  .nav-center { justify-self: center; }
+  .nav-center .logo { font-size: 3.1rem; }
+  @media (max-width: 960px) { .nav-center .logo { font-size: 2.4rem; } }
+  /* Logo intro: letters rise in one by one, then the loop spins in */
+  .logo.pre .wm span, .logo.pre .loop { opacity: 0; }
+  .logo .wm span { display: inline-block; }
+  .logo.intro .wm span { animation: letterIn .5s cubic-bezier(.3,1.3,.5,1) both; animation-delay: calc(var(--i) * 70ms); }
+  @keyframes letterIn { from { opacity: 0; transform: translateY(0.45em); } to { opacity: 1; transform: none; } }
+  .logo.intro .loop { animation: loopIn 1s cubic-bezier(.3,1.25,.5,1) .45s both; }
+  @keyframes loopIn { from { opacity: 0; transform: translateY(-0.02em) rotate(-300deg) scale(0.4); } to { opacity: 1; transform: translateY(-0.02em) rotate(0) scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .logo.pre .wm span, .logo.pre .loop { opacity: 1; } .logo.intro .wm span, .logo.intro .loop { animation: none; } }
+  .logo .loop { transform-origin: 50% 50%; }
+  .logo.spin .loop { animation: loopspin 1.1s cubic-bezier(.3,1.25,.5,1); }
+  @keyframes loopspin { from { transform: translateY(-0.02em) rotate(-360deg); } to { transform: translateY(-0.02em) rotate(0deg); } }
+  @media (max-width: 960px) { nav .navbar { grid-template-columns: 1fr auto 1fr; } .nav-left { visibility: hidden; } }
+  @media (prefers-reduced-motion: reduce) { .logo.spin .loop { animation: none; } }
+  /* Big bold numbers */
+  .stmt { max-width: 920px; margin: 56px auto 0; text-align: left; }
+  .stmt-row { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 16px; border-top: 2px solid var(--ink); padding: 14px 0 12px; }
+  .stmt-row span { font-size: 1.15rem; font-weight: 700; }
+  .stmt-row b { font-size: clamp(2.8rem, 8vw, 6rem); font-weight: 900; line-height: 0.95; }
+  .stmt-row.strike b { color: #B9C6DA; text-decoration: line-through; text-decoration-thickness: 0.07em; text-decoration-color: var(--ink); }
+  .stmt-row.apr b { color: var(--coral-ink); }
+  .stmt-row.big b { font-size: clamp(3.4rem, 11vw, 8.5rem); }
+  .stmt-row:nth-child(2) { transition-delay: .1s; } .stmt-row:nth-child(3) { transition-delay: .2s; } .stmt-row:nth-child(4) { transition-delay: .3s; }
+
+  /* Penny: subtle appearances */
+  .vis { position: relative; }
+  .penny { position: absolute; right: 18px; bottom: 12px; transform-origin: 50% 100%; }
+  .reveal.in .penny-wave { animation: pwave 1.4s ease-in-out .6s 2; }
+  @keyframes pwave { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-6deg); } 75% { transform: rotate(6deg); } }
+  .reveal.in .penny-cheer { animation: pjump .6s cubic-bezier(.3,1.6,.5,1) .7s 2; }
+  @keyframes pjump { 50% { transform: translateY(-10px); } }
+  .toast .ck { background: transparent; width: 36px; height: 40px; }
+  @media (prefers-reduced-motion: reduce) { .penny { animation: none !important; } }
+  /* Founder note with headshot */
+  .letter.solo.with-photo { max-width: 1040px; display: grid; grid-template-columns: 300px 1fr; gap: clamp(28px, 4vw, 52px); align-items: center; }
+  .founder-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; border-radius: 22px; display: block; box-shadow: 0 16px 40px rgba(25,40,80,0.16); }
+  .founder-text .sig { padding-top: 22px; }
+  @media (max-width: 760px) { .letter.solo.with-photo { grid-template-columns: 1fr; } .founder-photo { max-width: 260px; } }
   /* Reveal on scroll */
   .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1); }
   .reveal.in { opacity: 1; transform: none; }
@@ -301,17 +389,44 @@
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="penny-wave" viewBox="0 0 190 230">
+    <ellipse cx="95" cy="222" rx="52" ry="7" fill="#9DB8E6"/>
+    <rect x="70" y="180" width="12" height="38" rx="6" fill="#191919"/><rect x="108" y="180" width="12" height="38" rx="6" fill="#191919"/>
+    <path d="M40 120 Q 12 92 22 60" stroke="#191919" stroke-width="11" fill="none" stroke-linecap="round"/>
+    <path d="M150 120 Q 172 120 176 98" stroke="#191919" stroke-width="11" fill="none" stroke-linecap="round"/>
+    <circle cx="95" cy="118" r="70" fill="#FF9A76"/><circle cx="95" cy="118" r="56" fill="none" stroke="#E07B55" stroke-width="5"/>
+    <circle cx="74" cy="108" r="7" fill="#191919"/><circle cx="116" cy="108" r="7" fill="#191919"/>
+    <path d="M76 134 Q 95 152 114 134" stroke="#191919" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <circle cx="62" cy="128" r="6" fill="#FFC1A8"/><circle cx="128" cy="128" r="6" fill="#FFC1A8"/>
+  </symbol>
+  <symbol id="penny-cheer" viewBox="0 0 190 250">
+    <g transform="rotate(-18 40 40)"><rect x="12" y="24" width="60" height="28" rx="3" fill="#7FB35F"/><circle cx="42" cy="38" r="8" fill="#A7D08A"/></g>
+    <g transform="rotate(16 150 30)"><rect x="122" y="14" width="60" height="28" rx="3" fill="#7FB35F"/><circle cx="152" cy="28" r="8" fill="#A7D08A"/></g>
+    <ellipse cx="95" cy="242" rx="52" ry="7" fill="#9DB8E6"/>
+    <rect x="70" y="200" width="12" height="38" rx="6" fill="#191919"/><rect x="108" y="200" width="12" height="38" rx="6" fill="#191919"/>
+    <path d="M38 132 Q 18 104 30 72" stroke="#191919" stroke-width="11" fill="none" stroke-linecap="round"/>
+    <path d="M152 132 Q 172 104 160 72" stroke="#191919" stroke-width="11" fill="none" stroke-linecap="round"/>
+    <circle cx="95" cy="138" r="70" fill="#FF9A76"/><circle cx="95" cy="138" r="56" fill="none" stroke="#E07B55" stroke-width="5"/>
+    <path d="M66 126 Q 74 116 82 126" stroke="#191919" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M108 126 Q 116 116 124 126" stroke="#191919" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M74 148 Q 95 176 116 148 Z" fill="#191919"/>
+  </symbol>
+</svg>
 
 <nav id="nav">
-  <div class="wrap">
-    <a class="logo" href="#top" aria-label="First 30, home"><span class="wm">first3</span><svg class="loop" viewBox="0 0 48 60" aria-hidden="true"><path d="M24 7 C 38 7, 42 20, 42 30 C 42 44, 34 53, 24 53 C 12 53, 6 42, 6 30 C 6 20, 10 12, 17 9" fill="none" stroke="var(--cobalt)" stroke-width="8" stroke-linecap="round"/><path d="M10 2 L19 9 L10 17" fill="none" stroke="var(--coral)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <div class="nav-links">
-      <a href="#how">How it works</a>
-      <a href="#demo">Demo</a>
-      <a href="#milestones">Milestones</a>
-      <a href="#orgs">For organizations</a>
+  <div class="navbar">
+    <div class="nav-left">
+      <div class="nav-links">
+        <a href="#how">How it works</a>
+        <a href="#demo">Demo</a>
+        <a href="#why">Our story</a>
+      </div>
     </div>
-    <a class="btn btn-dark nav-cta" href="#demo">Build my plan</a>
+    <div class="nav-center"><a class="logo" href="#top" aria-label="First 30, home"><span class="wm">first3</span><svg class="loop" viewBox="0 0 48 60" aria-hidden="true"><path d="M24 7 C 38 7, 42 20, 42 30 C 42 44, 34 53, 24 53 C 12 53, 6 42, 6 30 C 6 20, 10 12, 17 9" fill="none" stroke="var(--ink)" stroke-width="8" stroke-linecap="round"/><path d="M10 2 L19 9 L10 17" fill="none" stroke="var(--coral)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+    <div class="nav-right">
+      <a class="nav-login" href="#" data-todo="login">Log in</a>
+      <a class="btn nav-cta" href="#demo">Start today</a>
+    </div>
   </div>
 </nav>
 
@@ -319,115 +434,100 @@
 
   <!-- Hero -->
   <header class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <h1 class="reveal d1">Your paycheck has a <span style="color:var(--cobalt)">plan</span> now.</h1>
-        <p class="lead reveal d2">On every payday, First 30 works out how much you can safely save, moves it to your own savings and investing accounts, and puts your money to work for you.</p>
-        <div class="hero-ctas reveal d3">
-          <a class="btn btn-dark" href="#demo">Build my plan
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-          <a class="text-link" href="#" data-todo="notify-form">Get notified at launch →</a>
-        </div>
-        <div class="hero-note reveal d3">
-          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Your money stays in your accounts</span>
-          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Pause anytime</span>
-          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Free for students</span>
-        </div>
-      </div>
-      <div class="hero-media reveal d2">
-        <div class="fallback"><span class="pill-demo">Build my plan →</span></div>
-        <video src="motion/first30-motion.mp4" autoplay muted loop playsinline aria-label="First 30 interface animation: payday, savings slider, autopilot and milestones"></video>
-      </div>
+    <div class="hero-in">
+      <h1 class="reveal d1">First 30 saves and invests every paycheck <em>for you</em></h1>
+      <p class="hero-sub reveal d2">On payday, it works out a safe amount and moves it to your savings and investing, automatically.</p>
+      <a class="btn btn-dark hero-btn reveal d3" href="#demo">Start today</a>
     </div>
+    <div class="hero-phone" aria-hidden="true"><div class="hero-bezel"><div class="hero-scr">
+      <div class="hp-island"></div>
+      <div class="hp-status"><span>9:41</span><span class="r">
+        <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+        <svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 11.5 L10.4 8.6 A3.8 3.8 0 0 0 5.6 8.6 Z"/><path d="M3.3 6.2 A6.8 6.8 0 0 1 12.7 6.2" stroke="#000" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M1 3.5 A10 10 0 0 1 15 3.5" stroke="#000" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+        <svg width="27" height="13" viewBox="0 0 27 13"><rect x="0.5" y="0.5" width="23" height="12" rx="3.5" fill="none" stroke="#000" opacity="0.4"/><rect x="2" y="2" width="17" height="9" rx="2"/><rect x="24.5" y="4.5" width="2" height="4" rx="1" opacity="0.4"/></svg>
+      </span></div>
+      <div class="hp-hi">Friday, Nov 21</div>
+      <div class="hp-title">Good morning, Sofia</div>
+      <div class="hp-pay"><small>PAYDAY · $275 JUST LANDED</small><b>Move $27.50 to savings and $46 to investing?</b></div>
+      <div class="hp-row"><div>Savings<b>$110</b></div><div>Investing<b>$187</b></div></div>
+      <div class="hp-k">Your investing by 40</div>
+      <div class="hp-v">$49,194</div>
+    </div></div></div>
   </header>
 
 
-  <!-- Problem -->
+  <!-- 1. The problem -->
   <section>
-    <div class="wrap problem-grid">
-      <div>
-        <h2 class="reveal d1">Gone in 2 days?</h2>
-        <p class="lead reveal d2">Payday hits. Two days later, it's spent. You meant to save some. You even have the savings account. But moving money takes remembering, and you're never sure how much is safe to move.</p>
-      </div>
-      <div class="balance reveal d2" id="balance">
-        <div class="balance-head">
-          <div><div class="fine" style="margin:0">Checking balance, one pay period</div></div>
-          <div class="big num" id="balNow">$275</div>
-        </div>
-        <div class="bars" id="bars"></div>
-        <div class="bar-labels"><span>Payday</span><span>Day 2</span><span>Day 14</span></div>
-        <p class="caption"><b>Day 1:</b> $275. <b>Day 2:</b> where did it go? <b>Days 3 to 14:</b> waiting.</p>
+    <div class="wrap center">
+      <h2 class="reveal d1">Payday hits. Two days later, it's gone.</h2>
+      <p class="lead center reveal d2">You meant to save some. You even have the savings account. But moving money takes remembering, and you're never sure how much is safe to move.</p>
+      <div class="stmt">
+        <div class="stmt-row strike reveal"><span>Payday</span><b class="num" data-money="275">$275</b></div>
+        <div class="stmt-row reveal"><span>Day 2, the old way</span><b class="num" data-money="0">$0</b></div>
+        <div class="stmt-row apr reveal"><span>Moved first, every payday</span><b class="num" data-money="73.50" data-dec="2">$73.50</b></div>
+        <div class="stmt-row big reveal"><span>By 40</span><b class="num" data-money="49200">$49,200</b></div>
+        <p class="fine" style="text-align:left">Example: $275 every two weeks, $73.50 saved and invested each time; $46 of it invested at an assumed 7% a year from 20 to 40. Not guaranteed.</p>
       </div>
     </div>
   </section>
 
-  <!-- Cost -->
-  <section style="padding-top:0">
+  <!-- 2. How it works -->
+  <section id="how" style="padding-top:0">
     <div class="wrap">
-      <h2 class="reveal d1">You earn it once.<br>Then it earns for you.</h2>
-      <p class="lead reveal d2">$46 a paycheck is about $100 a month. Invest it from age 20 to 40 and you put in $24,000. Your money earns the rest, on its own.</p>
-      <div class="stats">
-        <div class="stat reveal"><div class="label">You put in</div><div class="value num" data-count="24000"><span class="approx">≈</span>$24,000</div></div>
-        <div class="stat dark reveal d1"><div class="label">Your money earned</div><div class="value num" data-count="25200"><span class="approx">≈</span>$25,200</div></div>
-        <div class="stat reveal d2"><div class="label">Total at 40</div><div class="value num" data-count="49200"><span class="approx">≈</span>$49,200</div></div>
-      </div>
-      <div class="work reveal">
-        <div class="work-row"><span class="work-label">Invested, 7% a year</span><div class="work-bar"><i style="width:48.8%" class="in-bar"></i><b style="width:51.2%" class="earn-bar"></b></div><span class="work-num num">$25,200 earned</span></div>
-        <div class="work-row"><span class="work-label">Left in savings, 4% a year</span><div class="work-bar"><i style="width:48.8%" class="in-bar"></i><b style="width:23.9%" class="earn-bar"></b></div><span class="work-num num">$11,700 earned</span></div>
-        <div class="legend" style="margin-top:6px"><span><span class="sw" style="background:#DCDCF2"></span>What you put in</span><span><span class="sw" style="background:var(--coral)"></span>What your money earned</span></div>
-      </div>
-      <p class="fine">Same $24,000 in. Invested, your money does more than twice the work. Example only: $100 a month for 20 years, 7% a year invested, 4% a year in savings, compounded yearly. Returns are not guaranteed.</p>
-    </div>
-  </section>
+      <div class="center"><h2 class="reveal d1">How it works</h2></div>
 
-  <!-- How it works -->
-  <section id="how" style="background:var(--bg-2)">
-    <div class="wrap">
-      <h2 class="reveal d1">Set it once.<br>Then it runs on payday.</h2>
-      <div class="steps">
-        <div class="step reveal">
-          <div class="n">01</div><h3>Set your plan.</h3>
-          <p>Slide to choose how much of each paycheck goes to savings and to investing.</p>
-          <div class="vignette"><div class="vg">
-            <div class="mini-row"><span>Save</span><span>25% · $68.75</span></div>
-            <div class="mini-track"><div class="mini-fill" style="width:62%"></div><div class="mini-knob" style="left:62%"></div></div>
-          </div></div>
+      <div class="feat">
+        <div class="reveal">
+          <div class="step-n">1</div>
+          <h3 class="feat-h">Set your plan once.</h3>
+          <p class="feat-p">Slide to choose how much of each paycheck goes to savings and how much to investing. Change it anytime.</p>
         </div>
-        <div class="step reveal d1">
-          <div class="n">02</div><h3>Connect your bank.</h3>
-          <p>First 30 sees your balance, your paychecks and your upcoming bills. Nothing else.</p>
-          <div class="vignette"><div class="vg">
-            <div class="chip">
-              <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/></svg></span>
-              Checking ••4821
-              <span class="ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span>
-            </div>
-          </div></div>
-        </div>
-        <div class="step reveal d2">
-          <div class="n">03</div><h3>Get a safe amount.</h3>
-          <p>Your plan is the target. If a bill is due before your next paycheck, the amount drops.</p>
-          <div class="vignette"><div class="vg">
-            <div class="notif"><b>PAYDAY</b>Rent is due Friday. Save $20 this time instead of $40.</div>
-          </div></div>
-        </div>
-        <div class="step reveal d3">
-          <div class="n">04</div><h3>Tap. Then go automatic.</h3>
-          <p>At first it asks. After 4 paydays in a row, turn on Autopilot. Pause anytime.</p>
-          <div class="vignette"><div class="vg">
-            <div class="tgl"><div>Autopilot<small>Every payday</small></div><span class="switch"></span></div>
-          </div></div>
-        </div>
+        <div class="vis reveal d1"><div class="mock">
+          <div class="mini-row"><span>To savings</span><span>15% · $41</span></div>
+          <div class="mini-track" style="margin:12px 0 22px"><div class="mini-fill" style="width:37%;background:#8FB3EA"></div><div class="mini-knob" style="left:37%"></div></div>
+          <div class="mini-row"><span>To investing</span><span>10% · $28</span></div>
+          <div class="mini-track" style="margin-top:12px"><div class="mini-fill" style="width:25%"></div><div class="mini-knob" style="left:25%"></div></div>
+        </div></div>
       </div>
+
+      <div class="feat rev">
+        <div class="reveal">
+          <div class="step-n">2</div>
+          <h3 class="feat-h">Payday does the rest.</h3>
+          <p class="feat-p">When your paycheck lands, First 30 works out a safe amount. If rent is due first, it saves less that week. After 4 paydays, turn on Autopilot and it happens by itself.</p>
+        </div>
+        <div class="vis reveal d1"><div class="mock">
+          <div class="notif"><b>PAYDAY · $275 JUST LANDED</b>Rent is due Friday. Save $20 this time instead of $40.</div>
+          <div class="tgl" style="margin-top:18px"><div>Autopilot<small>Every payday</small></div><span class="switch"></span></div>
+        </div><svg class="penny penny-wave" width="66" height="80" aria-hidden="true"><use href="#penny-wave"/></svg></div>
+      </div>
+
+      <div class="feat">
+        <div class="reveal">
+          <div class="step-n">3</div>
+          <h3 class="feat-h">Watch your money work.</h3>
+          <p class="feat-p">$46 a paycheck is about $100 a month. Invested from 20 to 40, you put in $24,000 and your money earns the rest. Milestones show how far you've come.</p>
+        </div>
+        <div class="vis reveal d1"><div class="mock">
+          <div class="fine" style="margin:0">Invested from 20 to 40</div>
+          <div class="mock-big num" data-count="49200"><span class="approx">≈</span>$49,200</div>
+          <div class="work-bar" style="margin-top:12px"><i style="width:48.8%"></i><b style="width:51.2%;transform:none"></b></div>
+          <div class="earned-row"><span>You put in $24,000</span><span class="g">Your money earned $25,200</span></div>
+          <div class="mini-row" style="margin-top:20px"><span>Next milestone: $500 emergency fund</span><span>22%</span></div>
+          <div class="mini-track" style="margin-top:10px"><div class="mini-fill" style="width:22%;background:var(--coral)"></div></div>
+        </div><svg class="penny penny-cheer" width="70" height="92" aria-hidden="true"><use href="#penny-cheer"/></svg></div>
+      </div>
+
+      <div class="assure reveal"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D9673F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Your money stays in your accounts</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D9673F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>It never picks your investments</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D9673F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>No loans. Pause anytime.</span></div>
+      <p class="fine center" style="margin-top:14px">Example only: 7% a year invested, compounded yearly. Returns are not guaranteed.</p>
     </div>
   </section>
 
   <!-- Demo -->
-  <section id="demo">
+  <section id="demo" style="background:var(--bg-2)">
     <div class="wrap">
-      <h2 class="reveal d1">Set your plan.</h2>
-      <p class="lead reveal d2">Drag the sliders. Sample numbers only; nothing connects to a bank.</p>
+      <div class="center"><h2 class="reveal d1">See what your paycheck can become</h2>
+      <p class="lead center reveal d2">Drag the sliders. Sample numbers only; nothing connects to a bank.</p></div>
 
       <div class="demo">
         <div class="panel reveal">
@@ -449,12 +549,12 @@
             <input type="range" id="invest" min="0" max="40" step="1" value="10">
           </div>
           <div class="split" aria-hidden="true">
-            <div id="barSave" style="background:#8B8BB0"></div>
+            <div id="barSave" style="background:#8FB3EA"></div>
             <div id="barInvest" style="background:var(--ink)"></div>
             <div id="barSpend" style="background:var(--line)"></div>
           </div>
           <div class="legend">
-            <span><span class="sw" style="background:#8B8BB0"></span>Savings</span>
+            <span><span class="sw" style="background:#8FB3EA"></span>Savings</span>
             <span><span class="sw" style="background:var(--ink)"></span>Investing</span>
             <span><span class="sw" style="background:var(--line)"></span>Yours to spend</span>
           </div>
@@ -482,12 +582,12 @@
             <div class="cmp">If it sat in savings<b class="num" id="cash40"></b></div>
           </div>
           <svg class="chart" id="chart" viewBox="0 0 600 240" role="img" aria-label="Growth chart: investing versus savings by age 40">
-            <g stroke="#ECECF6" stroke-width="1">
+            <g stroke="#E8EEF7" stroke-width="1">
               <line x1="0" x2="600" y1="200" y2="200"/><line x1="0" x2="600" y1="133" y2="133"/><line x1="0" x2="600" y1="66" y2="66"/>
             </g>
-            <path id="pathCash" fill="none" stroke="#B8B8D4" stroke-width="2.5" stroke-dasharray="5 6" stroke-linecap="round"/>
-            <path id="pathInv" fill="none" stroke="#16163A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle id="endDot" r="6" fill="#fff" stroke="#16163A" stroke-width="3"/>
+            <path id="pathCash" fill="none" stroke="#B9C6DA" stroke-width="2.5" stroke-dasharray="5 6" stroke-linecap="round"/>
+            <path id="pathInv" fill="none" stroke="#191919" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle id="endDot" r="7" fill="#FF9A76" stroke="#fff" stroke-width="3"/>
             <text x="0" y="226" id="axStart">20</text><text x="600" y="226" text-anchor="end">40</text>
           </svg>
           <div class="earned" aria-live="polite">
@@ -505,100 +605,35 @@
     </div>
   </section>
 
-  <!-- Milestones -->
-  <section id="milestones" style="padding-top:40px">
-    <div class="wrap">
-      <h2 class="reveal d1">Know exactly where you stand.</h2>
-      <p class="lead reveal d2">Every paycheck moves you up the ladder, in the order that builds wealth.</p>
-      <div class="ladder reveal" id="ladder">
-        <div class="rung done"><div class="node"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div><div class="lbl">First paycheck saved</div><div class="sub">Done</div></div>
-        <div class="rung next"><div class="node">2</div><div class="lbl">A full semester of paydays</div><div class="sub">Up next</div></div>
-        <div class="rung"><div class="node">3</div><div class="lbl">$500 emergency fund</div></div>
-        <div class="rung"><div class="node">4</div><div class="lbl">First $500 invested</div></div>
-        <div class="rung"><div class="node">5</div><div class="lbl">One month of expenses saved</div></div>
-        <div class="rung"><div class="node">6</div><div class="lbl">Roth IRA opened</div></div>
-      </div>
-      <div class="goals reveal">
-        <span class="fine" style="margin:0 8px 0 0">Plus your own goals:</span>
-        <span class="goal">✈️ Spring break trip</span><span class="goal">🚗 First car</span><span class="goal">🔑 Apartment deposit</span>
-      </div>
-    </div>
-  </section>
 
-  <!-- Trust -->
-  <section style="padding-top:40px">
+  <!-- 4. Why I'm building this -->
+  <section id="why">
     <div class="wrap">
-      <h2 class="reveal d1">Your money stays yours.</h2>
-      <div class="trust">
-        <div class="reveal"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16163A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg><p>It moves money only between your own accounts.</p></div>
-        <div class="reveal d1"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16163A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg><p>It never tells you what to invest in. You choose.</p></div>
-        <div class="reveal d2"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16163A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M4 19L20 5"/></svg><p>No loans. No credit. No cash advances.</p></div>
-        <div class="reveal d3"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16163A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6v12M15 6v12"/></svg><p>Pause or change anything, anytime.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Why I'm building this -->
-  <section id="why" style="padding-top:40px">
-    <div class="wrap">
-      <h2 class="reveal d1">It started with my own paycheck.</h2>
-      <div class="note">
-        <div class="letter reveal">
-          <p>I get $275 every two weeks from a part-time job. For a long time it was gone in two days.</p>
-          <p>I wasn't missing the tools. I had a high-yield savings account, and I'd just opened an investing app. I was missing a moment: money only moved when I remembered, and I was never sure how much was safe to move.</p>
-          <p>So I'm building the thing I needed. It shows up on payday, does the math, and moves the money before I can spend it.</p>
-          <div class="sig">
-            <span class="avatar">ST</span>
-            <div><b>Sofia Troncone</b><small>Founder, First 30</small></div>
-          </div>
+      <div class="letter solo with-photo reveal">
+        <img class="founder-photo" src="../images/headshot.jpg" alt="Sofia Troncone, founder of First 30" width="800" height="1000" loading="lazy">
+        <div class="founder-text">
+        <h2 style="margin-bottom:22px">It started with my own paycheck.</h2>
+        <p>I get $275 every two weeks from a part-time job. For a long time it was gone in two days.</p>
+        <p>I wasn't missing the tools. I had a high-yield savings account, and I'd just opened an investing app. I was missing a moment: money only moved when I remembered, and I was never sure how much was safe to move.</p>
+        <p>So I'm building the thing I needed. It shows up on payday, does the math, and moves the money before I can spend it.</p>
+        <div class="sig">
+          <div><b>Sofia Troncone</b><small>Founder, First 30</small></div>
         </div>
-        <div class="build reveal d1">
-          <h3>Behind the build</h3>
-          <ol>
-            <li class="done"><i>✓</i><div><b>Problem</b><span>Started from one real paycheck, with the numbers</span></div></li>
-            <li class="done"><i>✓</i><div><b>Solution</b><span>Every feature traced back to a reason saving fails</span></div></li>
-            <li class="done"><i>✓</i><div><b>Working demo</b><span>The sliders above, with real compounding math</span></div></li>
-            <li class="done"><i>✓</i><div><b>Motion piece</b><span>The hero video, coded frame by frame on a 120 BPM beat grid</span></div></li>
-            <li><i>5</i><div><b>Evidence</b><span>Student survey in progress</span></div></li>
-          </ol>
-          <div class="stack"><span>Product thinking</span><span>HTML · CSS · JS</span><span>Python</span><span>Built with AI tools</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA band -->
-  <section style="padding-top:20px">
+  <!-- 5. Sign up -->
+  <section style="padding-top:0">
     <div class="wrap">
       <div class="band reveal">
         <h2>Your next paycheck could be the first one with a plan.</h2>
         <div class="hero-ctas">
-          <a class="btn btn-dark" href="#demo">Build my plan
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-          <a class="text-link" href="#" data-todo="notify-form">Get notified at launch →</a>
+          <a class="btn btn-dark" href="#" data-todo="notify-form">Sign up for launch</a>
         </div>
+        <p class="org-line" id="orgs">Run a financial education program or a university? Offer First 30 to your people under your own brand. <a href="#" data-todo="contact-form">Get in touch</a></p>
       </div>
-    </div>
-  </section>
-
-  <!-- Organizations -->
-  <section id="orgs" style="padding-top:40px">
-    <div class="wrap">
-      <h2 class="reveal d1">Give your people a plan for every paycheck.</h2>
-      <p class="lead reveal d2">First 30 is free for students and members. Organizations license it and offer it under their own brand.</p>
-      <div class="org-grid">
-        <div class="reveal"><h3>Financial education programs</h3><p>Your members learn what to do with their money. First 30 makes sure they do it, every payday.</p></div>
-        <div class="reveal d1"><h3>Universities</h3><p>Students get it before graduation, so the habit is in place before the first full-time paycheck.</p></div>
-      </div>
-      <div class="model reveal">
-        <span><b>Free</b> for every user</span>
-        <span><b>Your brand</b> on the app</span>
-        <span><b>One license</b> for your whole program</span>
-      </div>
-      <a class="btn btn-light reveal" href="#" data-todo="contact-form">Get in touch
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
     </div>
   </section>
 
@@ -606,7 +641,7 @@
 
 <footer>
   <div class="wrap">
-    <span><a class="logo" href="#top" style="font-size:1.15rem" aria-label="First 30, home"><span class="wm">first3</span><svg class="loop" viewBox="0 0 48 60" aria-hidden="true"><path d="M24 7 C 38 7, 42 20, 42 30 C 42 44, 34 53, 24 53 C 12 53, 6 42, 6 30 C 6 20, 10 12, 17 9" fill="none" stroke="var(--cobalt)" stroke-width="8" stroke-linecap="round"/><path d="M10 2 L19 9 L10 17" fill="none" stroke="var(--coral)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></span>
+    <span><a class="logo" href="#top" style="font-size:1.15rem" aria-label="First 30, home"><span class="wm">first3</span><svg class="loop" viewBox="0 0 48 60" aria-hidden="true"><path d="M24 7 C 38 7, 42 20, 42 30 C 42 44, 34 53, 24 53 C 12 53, 6 42, 6 30 C 6 20, 10 12, 17 9" fill="none" stroke="var(--ink)" stroke-width="8" stroke-linecap="round"/><path d="M10 2 L19 9 L10 17" fill="none" stroke="var(--coral)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></span>
     <span>A concept by Sofia Troncone.</span>
     <span class="psst">psst: press <kbd>$</kbd></span>
     <a class="text-link" href="../">Back to homepage</a>
@@ -620,17 +655,16 @@
 
   /* Nav border on scroll */
   const nav = $("nav");
-  addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 8), { passive: true });
+  const heroEl = document.querySelector(".hero");
+  const navState = () => nav.classList.toggle("scrolled", scrollY > heroEl.offsetHeight - nav.offsetHeight);
+  addEventListener("scroll", navState, { passive: true }); navState();
 
-  /* Hero video: hide the fallback once it plays */
-  const vid = document.querySelector(".hero-media video");
-  vid.addEventListener("playing", () => document.querySelector(".hero-media .fallback").style.display = "none");
-  vid.addEventListener("error", () => vid.remove());
+
 
   /* Balance bars: $275 on payday, gone by day 2 */
   const BAL = [275, 120, 8, 6, 5, 5, 4, 4, 3, 3, 2, 2, 1, 1];
   const barsEl = $("bars");
-  BAL.forEach(() => { const b = document.createElement("div"); b.className = "bar"; barsEl.appendChild(b); });
+  if (barsEl) BAL.forEach(() => { const b = document.createElement("div"); b.className = "bar"; barsEl.appendChild(b); });
   function playBars() {
     [...barsEl.children].forEach((b, i) => {
       setTimeout(() => {
@@ -662,6 +696,15 @@
     e.target.classList.add("in");
     if (e.target.id === "balance") playBars();
     e.target.querySelectorAll("[data-count]").forEach(countUp);
+    e.target.querySelectorAll("[data-money]").forEach(el => {
+      const end = +el.dataset.money, d = +(el.dataset.dec || 0);
+      if (reduce || end === 0) return;
+      const t0 = performance.now();
+      const step = now => { const k = Math.min(1, (now - t0) / 1000), e2 = 1 - Math.pow(1 - k, 3);
+        el.textContent = "$" + (end * e2).toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+        if (k < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    });
     io.unobserve(e.target);
   }), { threshold: 0.2 });
   document.querySelectorAll(".reveal").forEach(el => io.observe(el));
@@ -765,7 +808,7 @@
   }
   const toastEl = document.createElement("div");
   toastEl.className = "toast"; toastEl.setAttribute("role", "status");
-  toastEl.innerHTML = `<span class="ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16163A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><div><span id="toastTitle"></span><small id="toastSub"></small></div>`;
+  toastEl.innerHTML = `<span class="ck"><svg width="36" height="40"><use href="#penny-cheer"/></svg></span><div><span id="toastTitle"></span><small id="toastSub"></small></div>`;
   document.body.appendChild(toastEl);
   let toastTimer;
   function toast(title, sub) {
@@ -793,14 +836,25 @@
   document.querySelectorAll('input[name=freq]').forEach(r => r.addEventListener("change", () => { pctSeen = true; celebrate(); }));
   celebrate();
 
-  // A little rain the first time someone clicks "Build my plan"
+  // A little rain the first time someone clicks "Start today"
   let firstBuild = true;
   document.querySelectorAll('a[href="#demo"]').forEach(a => a.addEventListener("click", () => {
     if (firstBuild) { firstBuild = false; setTimeout(() => makeItRain(16), 450); }
   }));
 
   /* Ladder progress line */
-  new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { $("ladder").classList.add("in"); o.disconnect(); } }), { threshold: 0.3 }).observe($("ladder"));
+  if ($("ladder")) new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { $("ladder").classList.add("in"); o.disconnect(); } }), { threshold: 0.3 }).observe($("ladder"));
+  document.querySelectorAll(".logo").forEach(l => {
+    const spin = () => { l.classList.remove("spin"); void l.offsetWidth; l.classList.add("spin"); };
+    l.addEventListener("mouseenter", spin);
+    if (l.closest("nav")) {
+      const wm = l.querySelector(".wm");
+      wm.innerHTML = [...wm.textContent].map((ch, i) => `<span style="--i:${i}">${ch}</span>`).join("");
+      l.classList.add("pre");
+      document.fonts.ready.then(() => setTimeout(() => { l.classList.remove("pre"); l.classList.add("intro"); }, 200));
+      l.addEventListener("animationend", e => { if (e.target.classList.contains("loop")) l.classList.remove("intro"); });
+    }
+  });
 </script>
 </body>
 </html>

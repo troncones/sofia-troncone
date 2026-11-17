@@ -103,6 +103,9 @@
   .payday.done { background: var(--ink); }
   .payday .k { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; opacity: 0.8; text-transform: uppercase; }
   .payday .m { font-size: 20px; font-weight: 700; line-height: 1.3; margin-top: 6px; letter-spacing: -0.01em; }
+  .pwave { position: absolute; right: 12px; top: 10px; transform-origin: 50% 100%; animation: pw 1.2s ease-in-out 2; }
+  @keyframes pw { 25% { transform: rotate(-7deg); } 75% { transform: rotate(7deg); } }
+  .payday .m { padding-right: 46px; }
   .payday .acts { display: flex; gap: 8px; margin-top: 16px; }
   .payday .acts .btn { padding: 12px; font-size: 15px; border-radius: 12px; }
   .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
@@ -171,14 +174,37 @@
   .toast .ic { background: var(--apr); color: var(--ink); border-radius: 50%; }
   .toast b { display: block; font-size: 15px; } .toast small { color: #C9C9E0; font-size: 13px; }
   .rain { position: absolute; inset: 0; pointer-events: none; z-index: 75; overflow: hidden; }
-  .bill { position: absolute; top: -60px; width: 70px; height: 34px; border-radius: 4px; background: var(--apr); animation: fall var(--dur) cubic-bezier(.35,0,.7,1) var(--delay) forwards; opacity: 0; }
-  .bill::before { content: ""; position: absolute; inset: 3px; border: 1.5px solid #C2522E; border-radius: 2px; }
-  .bill::after { content: "$"; position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; transform: translate(-50%,-50%); border-radius: 50%; background: #FFD3C4; color: #7A2A14; font-weight: 800; font-size: 13px; line-height: 20px; text-align: center; }
+  .bill { position: absolute; top: -60px; width: 70px; height: 34px; border-radius: 4px; background: #7FB35F; animation: fall var(--dur) cubic-bezier(.35,0,.7,1) var(--delay) forwards; opacity: 0; }
+  .bill::before { content: ""; position: absolute; inset: 3px; border: 1.5px solid #4C7D36; border-radius: 2px; }
+  .bill::after { content: "$"; position: absolute; left: 50%; top: 50%; width: 20px; height: 20px; transform: translate(-50%,-50%); border-radius: 50%; background: #A7D08A; color: #2F5A20; font-weight: 800; font-size: 13px; line-height: 20px; text-align: center; }
   @keyframes fall { 0% { opacity: 0; transform: translate(0,0) rotate(var(--r0)); } 10% { opacity: 1; } 50% { transform: translate(var(--sway), 50vh) rotate(calc(var(--r0) + 120deg)) scaleY(0.4); } 90% { opacity: 1; } 100% { opacity: 0; transform: translate(0, 110vh) rotate(calc(var(--r0) + 240deg)); } }
   @media (prefers-reduced-motion: reduce) { .screen, .step, .sheet, .toast, .onb { transition: none; animation: none; } }
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="penny-wave" viewBox="0 0 190 230">
+    <ellipse cx="95" cy="222" rx="52" ry="7" fill="#9DB8E6"/>
+    <rect x="70" y="180" width="12" height="38" rx="6" fill="#191919"/><rect x="108" y="180" width="12" height="38" rx="6" fill="#191919"/>
+    <path d="M40 120 Q 12 92 22 60" stroke="#191919" stroke-width="11" fill="none" stroke-linecap="round"/>
+    <path d="M150 120 Q 172 120 176 98" stroke="#191919" stroke-width="11" fill="none" stroke-linecap="round"/>
+    <circle cx="95" cy="118" r="70" fill="#FF9A76"/><circle cx="95" cy="118" r="56" fill="none" stroke="#E07B55" stroke-width="5"/>
+    <circle cx="74" cy="108" r="7" fill="#191919"/><circle cx="116" cy="108" r="7" fill="#191919"/>
+    <path d="M76 134 Q 95 152 114 134" stroke="#191919" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <circle cx="62" cy="128" r="6" fill="#FFC1A8"/><circle cx="128" cy="128" r="6" fill="#FFC1A8"/>
+  </symbol>
+  <symbol id="penny-cheer" viewBox="0 0 190 250">
+    <g transform="rotate(-18 40 40)"><rect x="12" y="24" width="60" height="28" rx="3" fill="#7FB35F"/><circle cx="42" cy="38" r="8" fill="#A7D08A"/></g>
+    <g transform="rotate(16 150 30)"><rect x="122" y="14" width="60" height="28" rx="3" fill="#7FB35F"/><circle cx="152" cy="28" r="8" fill="#A7D08A"/></g>
+    <ellipse cx="95" cy="242" rx="52" ry="7" fill="#9DB8E6"/>
+    <rect x="70" y="200" width="12" height="38" rx="6" fill="#191919"/><rect x="108" y="200" width="12" height="38" rx="6" fill="#191919"/>
+    <path d="M38 132 Q 18 104 30 72" stroke="#191919" stroke-width="11" fill="none" stroke-linecap="round"/>
+    <path d="M152 132 Q 172 104 160 72" stroke="#191919" stroke-width="11" fill="none" stroke-linecap="round"/>
+    <circle cx="95" cy="138" r="70" fill="#FF9A76"/><circle cx="95" cy="138" r="56" fill="none" stroke="#E07B55" stroke-width="5"/>
+    <path d="M66 126 Q 74 116 82 126" stroke="#191919" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M108 126 Q 116 116 124 126" stroke="#191919" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M74 148 Q 95 176 116 148 Z" fill="#191919"/>
+  </symbol>
+</svg>
 <div class="device">
   <div class="island"></div>
   <div class="app" id="app">
@@ -286,7 +312,7 @@
         <p>On payday, First 30 works out how much is safe to save, moves it to your own accounts, and puts your money to work.</p>
         <input class="field" id="nameIn" placeholder="What should we call you?" autocomplete="given-name" maxlength="24">
         <div class="spacer"></div>
-        <button class="btn btn-ink" data-next>Get started</button>
+        <button class="btn btn-ink" data-next>Start today</button>
       </div>
 
       <div class="step" data-step="1">
@@ -323,7 +349,7 @@
       </div>
     </div>
 
-    <div class="toast" id="toast"><span class="ic">✓</span><div><b id="toastT"></b><small id="toastS"></small></div></div>
+    <div class="toast" id="toast"><span class="ic" style="background:transparent;width:34px;height:38px"><svg width="34" height="38"><use href="#penny-cheer"/></svg></span><div><b id="toastT"></b><small id="toastS"></small></div></div>
   </div>
 </div>
 
@@ -381,6 +407,7 @@ function render() {
   const card = $("payCard"), acts = $("payActs");
   card.className = "payday";
   acts.innerHTML = "";
+  card.querySelectorAll(".pwave").forEach(x => x.remove());
   if (S.pending && S.pending.state === "ask") {
     const p = S.pending;
     card.classList.toggle("adjusted", p.adjusted);
@@ -388,6 +415,7 @@ function render() {
     $("payM").textContent = p.adjusted
       ? (p.safe < 1 ? "Bills take this whole paycheck. Skip saving this time; you're still on track." : `${p.billNames} due first. Move ${money(p.s, 2)} to savings and ${money(p.i, 2)} to investing this time.`)
       : `Move ${money(p.s, 2)} to savings and ${money(p.i, 2)} to investing?`;
+    card.insertAdjacentHTML("beforeend", `<svg class="pwave" width="46" height="56" aria-hidden="true"><use href="#penny-wave"/></svg>`);
     acts.innerHTML = `<button class="btn ${p.adjusted ? "btn-ink" : "btn-white"}" id="moveBtn">${p.safe < 1 ? "OK" : "Move it"}</button><button class="btn" style="background:rgba(255,255,255,0.18);color:inherit" id="skipBtn">Skip</button>`;
     $("moveBtn").onclick = () => confirmMove();
     $("skipBtn").onclick = () => { S.pending = null; S.streak = 0; log("Skipped a payday", 0, 0); save(); render(); };
