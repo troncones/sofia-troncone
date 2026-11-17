@@ -21,8 +21,7 @@
             --sand: #f6efe8;
             --taupe: #ecdfd3;
             --gold: #b8976a;
-            --sage: #7f9a83;
-            --serif: 'Playfair Display', Georgia, serif;
+                        --serif: 'Playfair Display', Georgia, serif;
             --sans: 'Lato', Helvetica, Arial, sans-serif;
             --wrap: 1000px;
         }
@@ -231,23 +230,6 @@
             opacity: 0; animation: pop 0.8s ease 4.2s forwards;
         }
 
-        /* Ticker */
-        .ticker {
-            margin-top: 56px;
-            border-top: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
-            background: var(--white);
-            overflow: hidden;
-            -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-            mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-        }
-        .ticker-track { display: flex; width: max-content; animation: ticker 55s linear infinite; }
-        .ticker:hover .ticker-track { animation-play-state: paused; }
-        .tick { display: flex; align-items: center; gap: 10px; padding: 17px 36px; white-space: nowrap; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; border-right: 1px solid var(--line); }
-        .tick-sym { font-weight: 700; color: var(--brown); }
-        .tick-up { color: var(--sage); font-size: 0.65rem; }
-        .tick-name { color: var(--muted); font-weight: 400; }
-        @keyframes ticker { to { transform: translateX(-50%); } }
         .hero-chart .area { fill: url(#chartFill); }
         .hero-chart .line { fill: none; stroke: var(--gold); stroke-opacity: 0.55; stroke-width: 1.5; stroke-dasharray: 2600; stroke-dashoffset: 2600; animation: draw 3.2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards; }
         .hero-chart .dot { fill: var(--pink); opacity: 0; animation: pop 0.6s ease 3.4s forwards; }
@@ -418,8 +400,6 @@
             .hero-chart .line { animation: none; stroke-dashoffset: 0; }
             .hero-chart .forecast, .marker, .chart-hint { animation: none; opacity: 1; }
             .marker.now::after { animation: none; }
-            .ticker { overflow-x: auto; }
-            .ticker-track { animation: none; }
             .hero-glow { display: none; }
         }
 
@@ -429,7 +409,6 @@
             .hero { padding: 70px 0 150px; }
             .chart-zone { height: 130px; }
             .marker, .chart-tip, .chart-guide, .chart-hint { display: none; }
-            .ticker { margin-top: 40px; }
             .hero .wrap { grid-template-columns: 1fr; gap: 50px; text-align: center; }
             .eyebrow { justify-content: center; }
             .hero-lede { margin-left: auto; margin-right: auto; }
@@ -532,18 +511,6 @@
         </div>
     </div>
 
-    <div class="ticker" id="ticker" aria-label="Career highlights">
-        <div class="ticker-track" id="ticker-track">
-            <div class="tick"><span class="tick-sym">XFL</span><span class="tick-up">&#9650;</span><span class="tick-name">Founding President</span></div>
-            <div class="tick"><span class="tick-sym">XUIC</span><span class="tick-up">&#9650;</span><span class="tick-name">Chief Technology Officer</span></div>
-            <div class="tick"><span class="tick-sym">NEXT</span><span class="tick-up">&#9650;</span><span class="tick-name">AI at Work Cohort</span></div>
-            <div class="tick"><span class="tick-sym">FIN</span><span class="tick-up">&#9650;</span><span class="tick-name">B.S.B.A. Class of 2028</span></div>
-            <div class="tick"><span class="tick-sym">LANG</span><span class="tick-up">&#9650;</span><span class="tick-name">English &middot; Fran&ccedil;ais &middot; Italiano</span></div>
-            <div class="tick"><span class="tick-sym">UGC</span><span class="tick-up">&#9650;</span><span class="tick-name">Brand Content Creator</span></div>
-            <div class="tick"><span class="tick-sym">TOT</span><span class="tick-up">&#9650;</span><span class="tick-name">Youth Board Representative</span></div>
-        </div>
-    </div>
-
     <main class="wrap">
 
         <section class="block" id="leadership">
@@ -626,9 +593,9 @@
                 </div>
                 <div class="reveal d1">
                     <div class="post-frame">
-                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7458191680043814912" width="100%" height="750" frameborder="0" allowfullscreen title="Sofia Troncone's LinkedIn post on the Xavier NEXT AI at Work cohort"></iframe>
+                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7528496383650238465" width="100%" height="720" frameborder="0" allowfullscreen title="Sofia Troncone's LinkedIn post on speaking at Xavier's In the Loop panel"></iframe>
                     </div>
-                    <a class="post-link" href="https://www.linkedin.com/feed/update/urn:li:share:7458191680043814912" target="_blank" rel="noopener noreferrer">View on LinkedIn &rsaquo;</a>
+                    <a class="post-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7528496383650238465/" target="_blank" rel="noopener noreferrer">View on LinkedIn &rsaquo;</a>
                 </div>
             </div>
         </section>
@@ -780,15 +747,6 @@
             });
         })();
 
-        // Ticker: duplicate items for a seamless loop
-        (function () {
-            var track = document.getElementById('ticker-track');
-            Array.prototype.slice.call(track.children).forEach(function (t) {
-                var c = t.cloneNode(true);
-                c.setAttribute('aria-hidden', 'true');
-                track.appendChild(c);
-            });
-        })();
     </script>
 </body>
 </html>
