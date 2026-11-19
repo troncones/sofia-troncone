@@ -320,40 +320,8 @@
         .post-link:hover { color: var(--brown); border-bottom-color: var(--brown); }
 
         /* Connect */
-        .connect {
-            margin: 110px 0 0;
-            background: var(--brown);
-            color: var(--white);
-            border-radius: 24px;
-            padding: 70px 50px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .connect::before {
-            content: "";
-            position: absolute;
-            width: 420px; height: 420px;
-            left: -120px; bottom: -220px;
-            border-radius: 50%;
-            border: 1px solid rgba(244, 201, 214, 0.35);
-        }
-        .connect::after {
-            content: "";
-            position: absolute;
-            width: 300px; height: 300px;
-            right: -90px; top: -150px;
-            border-radius: 50%;
-            border: 1px solid rgba(244, 201, 214, 0.25);
-        }
-        .connect .eyebrow { justify-content: center; color: var(--pink); }
-        .connect h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1.15; margin-bottom: 16px; }
-        .connect p { color: rgba(255, 255, 255, 0.82); font-size: 1.1rem; max-width: 32em; margin: 0 auto 34px; }
-        .connect .hero-actions { justify-content: center; position: relative; z-index: 1; }
-        .connect .btn-solid { background: var(--white); color: var(--brown); box-shadow: none; }
-        .connect .btn-solid:hover { box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2); }
-        .connect .btn-ghost { border-color: rgba(255, 255, 255, 0.6); color: var(--white); }
-        .connect .btn-ghost:hover { background: var(--white); color: var(--brown); }
+        .connect-row { display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
+        .connect-row p { font-size: 1.1rem; max-width: 26em; margin: 0; }
 
         footer { text-align: center; color: var(--muted); font-size: 0.85rem; letter-spacing: 0.06em; padding: 50px 0 60px; }
 
@@ -433,7 +401,6 @@
             .fact + .fact { border-left: none; border-top: 1px solid var(--line); }
             section.block { padding-top: 80px; }
             .section-head::after { display: none; }
-            .connect { padding: 54px 24px; border-radius: 18px; }
         }
     </style>
 </head>
@@ -447,7 +414,7 @@
                 <li><a href="#voices">Top Voices</a></li>
                 <li><a href="#resume">Resume</a></li>
                 <li><a href="#posts">Posts</a></li>
-                <li><a href="#connect">Connect</a></li>
+                <li><a href="#connect">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -608,10 +575,13 @@
             </div>
         </section>
 
-        <section class="connect reveal" id="connect">
-            <p class="eyebrow">Connect</p>
-            <h2>Let's talk.</h2>
-            <p>Open to finance internships and conversations with people in the field.</p>
+        <section class="block connect" id="connect">
+            <div class="section-head reveal">
+                <span class="section-num">05</span>
+                <h2>Contact</h2>
+            </div>
+            <div class="connect-row reveal">
+            <p>Open to finance, tech, and AI internships.</p>
             <div class="hero-actions">
                 <a class="btn btn-solid" href="mailto:troncones@xavier.edu">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13Zm2.2.5 7.8 6.2 7.8-6.2H4.2ZM20 7.3l-7.4 5.9a1 1 0 0 1-1.2 0L4 7.3v11.2h16V7.3Z"/></svg>
@@ -621,6 +591,7 @@
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.44-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM3.56 20.45h3.56V9H3.56v11.45Z"/></svg>
                     LinkedIn
                 </a>
+            </div>
             </div>
         </section>
 
