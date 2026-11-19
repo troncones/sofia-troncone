@@ -1,0 +1,1276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Would I Buy Anthropic?</title>
+<meta name="description" content="An investment report on Anthropic's November 19, 2026 IPO (Nasdaq: ANT), by Sofia Troncone. MGMT 342, Xavier University.">
+<meta name="author" content="Sofia Troncone">
+<meta property="og:title" content="Would I Buy Anthropic? · ANT IPO report">
+<meta property="og:description" content="The offering, the prospectus, who controls the company, and my decision, with evidence from the SEC filings.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307060d'/%3E%3Cpath d='M18 48 32 14l14 34M23 37h18' fill='none' stroke='%23ff2bd6' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+  /* LIGHT (default): neon accents tuned for white paper */
+  :root {
+    --bg: #f6f5fc;
+    --panel: #ffffff;
+    --ink: #15122b;
+    --muted: #5d5880;
+    --faint: #9b96ba;
+    --line: #e4e1f3;
+    --cyan: #0096c7;
+    --magenta: #e0129a;
+    --lime: #3f9a0c;
+    --yellow: #c48a00;
+    --sans: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    --mono: "Cascadia Code", "JetBrains Mono", Consolas, "SF Mono", Menlo, monospace;
+    --glow-c: 0 0 18px rgba(0,150,199,.28);
+    --glow-m: 0 0 18px rgba(224,18,154,.28);
+    --glow-l: 0 0 18px rgba(63,154,12,.25);
+    --glow-y: 0 0 18px rgba(196,138,0,.25);
+    --halo-m: rgba(224,18,154,.10);
+    --halo-c: rgba(0,150,199,.10);
+    --gridline: rgba(80,60,200,.06);
+    --bar-bg: rgba(246,245,252,.78);
+    --tape-bg: rgba(255,255,255,.7);
+    --todo-bg: rgba(255,255,255,.6);
+    --card-shadow: 0 1px 2px rgba(30,20,80,.05), 0 14px 34px -14px rgba(30,20,80,.18);
+    --chip-ink: #ffffff;
+    color-scheme: light;
+  }
+  /* DARK: full neon */
+  :root[data-theme="dark"] {
+    --bg: #07060d;
+    --panel: #0f0d1c;
+    --ink: #eeeaff;
+    --muted: #9a93c0;
+    --faint: #5c5687;
+    --line: #26214a;
+    --cyan: #00f0ff;
+    --magenta: #ff2bd6;
+    --lime: #b6ff3b;
+    --yellow: #ffe14d;
+    --glow-c: 0 0 8px rgba(0,240,255,.7), 0 0 24px rgba(0,240,255,.35);
+    --glow-m: 0 0 8px rgba(255,43,214,.7), 0 0 24px rgba(255,43,214,.35);
+    --glow-l: 0 0 8px rgba(182,255,59,.7), 0 0 24px rgba(182,255,59,.35);
+    --glow-y: 0 0 8px rgba(255,225,77,.7), 0 0 24px rgba(255,225,77,.35);
+    --halo-m: rgba(255,43,214,.18);
+    --halo-c: rgba(0,240,255,.12);
+    --gridline: rgba(124,108,255,.07);
+    --bar-bg: rgba(7,6,13,.72);
+    --tape-bg: rgba(15,13,28,.6);
+    --todo-bg: rgba(15,13,28,.5);
+    --card-shadow: none;
+    --chip-ink: #07060d;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; color: var(--ink); font: 17px/1.7 var(--sans); background: transparent; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  html {
+    scroll-behavior: smooth; scroll-padding-top: 76px;
+    background:
+      radial-gradient(1200px 600px at 85% -10%, var(--halo-m), transparent 60%),
+      radial-gradient(900px 500px at -10% 20%, var(--halo-c), transparent 60%),
+      var(--bg);
+    background-attachment: fixed;
+  }
+  /* glowing grid floor */
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    background-image:
+      linear-gradient(var(--gridline) 1px, transparent 1px),
+      linear-gradient(90deg, var(--gridline) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 80%);
+  }
+  a { color: var(--cyan); text-underline-offset: 3px; overflow-wrap: anywhere; }
+  a:hover { text-shadow: var(--glow-c); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+  .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+  #progress {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 60;
+    background: linear-gradient(90deg, var(--cyan), var(--magenta), var(--lime));
+    box-shadow: var(--glow-m);
+  }
+
+  /* ---------- top bar ---------- */
+  .bar {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--bar-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar .wrap { display: flex; align-items: center; gap: 22px; height: 60px; }
+  .mark { font-family: var(--mono); font-weight: 700; letter-spacing: .08em; white-space: nowrap; }
+  .mark b { color: var(--cyan); text-shadow: var(--glow-c); }
+  .mark i { font-style: normal; color: var(--magenta); text-shadow: var(--glow-m); }
+  .bar nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; flex: 1; }
+  .bar nav::-webkit-scrollbar { display: none; }
+  .bar nav a {
+    text-decoration: none; color: var(--muted); font-size: 13px; white-space: nowrap;
+    font-family: var(--mono); letter-spacing: .04em;
+    padding: 6px 12px; border-radius: 6px; border: 1px solid transparent;
+    transition: color .2s, border-color .2s, box-shadow .2s;
+  }
+  .bar nav a:hover { color: var(--ink); text-shadow: none; }
+  .bar nav a.active { color: var(--cyan); border-color: var(--cyan); box-shadow: inset 0 0 12px rgba(0,240,255,.25), 0 0 12px rgba(0,240,255,.25); }
+  .toggle {
+    flex: none; width: 38px; height: 38px; border-radius: 10px; cursor: pointer;
+    display: grid; place-items: center; background: var(--panel); color: var(--ink);
+    border: 1px solid var(--line); transition: border-color .2s, box-shadow .2s, color .2s;
+  }
+  .toggle:hover { border-color: var(--magenta); color: var(--magenta); box-shadow: var(--glow-m); }
+  .toggle svg { width: 18px; height: 18px; }
+  .toggle .moon { display: block; } .toggle .sun { display: none; }
+  :root[data-theme="dark"] .toggle .moon { display: none; }
+  :root[data-theme="dark"] .toggle .sun { display: block; }
+  .live { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--lime); white-space: nowrap; }
+  .live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--lime); box-shadow: var(--glow-l); animation: pulse 1.6s infinite; }
+  @keyframes pulse { 50% { opacity: .3; } }
+
+  /* ---------- ticker tape ---------- */
+  .tape { border-bottom: 1px solid var(--line); overflow: hidden; background: var(--tape-bg); }
+  .tape-inner { display: flex; gap: 48px; width: max-content; padding: 9px 0; animation: scroll 38s linear infinite; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .tape-inner span b { color: var(--ink); font-weight: 600; }
+  .tape-inner .up { color: var(--lime); }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 80px 0 64px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: center; }
+  .kicker { font-family: var(--mono); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--magenta); text-shadow: var(--glow-m); margin-bottom: 20px; }
+  h1 { font-size: clamp(46px, 8vw, 92px); line-height: .95; letter-spacing: -.035em; font-weight: 800; margin: 0 0 26px; }
+  h1 .neon {
+    color: transparent; background: linear-gradient(90deg, var(--cyan), var(--magenta) 60%, var(--yellow));
+    -webkit-background-clip: text; background-clip: text;
+    filter: drop-shadow(0 0 18px rgba(255,43,214,.45));
+  }
+  .lede { font-size: 19px; color: var(--muted); max-width: 46ch; margin: 0; }
+  .byline { display: inline-flex; align-items: center; gap: 10px; margin: -6px 0 22px; font-family: var(--mono); font-size: 16px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); padding: 6px 14px; border: 1px solid var(--cyan); border-radius: 999px; box-shadow: 0 0 16px -4px var(--cyan); }
+  .byline .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--magenta); box-shadow: var(--glow-m); }
+
+  .ticket { position: relative; border-radius: 18px; padding: 2px; background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--lime), var(--cyan)); background-size: 300% 300%; animation: sheen 8s ease infinite; box-shadow: 0 0 40px rgba(255,43,214,.25), 0 0 80px rgba(0,240,255,.12); }
+  @keyframes sheen { 50% { background-position: 100% 100%; } }
+  .ticket-in { background: var(--panel); border-radius: 16px; padding: 26px; }
+  .tk-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 22px; }
+  .sym { font-family: var(--mono); font-size: 34px; font-weight: 700; color: var(--cyan); text-shadow: var(--glow-c); line-height: 1; }
+  .co { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .chip { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--chip-ink); background: var(--lime); padding: 5px 10px; border-radius: 6px; box-shadow: var(--glow-l); }
+  .row { margin-bottom: 16px; }
+  .row .lbl { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: var(--muted); margin-bottom: 7px; }
+  .row .lbl b { font-family: var(--mono); color: var(--ink); font-size: 22px; }
+  .track { height: 8px; background: var(--line); border-radius: 999px; overflow: hidden; }
+  .fill { height: 100%; width: 0; border-radius: 999px; transition: width 1.4s cubic-bezier(.2,.8,.2,1); }
+  .fill.ipo { background: var(--magenta); box-shadow: var(--glow-m); width: 69.2% !important; animation: grow 1.4s cubic-bezier(.2,.8,.2,1) both; }
+  .fill.open { background: var(--cyan); box-shadow: var(--glow-c); width: 92.9% !important; animation: grow 1.4s .15s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes grow { from { width: 0; } }
+  .tk-foot { margin-top: 20px; padding-top: 14px; border-top: 1px dashed var(--line); font-family: var(--mono); font-size: 12px; color: var(--faint); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+  /* ---------- sections ---------- */
+  section { padding: 72px 0; border-top: 1px solid var(--line); }
+  .grid { display: grid; grid-template-columns: 170px 1fr; gap: 40px; }
+  .num { font-family: var(--mono); font-size: 64px; line-height: .9; font-weight: 700; position: sticky; top: 92px; color: var(--cyan); text-shadow: var(--glow-c); }
+  .num.m { color: var(--magenta); text-shadow: var(--glow-m); }
+  .num.l { color: var(--lime); text-shadow: var(--glow-l); }
+  .num.y { color: var(--yellow); text-shadow: var(--glow-y); }
+  .panel, .stat, .file, .quote { box-shadow: var(--card-shadow); }
+  .num small { display: block; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); text-shadow: none; margin-top: 12px; font-weight: 600; }
+  h2 { font-size: clamp(30px, 4.4vw, 44px); line-height: 1.05; letter-spacing: -.02em; font-weight: 800; margin: 0 0 10px; }
+  .objective { color: var(--muted); font-size: 18px; margin: 0 0 34px; max-width: 58ch; }
+  h3 { font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--magenta); font-weight: 600; margin: 40px 0 14px; display: flex; align-items: center; gap: 10px; }
+  h3::before { content: "//"; color: var(--faint); }
+  .grid > div > h3:first-of-type { margin-top: 0; }
+
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; }
+  .src { font-family: var(--mono); font-size: 12px; color: var(--faint); margin-top: 12px; }
+  .src a { color: var(--muted); }
+
+  /* first take */
+  .quote { position: relative; background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--magenta); border-radius: 14px; padding: 30px 30px 24px; box-shadow: -8px 0 30px -12px rgba(255,43,214,.6); }
+  .quote p { font-size: clamp(22px, 3vw, 30px); line-height: 1.3; font-weight: 600; margin: 0 0 16px; }
+  .quote p .hl { color: var(--lime); text-shadow: var(--glow-l); }
+  .quote .meta { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+  .badge { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--magenta); border: 1px solid var(--magenta); padding: 2px 8px; border-radius: 4px; margin-left: 8px; }
+
+  /* files */
+  .files { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .file { display: block; text-decoration: none; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; transition: transform .2s, border-color .2s, box-shadow .2s; }
+  .file:hover { transform: translateY(-3px); border-color: var(--cyan); box-shadow: 0 0 22px rgba(0,240,255,.25); text-shadow: none; }
+  .file .tag { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--cyan); }
+  .file .name { font-weight: 600; margin-top: 4px; line-height: 1.35; }
+  .file .name::after { content: " \2197"; color: var(--faint); }
+
+  /* stats */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+  .stat .label { font-size: 12px; color: var(--muted); font-family: var(--mono); letter-spacing: .04em; }
+  .stat .value { font-family: var(--mono); font-size: 30px; font-weight: 700; line-height: 1.25; margin-top: 4px; }
+  .stat .note { font-size: 12px; color: var(--faint); margin-top: 2px; }
+  .c { color: var(--cyan); text-shadow: var(--glow-c); }
+  .m { color: var(--magenta); text-shadow: var(--glow-m); }
+  .l { color: var(--lime); text-shadow: var(--glow-l); }
+  .y { color: var(--yellow); }
+
+  /* split bar */
+  .split { display: flex; height: 18px; border-radius: 6px; overflow: hidden; margin: 18px 0 14px; background: var(--line); }
+  .split .a { background: var(--cyan); box-shadow: var(--glow-c); width: 0; transition: width 1.4s cubic-bezier(.2,.8,.2,1); }
+  .split .b { background: var(--magenta); box-shadow: var(--glow-m); flex: 1; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 26px; font-size: 14px; }
+  .legend span { display: flex; align-items: center; gap: 8px; }
+  .legend i { width: 10px; height: 10px; border-radius: 2px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  td { padding: 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td:first-child { color: var(--muted); padding-right: 16px; }
+  td:last-child { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: none; }
+
+  /* timeline */
+  .tl { list-style: none; margin: 0; padding: 0 0 0 26px; position: relative; }
+  .tl::before { content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(var(--faint), var(--cyan) 55%, var(--magenta) 85%, var(--lime)); }
+  .tl li { position: relative; padding: 0 0 18px; }
+  .tl li::before { content: ""; position: absolute; left: -25px; top: 7px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--faint); }
+  .tl li.pub::before { border-color: var(--cyan); box-shadow: var(--glow-c); }
+  .tl li.hot::before { background: var(--magenta); border-color: var(--magenta); box-shadow: var(--glow-m); }
+  .tl li.go::before { background: var(--lime); border-color: var(--lime); box-shadow: var(--glow-l); }
+  .tl .d { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .tl .f { font-weight: 600; }
+  .tl .x { font-size: 14px; color: var(--muted); }
+
+  /* callout */
+  .callout { margin-top: 14px; border: 1px solid var(--yellow); border-radius: 14px; padding: 20px 22px; background: rgba(255,225,77,.05); box-shadow: 0 0 30px -10px rgba(255,225,77,.4); }
+  .callout .big { font-family: var(--mono); font-size: clamp(30px, 5vw, 44px); font-weight: 700; color: var(--yellow); text-shadow: var(--glow-y); line-height: 1.1; }
+  .callout p { margin: 8px 0 0; color: var(--muted); }
+
+  /* calculator */
+  .calc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; }
+  .calc label { font-family: var(--mono); font-size: 12px; color: var(--muted); display: block; margin-bottom: 6px; }
+  .calc input { width: 100%; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font: 600 18px var(--mono); outline: none; transition: border-color .2s, box-shadow .2s; }
+  .calc input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,240,255,.15), 0 0 18px rgba(0,240,255,.25); }
+  .result { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+  .todo { border: 1px dashed var(--faint); border-radius: 12px; padding: 14px 18px; color: var(--faint); font-size: 15px; font-family: var(--mono); background: var(--todo-bg); }
+  .todo::before { content: "> "; color: var(--magenta); }
+
+  /* decision */
+  #decision { border-top: none; }
+  .verdict { position: relative; border-radius: 24px; padding: 2px; background: linear-gradient(120deg, var(--lime), var(--cyan), var(--magenta)); box-shadow: 0 0 60px -10px rgba(182,255,59,.35); }
+  .verdict-in { background: var(--panel); border-radius: 22px; padding: 52px 44px; }
+  .verdict .num { position: static; }
+
+  footer { padding: 40px 0 60px; color: var(--faint); font-family: var(--mono); font-size: 12px; text-align: center; letter-spacing: .06em; }
+
+  /* EDGAR checklist */
+  .edgar .ck { display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .edgar .ck:last-of-type { border-bottom: none; }
+  .tick { flex: none; width: 24px; height: 24px; border-radius: 6px; display: grid; place-items: center; font-size: 14px; font-weight: 700;
+    color: var(--chip-ink); background: var(--lime); box-shadow: var(--glow-l); margin-top: 2px; }
+
+  /* why go public */
+  .why .mine { font-size: clamp(20px, 2.6vw, 24px); font-weight: 700; line-height: 1.35; margin: 0 0 18px; }
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .why-card { border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; background: var(--bg); }
+  .why-tag { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+  .why-card ul { margin: 0; padding-left: 18px; font-size: 15px; }
+  .why-card li { margin-bottom: 6px; }
+  @media (max-width: 860px) { .why-grid { grid-template-columns: 1fr; } }
+  ol.pts, ul.pts { margin: 8px 0 0; padding-left: 22px; font-size: 15.5px; }
+  .pts li { margin-bottom: 8px; }
+  .body { font-size: 15.5px; margin: 0 0 8px; }
+  h4.sub { font-size: 16px; margin: 20px 0 8px; }
+  .tblwrap { overflow-x: auto; }
+  table.fin { min-width: 560px; font-size: 14px; }
+  table.fin th { font-family: var(--mono); font-size: 12px; color: var(--magenta); text-align: right; padding: 8px 0 8px 12px; border-bottom: 1px solid var(--line); }
+  table.fin th:first-child { text-align: left; padding-left: 0; }
+  table.fin td { padding: 8px 0 8px 12px; text-align: right; font-family: var(--mono); }
+  table.fin td:first-child { text-align: left; padding-left: 0; font-family: var(--sans); }
+  table.fin tr.hl td { font-weight: 700; color: var(--ink); background: color-mix(in srgb, var(--cyan) 7%, transparent); }
+  table.cls td { text-align: left; font-family: var(--sans); }
+  table.cls th { text-align: left; }
+  td.neg { color: var(--magenta) !important; }
+  td.pos { color: var(--lime) !important; }
+  .risk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+  .risk-grid div { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 14.5px; background: var(--bg); }
+  .risk-grid b { display: block; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 2px; }
+  .ctrl { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .node { border-radius: 12px; padding: 14px 16px; border: 1.5px solid var(--line); background: var(--bg); display: flex; flex-direction: column; gap: 2px; }
+  .node b { font-size: 16px; } .node span { font-size: 13px; color: var(--muted); } .node em { font-style: normal; font-size: 14px; margin-top: 4px; }
+  .node u { text-decoration: none; font-family: var(--mono); font-weight: 700; }
+  .node.t { border-color: var(--cyan); box-shadow: 0 0 18px -6px var(--cyan); } .node.t u { color: var(--cyan); }
+  .node.f { border-color: var(--magenta); box-shadow: 0 0 18px -6px var(--magenta); } .node.f u { color: var(--magenta); }
+  .node.b { border-color: var(--lime); box-shadow: 0 0 18px -6px var(--lime); }
+  .node.a { border-style: dashed; }
+  @media (max-width: 860px) { .risk-grid, .ctrl { grid-template-columns: 1fr; } }
+  /* ===== seamless polish ===== */
+  .hero { padding-bottom: 36px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin: 0 0 24px; box-shadow: var(--card-shadow); }
+  .kpi { background: var(--panel); padding: 18px 20px; display: flex; flex-direction: column; gap: 2px; }
+  .kpi span { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .kpi b { font-family: var(--mono); font-size: clamp(24px, 3vw, 32px); line-height: 1.2; }
+  .kpi em { font-style: normal; font-size: 13px; color: var(--faint); }
+  @media (max-width: 860px) { .kpis { grid-template-columns: 1fr 1fr; } }
+
+  section { padding: 56px 0; }
+  .grid { gap: 32px; }
+  h3 { margin-top: 32px; }
+
+  /* "Your take" prompts: quiet, inviting, not form-like */
+  .todo {
+    border: none; border-left: 2px solid var(--magenta); border-radius: 0 10px 10px 0;
+    background: color-mix(in srgb, var(--magenta) 6%, transparent);
+    color: var(--muted); font-family: var(--sans); font-size: 15px; font-style: italic; padding: 12px 16px;
+  }
+  .todo::before { content: "YOUR TAKE  "; font-family: var(--mono); font-style: normal; font-size: 11px; letter-spacing: .14em; color: var(--magenta); font-weight: 700; }
+  .todo:hover { box-shadow: none; border-color: var(--cyan); }
+
+  footer { display: grid; gap: 6px; }
+  footer .f-name { font-family: var(--sans); font-size: 15px; letter-spacing: 0; color: var(--muted); }
+  footer .f-name b { font-size: 15px; }
+  footer .f-note { max-width: 62ch; margin: 8px auto 0; font-family: var(--sans); font-size: 12px; letter-spacing: 0; line-height: 1.6; }
+
+  @media print {
+    .bar, .tape, #progress, #spot, .toggle { display: none !important; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    .num { position: static; }
+    body::before { display: none; }
+    section { break-inside: avoid-page; }
+  }
+
+  .loop-sketch { width: 100%; height: auto; display: block; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; }
+  .loop-sketch .glowline { filter: drop-shadow(0 0 6px var(--magenta)); }
+  .loop-sketch .sk { font: 13px var(--mono); fill: var(--muted); }
+  .loop-sketch .m-t { fill: var(--magenta); }
+
+  /* ===== extra neon ===== */
+  ::selection { background: var(--magenta); color: #fff; }
+  html { scrollbar-color: var(--magenta) var(--bg); }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(var(--cyan), var(--magenta)); border-radius: 10px; border: 2px solid var(--bg); }
+
+  /* cursor spotlight */
+  #spot {
+    position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, -20%), var(--halo-m), transparent 70%);
+    transition: background .1s;
+  }
+
+  /* neon-sign flicker on the headline */
+  h1 .neon { animation: flicker 6s infinite; }
+  @keyframes flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; filter: drop-shadow(0 0 18px rgba(255,43,214,.5)) drop-shadow(0 0 40px rgba(0,240,255,.25)); }
+    20%, 24%, 55% { opacity: .55; filter: none; }
+  }
+
+  /* glowing section dividers */
+  section { border-top: none; position: relative; }
+  section::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyan) 20%, var(--magenta) 50%, var(--lime) 80%, transparent);
+    box-shadow: 0 0 12px var(--magenta); opacity: .55;
+  }
+  #decision::before { display: none; }
+
+  /* neon underline under section titles */
+  h2::after {
+    content: ""; display: block; width: 64px; height: 3px; margin-top: 14px; border-radius: 3px;
+    background: linear-gradient(90deg, var(--cyan), var(--magenta));
+    box-shadow: var(--glow-m); transition: width .6s ease;
+  }
+  section.in h2::after { width: 120px; }
+  h3::before { color: var(--cyan); text-shadow: var(--glow-c); }
+
+  /* cards light up on hover */
+  .panel, .stat, .quote { transition: border-color .25s, box-shadow .25s, transform .25s; }
+  .stat:hover { border-color: var(--cyan); box-shadow: 0 0 0 1px var(--cyan), 0 0 26px -4px var(--cyan); transform: translateY(-2px); }
+  .panel:hover { border-color: color-mix(in srgb, var(--magenta) 55%, var(--line)); box-shadow: 0 0 30px -10px var(--magenta); }
+  .quote:hover { box-shadow: -8px 0 40px -10px var(--magenta), 0 0 0 1px var(--magenta); }
+
+  /* timeline nodes pulse */
+  .tl li.go::before { animation: ping 2s infinite; }
+  @keyframes ping { 50% { box-shadow: 0 0 0 6px rgba(182,255,59,.0), 0 0 22px var(--lime); } }
+
+  /* blinking terminal cursor in to-fill boxes */
+  .todo::after { content: "▌"; color: var(--cyan); text-shadow: var(--glow-c); margin-left: 4px; animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .todo { transition: border-color .25s, box-shadow .25s; }
+  .todo:hover { border-color: var(--cyan); box-shadow: 0 0 22px -6px var(--cyan); }
+
+  /* glowing link underline */
+  a { text-decoration-color: color-mix(in srgb, var(--cyan) 45%, transparent); }
+
+  /* neon footer */
+  footer b {
+    background: linear-gradient(90deg, var(--cyan), var(--magenta), var(--lime));
+    -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700;
+  }
+  footer .bar-glow { width: 160px; height: 2px; margin: 0 auto 18px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--magenta), var(--lime)); box-shadow: var(--glow-m); }
+
+  @media (prefers-reduced-motion: reduce) {
+    h1 .neon, .tl li.go::before, .todo::after { animation: none; }
+  }
+  @media (hover: none) { #spot { display: none; } }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .fill, .split .a { transition: none; }
+    .tape-inner, .ticket, .live::before { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; padding: 52px 0 44px; }
+    .grid { grid-template-columns: 1fr; gap: 14px; }
+    .num { position: static; font-size: 48px; }
+    .stats, .calc, .result { grid-template-columns: 1fr; }
+    section { padding: 52px 0; }
+    .verdict-in { padding: 34px 20px; }
+    .live { display: none; }
+  }
+  /* ================= ELEVATED: refined, report-grade layer ================= */
+  :root {
+    --sans: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --display: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --glow-c: 0 0 0 transparent; --glow-m: 0 0 0 transparent; --glow-l: 0 0 0 transparent; --glow-y: 0 0 0 transparent;
+    --halo-m: rgba(224,18,154,.06); --halo-c: rgba(0,150,199,.06);
+    --gridline: rgba(80,60,200,.035);
+    --card-shadow: 0 1px 2px rgba(20,16,50,.04), 0 8px 24px -16px rgba(20,16,50,.16);
+  }
+  :root[data-theme="dark"] {
+    --glow-c: 0 0 14px rgba(0,240,255,.35); --glow-m: 0 0 14px rgba(255,43,214,.35);
+    --glow-l: 0 0 14px rgba(182,255,59,.3); --glow-y: 0 0 14px rgba(255,225,77,.3);
+    --halo-m: rgba(255,43,214,.10); --halo-c: rgba(0,240,255,.07);
+    --gridline: rgba(124,108,255,.045);
+    --card-shadow: 0 0 0 1px rgba(255,255,255,.02);
+  }
+  body { font-family: var(--sans); font-size: 17px; line-height: 1.7; letter-spacing: .003em; }
+
+  /* calm the effects */
+  #spot { display: none; }
+  h1 .neon { animation: none; filter: none; }
+  .todo::after { content: none; }
+  .tl li.go::before { animation: none; }
+  .ticket { animation: none; background: linear-gradient(135deg, var(--cyan), var(--magenta)); box-shadow: var(--card-shadow); }
+  .tape-inner { animation-duration: 70s; font-size: 12px; padding: 7px 0; }
+  .tape { background: transparent; }
+  .live::before { animation: none; }
+
+  /* typography */
+  h1 { font-family: var(--display); font-weight: 700; letter-spacing: -.035em; font-size: clamp(44px, 7vw, 80px); line-height: 1; }
+  h2 { font-family: var(--display); font-weight: 650; letter-spacing: -.022em; font-size: clamp(28px, 3.6vw, 38px); }
+  h2::after { width: 40px !important; height: 2px; margin-top: 16px; box-shadow: none; }
+  .kicker { text-shadow: none; letter-spacing: .18em; font-size: 12px; }
+  .objective { font-size: 17px; max-width: 60ch; }
+  h3 { font-family: var(--sans); font-size: 12px; letter-spacing: .14em; color: var(--muted); font-weight: 650; gap: 12px; }
+  h3::before { content: ""; width: 18px; height: 2px; background: var(--magenta); text-shadow: none; flex: none; }
+  h3::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .lede { font-size: 18.5px; line-height: 1.65; }
+
+  /* byline: understated */
+  .byline { border: none; box-shadow: none; padding: 0; margin: 4px 0 24px; text-transform: none; letter-spacing: 0;
+    font-family: var(--sans); font-size: 15px; font-weight: 500; color: var(--muted); gap: 10px; }
+  .byline .dot { width: 22px; height: 2px; border-radius: 2px; background: var(--magenta); box-shadow: none; }
+  .byline::after { content: "· MGMT 342 · Xavier University"; color: var(--faint); }
+
+  /* nav */
+  .bar nav a { font-family: var(--sans); font-size: 13.5px; letter-spacing: 0; border: none; border-radius: 0; padding: 6px 10px; position: relative; }
+  .bar nav a.active { background: none; color: var(--ink); box-shadow: none; }
+  .bar nav a.active::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: -1px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--cyan), var(--magenta)); }
+  .mark b, .mark i { text-shadow: none; }
+
+  /* chapter markers */
+  .num { font-size: 44px; font-weight: 500; letter-spacing: -.02em; text-shadow: none !important; opacity: .9; }
+  .num small { font-size: 10.5px; letter-spacing: .2em; margin-top: 10px; }
+
+  /* surfaces: one consistent card language */
+  .panel, .stat, .quote, .file, .kpis { border-radius: 14px; }
+  .panel { padding: 24px 26px; }
+  .panel:hover, .quote:hover { box-shadow: var(--card-shadow); border-color: var(--line); }
+  .stat:hover { transform: none; box-shadow: var(--card-shadow); border-color: color-mix(in srgb, var(--cyan) 45%, var(--line)); }
+  .file:hover { transform: none; box-shadow: var(--card-shadow); }
+  .why-card, .risk-grid div, .node { background: color-mix(in srgb, var(--bg) 60%, var(--panel)); }
+  .node.t, .node.f, .node.b { box-shadow: none; border-width: 1px; }
+  .node.t { border-top: 3px solid var(--cyan); } .node.f { border-top: 3px solid var(--magenta); } .node.b { border-top: 3px solid var(--lime); }
+  .quote { border-left-width: 3px; box-shadow: var(--card-shadow); }
+  .quote p { font-family: var(--display); font-weight: 550; letter-spacing: -.01em; }
+  .quote p .hl { text-shadow: none; }
+  .callout { box-shadow: none; background: color-mix(in srgb, var(--yellow) 6%, var(--panel)); border-color: color-mix(in srgb, var(--yellow) 55%, var(--line)); }
+  .badge { border-radius: 999px; }
+  .chip { box-shadow: none; border-radius: 999px; }
+  .split, .split .a, .split .b { box-shadow: none; }
+  .split { height: 10px; border-radius: 999px; }
+  .c, .m, .l { text-shadow: none; }
+  section::before { opacity: .35; box-shadow: none; }
+
+  /* tables */
+  table.fin tr.hl td { background: color-mix(in srgb, var(--cyan) 5%, transparent); }
+  table.fin td, table.fin th { border-bottom: 1px solid var(--line); }
+
+  /* "Your take" */
+  .todo { font-style: normal; background: color-mix(in srgb, var(--magenta) 4%, transparent); }
+
+  /* decision band */
+  .verdict { box-shadow: var(--card-shadow); padding: 1.5px; }
+  .verdict-in { padding: 48px 44px; }
+
+  footer { border-top: 1px solid var(--line); margin-top: 24px; }
+  footer b { -webkit-background-clip: initial; background: none; color: var(--ink); }
+  footer .bar-glow { box-shadow: none; height: 2px; width: 64px; }
+
+  /* filled-in "My take" */
+  .mytake { margin-top: 16px; border-left: 3px solid var(--magenta); padding: 12px 18px; border-radius: 0 10px 10px 0; background: color-mix(in srgb, var(--magenta) 5%, var(--panel)); }
+  .mt-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--magenta); margin-bottom: 4px; }
+  .mytake p { margin: 0; font-family: var(--display); font-size: 17px; line-height: 1.55; color: var(--ink); }
+
+  .evid { margin-top: 12px; padding: 4px 0 0 21px; }
+  .ev-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+  .decide { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-bottom: 6px; }
+  .d-cell { background: var(--panel); padding: 18px 20px; display: flex; flex-direction: column; gap: 2px; }
+  .d-cell span { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .d-cell b { font-family: var(--display); font-size: clamp(28px, 3.4vw, 38px); font-weight: 700; letter-spacing: -.02em; line-height: 1.15; }
+  .d-cell em { font-style: normal; font-size: 13.5px; color: var(--muted); }
+  @media (max-width: 860px) { .decide { grid-template-columns: 1fr; } }
+
+  .arc { display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: stretch; margin-top: 16px; }
+  .arc > div:not(.arrow) { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: color-mix(in srgb, var(--bg) 60%, var(--panel)); }
+  .arc span { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .arc p { margin: 4px 0 0; font-size: 15.5px; }
+  .arc .arrow { align-self: center; font-size: 22px; color: var(--magenta); }
+  @media (max-width: 860px) { .arc { grid-template-columns: 1fr; } .arc .arrow { transform: rotate(90deg); justify-self: center; } }
+
+  .mark { display: flex; align-items: center; }
+  .mark > b { margin-right: .45em; }
+  .mark-name { font-family: var(--sans); font-weight: 600; letter-spacing: 0; font-size: 14px; color: var(--muted); margin-left: 12px; padding-left: 12px; border-left: 1px solid var(--line); }
+  @media (max-width: 860px) { .mark { display: flex !important; } .mark-name { display: none; } }
+
+  /* at a glance */
+  .glance { margin: 0 0 8px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); box-shadow: var(--card-shadow); overflow: hidden; }
+  .g-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; border-bottom: 1px solid var(--line); }
+  .g-head span { font-size: 12px; font-weight: 650; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .g-head a { font-size: 14px; text-decoration: none; font-weight: 600; }
+  .g-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .g-col { padding: 20px 24px 22px; }
+  .g-col + .g-col { border-left: 1px solid var(--line); }
+  .g-tag { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; }
+  .g-col p { margin: 0; font-size: 15.5px; line-height: 1.65; color: var(--muted); }
+  .g-col p b { color: var(--ink); font-weight: 650; }
+  @media (max-width: 860px) { .g-grid { grid-template-columns: 1fr; } .g-col + .g-col { border-left: none; border-top: 1px solid var(--line); } }
+
+  /* chart */
+  :root { --chart-rev: #0096c7; --chart-loss: #e0129a; }
+  :root[data-theme="dark"] { --chart-rev: #00a3bb; --chart-loss: #c2189f; }
+  figure.chart { margin: 0 0 14px; }
+  .ch-title { font-family: var(--display); font-size: 19px; font-weight: 650; letter-spacing: -.01em; }
+  .ch-sub { font-size: 14px; color: var(--muted); margin: 2px 0 10px; }
+  .ch-legend { display: flex; gap: 20px; font-size: 13.5px; color: var(--muted); margin-bottom: 6px; }
+  .ch-legend span { display: inline-flex; align-items: center; gap: 8px; }
+  .sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  .sw.rev, rect.rev { background: var(--chart-rev); fill: var(--chart-rev); }
+  .sw.loss, rect.loss { background: var(--chart-loss); fill: var(--chart-loss); }
+  figure.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .ch-zero { stroke: var(--faint); stroke-width: 1; }
+  .ch-axis, .ch-x text { font: 12px var(--sans); fill: var(--muted); }
+  .ch-x text { text-anchor: middle; font-size: 13px; }
+  .ch-val { font: 600 13px var(--mono); fill: var(--ink); text-anchor: middle; }
+  .ch-val.strong { font-size: 15px; }
+  .ch-val.neg { fill: var(--muted); font-weight: 500; }
+  .bar-g { cursor: default; }
+  .bar-g:hover rect { opacity: .85; }
+  .bar-g rect { transition: opacity .15s; }
+
+  /* dark mode keeps a little neon life */
+  :root[data-theme="dark"] .num { text-shadow: 0 0 18px currentColor !important; }
+  :root[data-theme="dark"] h1 .neon { filter: drop-shadow(0 0 14px rgba(255,43,214,.35)); }
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="spot"></div>
+
+<header class="bar">
+  <div class="wrap">
+    <div class="mark"><b>ANT</b> IPO<span class="mark-name">Sofia Troncone</span></div>
+    <nav id="nav">
+      <a href="#first-take">00 First take</a>
+      <a href="#filings">§ Filings</a>
+      <a href="#ch1">01 Going public</a>
+      <a href="#ch2">02 Prospectus</a>
+      <a href="#ch3">03 Control</a>
+      <a href="#decision">04 Decision</a>
+    </nav>
+    <div class="live">NASDAQ · DAY 1</div>
+    <button class="toggle" id="themeBtn" type="button" aria-label="Switch light or dark mode">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<div id="tape" hidden></div>
+
+<main class="wrap">
+
+  <div class="hero">
+    <div>
+      <div class="kicker">MGMT 342 · Investment report · 11.19.2026</div>
+      <h1>Would I buy <span class="neon">Anthropic?</span></h1>
+      <div class="byline"><span class="dot"></span>Sofia Troncone</div>
+      <p class="lede">Anthropic, PBC listed on Nasdaq today as <b class="mono c">ANT</b>. This report starts with my first answer, follows the evidence in the SEC filings, and ends with my decision.</p>
+    </div>
+
+    <aside class="ticket" aria-label="Day-one price summary">
+      <div class="ticket-in">
+        <div class="tk-head">
+          <div>
+            <div class="sym">ANT</div>
+            <div class="co">Anthropic, PBC · Class A · Nasdaq GS</div>
+          </div>
+          <span class="chip" id="chip"></span>
+        </div>
+        <div class="row">
+          <div class="lbl"><span>IPO price</span><b>$83.00</b></div>
+          <div class="track"><div class="fill ipo" data-v="83"></div></div>
+        </div>
+        <div class="row">
+          <div class="lbl"><span>Opening trade</span><b>$111.50</b></div>
+          <div class="track"><div class="fill open" data-v="111.5"></div></div>
+        </div>
+        <div class="tk-foot"><span>CUSIP 03703U 107</span><span>Src: <a href="https://apnews.com/article/b6a74b8949021207dc162fcc876c4649">AP</a> · <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074937/anthropicpbc-fwppricing.htm">FWP</a></span></div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="kpis reveal in" aria-label="Key numbers">
+    <div class="kpi"><span>Day-one pop</span><b class="l">+34.3%</b><em>$83.00 → $111.50</em></div>
+    <div class="kpi"><span>Net proceeds</span><b class="c">$104.8B</b><em>IPO + Class N placement</em></div>
+    <div class="kpi"><span>Revenue, Q3 2026</span><b class="m">$17.0B</b><em>from $0 in Q1 2023</em></div>
+    <div class="kpi"><span>Gross margin, 9M 2026</span><b class="y">85.5%</b><em>operating margin −3.8%</em></div>
+  </div>
+
+  <div class="glance" aria-label="At a glance">
+    <div class="g-head"><span>At a glance</span><a href="#decision">Jump to my decision →</a></div>
+    <div class="g-grid">
+      <div class="g-col">
+        <div class="g-tag c">The deal</div>
+        <p>A <b>$81.3B</b> IPO priced at <b>$83</b>, almost entirely new shares (<b>97.6%</b>). With a concurrent <b>$26.0B</b> private placement, net proceeds come to about <b>$104.8B</b>, mostly for compute. It opened at <b>$111.50</b>, leaving about <b>$27.9B</b> on the table.</p>
+      </div>
+      <div class="g-col">
+        <div class="g-tag l">The business</div>
+        <p>Revenue went from <b>$0 to $17.0B a quarter</b> in about 3½ years. The gross margin is <b>85.5%</b>, but R&amp;D pushes the company to a small <b>−3.8%</b> operating margin. Each model helps build the next, a loop Anthropic calls its core advantage.</p>
+      </div>
+      <div class="g-col">
+        <div class="g-tag m">The catch</div>
+        <p>About <b>$900.9B</b> in compute commitments, chips concentrated at <b>TSMC</b> in Taiwan, the top 5 customers at about <b>25%</b> of revenue, and a structure where public shareholders <b>can't outvote</b> the founders and the Trust.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 0.4 -->
+  <section id="first-take" class="reveal">
+    <div class="grid">
+      <div class="num m">00<small>Before research</small></div>
+      <div>
+        <h2>My first answer</h2>
+        <p class="objective">With no other information, would I be interested in buying shares, and why or why not?</p>
+        <div class="quote">
+          <p>I would invest in Anthropic. <span class="hl">I bought my first share this morning</span> when it IPO'd. I like taking on risk.</p>
+          <div class="meta">11.19.2026 · written before research <span class="badge">Gut call</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 0.5 -->
+  <section id="filings" class="reveal">
+    <div class="grid">
+      <div class="num">§<small>Reference</small></div>
+      <div>
+        <h2>The filings</h2>
+        <p class="objective">The primary sources this report relies on.</p>
+        <div class="files">
+          <a class="file" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=2130357"><div class="tag">EDGAR</div><div class="name">All Anthropic, PBC filings</div></a>
+          <a class="file" href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm"><div class="tag">S-1 · 10.26</div><div class="name">Initial registration statement</div></a>
+          <a class="file" href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074937/anthropicpbc-fwppricing.htm"><div class="tag">FWP · 11.18</div><div class="name">Pricing terms</div></a>
+          <a class="file" href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074944/anthropicpbc-424b4.htm"><div class="tag">424(b)(4) · 11.19</div><div class="name">Final prospectus</div></a>
+          <a class="file" href="https://pages.stern.nyu.edu/~aljungqv/courses/Amazon.com%20S-1A2.pdf"><div class="tag">Comparison</div><div class="name">Amazon 1997 S-1 amendment</div></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 1 -->
+  <section id="ch1" class="reveal">
+    <div class="grid">
+      <div class="num">01<small>Chapter</small></div>
+      <div>
+        <h2>Going public</h2>
+        <p class="objective">The offering, and who benefits from how it was priced.</p>
+
+        <h3>EDGAR check</h3>
+        <div class="panel edgar">
+          <div class="ck"><span class="tick">✓</span><div><b>Company confirmed:</b> Anthropic, PBC · CIK <span class="mono">2130357</span> · <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=2130357">EDGAR company page</a></div></div>
+          <div class="ck"><span class="tick">✓</span><div><b>S-1 found:</b> filed <span class="mono">2026-10-26</span> · <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm">S-1</a></div></div>
+          <div class="ck"><span class="tick">✓</span><div><b>S-1/A amendments:</b> three, filed
+            <a class="mono" href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026068676/0001628280-26-068676-index.htm">11-02</a> ·
+            <a class="mono" href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026072484/0001628280-26-072484-index.htm">11-10</a> ·
+            <a class="mono" href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074338/anthropicpbc-sx1ax3.htm">11-17</a> (Amendment No. 3)</div></div>
+          <div class="ck"><span class="tick">✓</span><div><b>Final prospectus, 424B4:</b> filed <span class="mono">2026-11-19</span> · <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074944/anthropicpbc-424b4.htm">424B4 document</a> · <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074944/0001628280-26-074944-index.htm">filing index</a></div></div>
+          <p class="src" style="margin-top:14px">It took 24 days from the public S-1 to the IPO, with 3 amendments along the way. Before that, Anthropic filed confidential drafts starting 2026-06-01, which is 171 days before the IPO.</p>
+        </div>
+
+        <h3>Filing trail on EDGAR</h3>
+        <div class="panel">
+          <ol class="tl">
+            <li><div class="d">2026-06-01</div><div class="f">DRS: confidential draft</div><div class="x">Filed privately with the SEC, so the public couldn't see it yet.</div></li>
+            <li><div class="d">07-13 → 10-09</div><div class="f">DRS/A × 5</div><div class="x">Five confidential amendments while the SEC reviewed it.</div></li>
+            <li class="pub"><div class="d">2026-10-26</div><div class="f">S-1: public filing</div><div class="x">The registration statement became public, 24 days before the IPO.</div></li>
+            <li class="pub"><div class="d">11-02 · 11-10 · 11-17</div><div class="f">S-1/A × 3</div><div class="x">Public amendments. Amendment No. 3 (11-17) is the preliminary prospectus named in the pricing terms.</div></li>
+            <li class="pub"><div class="d">2026-11-12</div><div class="f">FWP × 5</div><div class="x">Free writing prospectuses: marketing material filed during the roadshow.</div></li>
+            <li class="pub"><div class="d">2026-11-17</div><div class="f">8-A12B</div><div class="x">Registers the Class A shares for trading on an exchange.</div></li>
+            <li class="hot"><div class="d">2026-11-18</div><div class="f">EFFECT · S-1MEF · pricing FWP</div><div class="x">The SEC declared the registration effective. A Rule 462(b) filing added more shares, and the price was set at $83.</div></li>
+            <li class="go"><div class="d">2026-11-19</div><div class="f">424B4 final prospectus · first trade</div><div class="x">Trading opened on Nasdaq at $111.50. Settlement is 11-20.</div></li>
+          </ol>
+        </div>
+        <p class="src">Source: <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=2130357">EDGAR filing index, CIK 2130357</a></p>
+
+        <h3>How much are they raising?</h3>
+        <div class="stats">
+          <div class="stat"><div class="label">Deal size (base)</div><div class="value c" data-count="81.34" data-pre="$" data-suf="B">$81.34B</div><div class="note">980,000,000 shares × $83</div></div>
+          <div class="stat"><div class="label">To Anthropic</div><div class="value c" data-count="79.38" data-pre="$" data-suf="B">$79.38B</div><div class="note">956,351,354 new shares</div></div>
+          <div class="stat"><div class="label">To selling holders</div><div class="value m" data-count="1.96" data-pre="$" data-suf="B">$1.96B</div><div class="note">23,648,646 existing shares</div></div>
+        </div>
+        <div class="split" role="img" aria-label="97.6% of base shares are new shares from Anthropic, 2.4% from selling stockholders"><div class="a" data-w="97.587"></div><div class="b"></div></div>
+        <div class="legend">
+          <span><i style="background:var(--cyan)"></i>Primary: new shares, cash goes to Anthropic <b class="mono">97.6%</b></span>
+          <span><i style="background:var(--magenta)"></i>Secondary: insiders cashing out <b class="mono">2.4%</b></span>
+        </div>
+
+        <div class="panel" style="margin-top:18px">
+          <table>
+            <tr><td>Price to public</td><td>$83.00</td></tr>
+            <tr><td>Price to underwriters</td><td>$82.43878</td></tr>
+            <tr><td>Underwriting spread <span class="y">(derived)</span></td><td>$0.56 / share · 0.68%</td></tr>
+            <tr><td>Greenshoe option (100% primary, no discount)</td><td>up to 147,000,000 sh</td></tr>
+            <tr><td>Concurrent private placement, Class N</td><td>$26.0B · 313,253,007 sh</td></tr>
+            <tr><td>Lead bookrunners</td><td>Goldman Sachs · Morgan Stanley</td></tr>
+          </table>
+        </div>
+        <p class="src">Source: <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074937/anthropicpbc-fwppricing.htm">Pricing FWP, 11.18.2026</a>. The dollar split to Anthropic and to selling holders is shares × $83, before fees. The final prospectus estimates net proceeds at <b class="mono">$104.8B</b> (IPO plus Class N placement).</p>
+
+        <h3>Who benefited from the pricing?</h3>
+        <div class="callout">
+          <div class="big" id="table-money">$27.93B</div>
+          <p><b class="y">"Money left on the table."</b> The opening price was $28.50 above the IPO price, multiplied by 980M base shares. That is roughly what investors who got allocations at $83 gained at the first trade, and what Anthropic and the selling holders gave up by not pricing higher. <b class="l">I was on the winning side of this:</b> I got an IPO allocation at $83, so my share gained $28.50 (+34.3%) at the first trade.</p>
+        </div>
+
+        <h3>Why go public?</h3>
+        <div class="panel why">
+          <p class="mine">I believe Anthropic went public because they want to <span class="c">gain trust</span> and <span class="l">raise cash flow</span>.</p>
+          <div class="why-grid">
+            <div class="why-card">
+              <div class="why-tag l">Raise cash</div>
+              <ul>
+                <li><b class="mono">97.6%</b> of the base deal is new shares, so <b class="mono">$79.38B</b> goes to Anthropic itself.</li>
+                <li>The prospectus puts <b>net proceeds</b> from the IPO plus the Class N placement at about <b class="mono">$104.8B</b>, or <b class="mono">$117.0B</b> if the underwriters buy all of their extra shares.</li>
+                <li>The stated uses are working capital, <b>compute and infrastructure</b>, hiring and keeping talent, possible acquisitions, and <b class="mono">$4.3B</b> in employee stock tax withholding.</li>
+                <li>Only <b class="mono">2.4%</b> goes to insiders, so this IPO is about funding the company, not cashing out.</li>
+              </ul>
+            </div>
+            <div class="why-card">
+              <div class="why-tag c">Gain trust</div>
+              <ul>
+                <li>A public company must publish audited financials and disclose its risks to the SEC, so customers and investors can check the numbers.</li>
+                <li>It faces ongoing quarterly reporting and public scrutiny.</li>
+                <li>Its public-benefit structure is now on the record in the prospectus.</li>
+                <li>Anthropic's own stated purposes include to "create a public market" for its stock and "enable access to the public equity markets."</li>
+              </ul>
+            </div>
+          </div>
+          <p class="src">Sources: <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074937/anthropicpbc-fwppricing.htm">Pricing FWP</a> · "Use of Proceeds," <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074944/anthropicpbc-424b4.htm">final prospectus</a>, p. 129.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- My position -->
+  <section id="position" class="reveal">
+    <div class="grid">
+      <div class="num l">$<small>My position</small></div>
+      <div>
+        <h2>My share, live math</h2>
+        <p class="objective">I received an IPO allocation at <b class="mono l">$83.00</b>. That's the price institutions paid, before the market opened at $111.50. Change the current price to see where my position stands.</p>
+        <div class="panel">
+          <div class="calc">
+            <div><label for="qShares">Shares</label><input id="qShares" type="number" min="0" step="1" value="1"></div>
+            <div><label for="qPaid">Price paid ($)</label><input id="qPaid" type="number" min="0" step="0.01" value="83.00"></div>
+            <div><label for="qNow">Current price ($)</label><input id="qNow" type="number" min="0" step="0.01" value="111.50"></div>
+          </div>
+          <div class="result">
+            <div class="stat"><div class="label">Cost basis</div><div class="value c" id="rCost"></div></div>
+            <div class="stat"><div class="label">Market value</div><div class="value c" id="rVal"></div></div>
+            <div class="stat"><div class="label">Gain / loss</div><div class="value" id="rGain"></div></div>
+          </div>
+          <p class="src" id="rNote"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 2 -->
+  <section id="ch2" class="reveal">
+    <div class="grid">
+      <div class="num m">02<small>Chapter</small></div>
+      <div>
+        <h2>Reading the prospectus</h2>
+        <p class="objective">The investment case compared with the financial evidence and the disclosed risks.</p>
+
+        <h3>Prospectus summary: my reading vs Claude's</h3>
+        <div class="panel why">
+          <div class="why-tag c">Claude's summary: 6 main points</div>
+          <ol class="pts">
+            <li><b>What it is.</b> Anthropic is a research lab first. Its mission is the "responsible development and maintenance of advanced AI for the long-term benefit of humanity." Its product is Claude, sold through models, a developer platform and apps.</li>
+            <li><b>Hypergrowth.</b> Revenue went from <b class="mono">$0</b> in Q1 2023 to <b class="mono">$17.0B</b> in Q3 2026 alone. It grew <b class="mono">1,127%</b> year over year, and net revenue retention is about <b class="mono">900%</b>.</li>
+            <li><b>Enterprise focus.</b> More than <b class="mono">11,900</b> customers spend $100K+ a year, more than <b class="mono">1,900</b> spend $1M+, and about <b class="mono">250</b> spend $10M+. Claude Code and Claude Cowork are its "Virtual Collaborators."</li>
+            <li><b>Huge compute bet.</b> About <b class="mono">$900.9B</b> is committed for compute and infrastructure, with <b class="mono">$70.7B</b> due within 12 months. It already had <b class="mono">$95.6B</b> in cash before the IPO.</li>
+            <li><b>Self-reinforcing loops.</b> Customer feedback improves the models, revenue pays for compute, and each Claude model helps build the next ("closing the loop").</li>
+            <li><b>Unusual governance.</b> It is a public benefit corporation. A Long-Term Benefit Trust elects a majority of the board, and the founders hold <b class="mono">50.1%</b> of the vote through one special share. Public Class A shareholders have very little control.</li>
+          </ol>
+          <div class="todo" style="margin-top:14px">Your take: where does your own reading agree or disagree with these points? What did you notice that the summary missed?</div>
+          <p class="src">Source: Prospectus Summary, <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074944/anthropicpbc-424b4.htm">final prospectus</a>, pp. 7–19.</p>
+        </div>
+
+        <h3>Strongest claim in the investment case</h3>
+        <div class="panel why">
+          <div class="why-tag l">Candidates from the summary</div>
+          <ul class="pts">
+            <li><b>Growth:</b> $0 to $17.0B in quarterly revenue in about 3½ years, described as the "fastest enterprise adoption of any technology in history."</li>
+            <li><b>Compute efficiency:</b> revenue grew <b class="mono">1,127%</b> while compute costs grew <b class="mono">382%</b>, so each dollar of compute is earning more.</li>
+            <li><b>Customer expansion:</b> about <b class="mono">900%</b> net revenue retention, meaning existing customers spend about 9× what they did a year earlier.</li>
+            <li><b>Operating efficiency:</b> <b class="mono">$6.6M</b> of revenue per employee, up from <b class="mono">$1.4M</b> a year earlier.</li>
+          </ul>
+          <div class="mytake">
+            <div class="mt-label">My take</div>
+            <p>I chose <b>compute efficiency</b>: revenue grew 1,127% while compute costs grew 382%. But I actually think compute costs will overpower revenue. Maybe it will become a break-even.</p>
+          </div>
+        </div>
+
+        <h3>Model releases and revenue growth</h3>
+        <div class="panel why">
+          <p class="mine">I think the models will <span class="l">keep getting better</span> and then eventually <span class="m">flatline for a bit</span>. I see this as a <span class="c">positive feedback loop</span>.</p>
+          <p class="src" style="margin:-8px 0 16px">Based on the Claude model releases diagram from class (slide 2.3).</p>
+
+          <svg class="loop-sketch" viewBox="0 0 600 200" role="img" aria-label="Sketch of my view: capability climbs with each release, then levels off for a while">
+            <defs>
+              <linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="var(--cyan)"/><stop offset=".7" stop-color="var(--magenta)"/><stop offset="1" stop-color="var(--lime)"/></linearGradient>
+            </defs>
+            <line x1="40" y1="170" x2="580" y2="170" stroke="var(--line)" stroke-width="1.5"/>
+            <line x1="40" y1="20" x2="40" y2="170" stroke="var(--line)" stroke-width="1.5"/>
+            <path d="M40,165 C120,160 160,150 210,125 S300,60 360,45 S470,38 580,37" fill="none" stroke="url(#lg)" stroke-width="4" stroke-linecap="round" class="glowline"/>
+            <g fill="var(--cyan)"><circle cx="110" cy="160" r="5"/><circle cx="190" cy="134" r="5"/><circle cx="260" cy="92" r="5"/><circle cx="330" cy="55" r="5"/></g>
+            <g fill="var(--lime)"><circle cx="440" cy="40" r="5"/><circle cx="530" cy="37" r="5"/></g>
+            <text x="160" y="190" class="sk">releases → better models</text>
+            <text x="430" y="70" class="sk m-t">flatline for a bit</text>
+            <text x="48" y="30" class="sk">capability</text>
+          </svg>
+          <p class="src" style="margin-top:4px">A sketch of my view, not real data.</p>
+
+          <div class="why-grid" style="margin-top:16px">
+            <div class="why-card">
+              <div class="why-tag c">The loop, in the prospectus</div>
+              <ul>
+                <li><b>Improvement loop:</b> customers use Claude, their feedback improves the models, and better models win more customers.</li>
+                <li><b>Investment loop:</b> more revenue pays for more compute and research, which leads to better models and more revenue.</li>
+                <li><b>"Closing the loop":</b> each Claude model helps build the next one.</li>
+              </ul>
+            </div>
+            <div class="why-card">
+              <div class="why-tag l">Evidence it's working</div>
+              <ul>
+                <li>Revenue went from <b class="mono">$0</b> at launch (Q1 2023) to <b class="mono">$17.0B</b> in a single quarter (Q3 2026).</li>
+                <li>Revenue grew <b class="mono">1,127%</b> year over year, while compute costs grew <b class="mono">382%</b>.</li>
+                <li>Opus 5.5 cut customer cost per task by about <b class="mono">40%</b> compared with Opus 5. Lower cost brings more usage.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="src">Source: Prospectus Summary, <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074944/anthropicpbc-424b4.htm">final prospectus</a>, pp. 7–13 ("Our Self-Reinforcing Loops," "Strengths of Our Financial Model").</p>
+        </div>
+
+        <h3>Is the product profitable? (F-41)</h3>
+        <figure class="panel chart" aria-labelledby="chartTitle">
+          <figcaption>
+            <div id="chartTitle" class="ch-title">Revenue took off. Losses narrowed.</div>
+            <div class="ch-sub">Revenue and operating profit (loss), $ millions. 2023–2025 are full years; 9M 2026 is the first nine months only.</div>
+            <div class="ch-legend"><span><i class="sw rev"></i>Revenue</span><span><i class="sw loss"></i>Operating profit (loss)</span></div>
+          </figcaption>
+          <svg viewBox="0 0 720 300" role="img" aria-label="Revenue rose from $41 million in 2023 to $33.2 billion in the first nine months of 2026, while operating losses went from $0.6B to $3.0B to $8.1B, then narrowed to $1.3B.">
+            <line x1="70" y1="211" x2="690" y2="211" class="ch-zero"/>
+            <text x="64" y="215" class="ch-axis" text-anchor="end">$0</text>
+            <g class="bar-g"><title>2023 · Revenue $41M · Operating loss ($551M)</title>
+              <rect x="122" y="208" width="56" height="2" rx="1" class="rev"/><rect x="122" y="212" width="56" height="3" rx="1" class="loss"/>
+              <text x="150" y="200" class="ch-val">$41M</text><text x="150" y="229" class="ch-val neg">−$0.6B</text></g>
+            <g class="bar-g"><title>2024 · Revenue $386M · Operating loss ($2,980M)</title>
+              <rect x="272" y="208" width="56" height="2.1" rx="1" class="rev"/><rect x="272" y="212" width="56" height="16" rx="2" class="loss"/>
+              <text x="300" y="200" class="ch-val">$0.4B</text><text x="300" y="242" class="ch-val neg">−$3.0B</text></g>
+            <g class="bar-g"><title>2025 · Revenue $4,585M · Operating loss ($8,060M), incl. $1.5B Bartz settlement</title>
+              <rect x="422" y="185" width="56" height="25" rx="3" class="rev"/><rect x="422" y="212" width="56" height="44" rx="3" class="loss"/>
+              <text x="450" y="177" class="ch-val">$4.6B</text><text x="450" y="270" class="ch-val neg">−$8.1B</text></g>
+            <g class="bar-g"><title>9M 2026 · Revenue $33,242M · Operating loss ($1,260M)</title>
+              <rect x="572" y="30" width="56" height="180" rx="3" class="rev"/><rect x="572" y="212" width="56" height="7" rx="2" class="loss"/>
+              <text x="600" y="22" class="ch-val strong">$33.2B</text><text x="600" y="233" class="ch-val neg">−$1.3B</text></g>
+            <g class="ch-x"><text x="150" y="292">2023</text><text x="300" y="292">2024</text><text x="450" y="292">2025</text><text x="600" y="292">9M 2026</text></g>
+          </svg>
+          <p class="src" style="margin-top:6px">Source: summary statement of operations and F-40/F-41 note, final prospectus. Same dollar scale for both series. The full table is below.</p>
+        </figure>
+        <div class="panel">
+          <div class="tblwrap"><table class="fin">
+            <tr><th>$ millions</th><th>2023</th><th>2024</th><th>2025</th><th>9M 2025</th><th>9M 2026</th></tr>
+            <tr><td>Revenue</td><td>41</td><td>386</td><td>4,585</td><td>2,545</td><td>33,242</td></tr>
+            <tr><td>Cost of revenue</td><td>26</td><td>752</td><td>2,773</td><td>1,796</td><td>4,812</td></tr>
+            <tr class="hl"><td>Gross margin</td><td>36.6%</td><td class="neg">−94.8%</td><td>39.5%</td><td>29.4%</td><td class="pos">85.5%</td></tr>
+            <tr><td>R&amp;D</td><td>422</td><td>2,275</td><td>6,338</td><td>3,594</td><td>19,240</td></tr>
+            <tr><td>Sales &amp; marketing</td><td>76</td><td>163</td><td>911</td><td>530</td><td>6,619</td></tr>
+            <tr><td>G&amp;A</td><td>68</td><td>176</td><td>1,123</td><td>349</td><td>3,831</td></tr>
+            <tr><td>Bartz settlement</td><td>—</td><td>—</td><td>1,500</td><td>1,500</td><td>—</td></tr>
+            <tr><td>Total operating expenses</td><td>592</td><td>3,366</td><td>12,645</td><td>7,769</td><td>34,502</td></tr>
+            <tr class="hl"><td>Operating profit (loss)</td><td class="neg">(551)</td><td class="neg">(2,980)</td><td class="neg">(8,060)</td><td class="neg">(5,224)</td><td class="neg">(1,260)</td></tr>
+            <tr class="hl"><td>Operating margin</td><td class="neg">−1,344%</td><td class="neg">−772%</td><td class="neg">−176%</td><td class="neg">−205%</td><td class="neg">−3.8%</td></tr>
+          </table></div>
+          <div class="why-grid" style="margin-top:16px">
+            <div class="why-card">
+              <div class="why-tag l">Before R&amp;D: yes</div>
+              <ul>
+                <li>In the first nine months of 2026, the gross margin was <b class="mono">85.5%</b>. Serving customers costs about 14¢ per dollar of revenue.</li>
+                <li>Revenue minus cost of revenue, sales &amp; marketing and G&amp;A (everything except R&amp;D) leaves <b class="mono">$17.98B</b>, a <b class="mono">54.1%</b> margin.</li>
+              </ul>
+            </div>
+            <div class="why-card">
+              <div class="why-tag m">After R&amp;D: not yet</div>
+              <ul>
+                <li>R&amp;D of <b class="mono">$19.24B</b> wipes that out, leaving an operating loss of <b class="mono">$1.26B</b> (−3.8%).</li>
+                <li>That's a big improvement on the −205% operating margin a year earlier.</li>
+              </ul>
+            </div>
+          </div>
+          <h4 class="sub">Can R&amp;D be separated from the product?</h4>
+          <p class="body">Anthropic says no. Customers stay "based on whether our models are at the frontier," so "ongoing model development [is] a critical factor in revenue generation." Model development frees compute for serving customers, and customer use feeds back into research. If you stop R&amp;D, the product falls behind and the 85.5% gross margin probably won't last. So the honest answer is <b>operating profit</b>, which is still slightly negative, not the gross margin.</p>
+          <p class="src">Source: Note on "operating expenses grouped by function," p. F-40/F-41; revenue from the summary statement of operations; R&amp;D passage from MD&amp;A, <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074944/anthropicpbc-424b4.htm">final prospectus</a>. The margins and the "everything except R&amp;D" figure are my calculations from those numbers. The 2026 figures are unaudited.</p>
+        </div>
+
+        <h3>Risk factors vs Amazon, 1997</h3>
+        <div class="panel why">
+          <div class="why-tag m">Anthropic's 18 summary risks, grouped</div>
+          <div class="risk-grid">
+            <div><b class="c">AI-specific</b><span>The models may act in "unintended, misaligned, or autonomous ways." Also misuse by bad actors, and liability for harms.</span></div>
+            <div><b class="c">Compute</b><span>It may not secure enough compute, or the inputs to compute may run short. It depends on a few cloud providers that are also investors and customers.</span></div>
+            <div><b class="c">Competition &amp; market</b><span>It has to stay at the frontier. Competition is intense, and the market might grow more slowly than expected.</span></div>
+            <div><b class="c">Concentration</b><span>A large share of revenue comes from a small number of customers and channels.</span></div>
+            <div><b class="c">People &amp; culture</b><span>It depends on the co-founders and key researchers.</span></div>
+            <div><b class="c">Governance</b><span>Class A shareholders may have no real ability to influence decisions. The public-benefit mission may conflict with financial returns.</span></div>
+            <div><b class="c">Regulation</b><span>The regulatory and political environment is uncertain and changing.</span></div>
+            <div><b class="c">Track record</b><span>Its operating history is limited, and past growth rates may not continue.</span></div>
+          </div>
+          <div class="why-tag c" style="margin-top:18px">What the full section stresses most (≈70,000 words)</div>
+          <ol class="pts">
+            <li><b>Rules and lawsuits.</b> "Regulat-" appears <b class="mono">228×</b>, the most of any theme. There's also copyright exposure: the <b class="mono">$1.5B</b> Bartz settlement and active cases such as Concord Music.</li>
+            <li><b>Compute and power.</b> "Compute" appears <b class="mono">209×</b>. The company has <b class="mono">$900.9B</b> committed and competes for electricity with cloud giants and crypto miners.</li>
+            <li><b>Competition.</b> <b class="mono">205×</b>. It must stay at the frontier against rivals with deep pockets, some of which are also its suppliers.</li>
+            <li><b>Dependence on Amazon/AWS.</b> <b class="mono">154×</b>. Amazon is an investor, supplier, distribution channel and customer all at once. Customer concentration matters too: the top 5 customers are about <b class="mono">25%</b> of revenue.</li>
+            <li><b>Its own models.</b> It warns that models may resist shutdown, conceal information, or behave in ways "resembling blackmail."</li>
+          </ol>
+          <p class="body"><b>Losses:</b> net losses of <b class="mono">$104.0B</b> in the first nine months of 2026. But <b class="mono">$94.3B</b> of that is a non-cash accounting charge from the rising value of its convertible notes. The operating loss was only <b class="mono">$1.26B</b>.</p>
+          <p class="src">Word counts by category: business &amp; industry 44,822 · privacy, cyber &amp; IP 8,145 · governance 5,199 · legal &amp; regulatory 5,007 · Class A ownership 4,364 · tax &amp; accounting 2,731. Keyword counts are my own scan of the text.</p>
+          <p class="body" style="margin-top:14px"><b>What's new compared with a 1997 internet IPO:</b> Amazon's risks were about a young business: losses, competition, managing growth. Anthropic discloses those too, but it also lists risks no 1997 company could have had. Its own product might act on its own. It must find hundreds of billions of dollars of compute. And outside shareholders effectively can't change who controls the company.</p>
+          <div class="mytake">
+            <div class="mt-label">My take: the risk that stood out</div>
+            <p><b>TSMC and Taiwan.</b> What happens if there is an attack on the locations where the chips are made, a natural disaster, a cyber attack, war, etc.?</p>
+          </div>
+          <div class="evid">
+            <div class="ev-label">What the prospectus says</div>
+            <ul class="pts">
+              <li>"The majority of the world's most advanced chip manufacturing capacity is concentrated in Taiwan, primarily at Taiwan Semiconductor Manufacturing Company."</li>
+              <li>Risks named in the filing: "earthquakes and typhoons," "geopolitical tensions between Taiwan and China," and interruptions to Taiwan's "power grid, water supply, or other critical infrastructure."</li>
+              <li>"Any military conflict… blockade, natural disaster, or other incident affecting Taiwan could severely disrupt the global supply of advanced chips, with effects that could persist for <b>years</b>."</li>
+              <li>Building chip plants outside Taiwan "remain[s] in early stages."</li>
+              <li>It has already happened on a small scale: Anthropic has "not always been able to obtain sufficient quantities of chips on a timely basis."</li>
+            </ul>
+            <p class="src">Source: Risk Factors, <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074944/anthropicpbc-424b4.htm">final prospectus</a>. Taiwan is mentioned 21 times in the filing.</p>
+          </div>
+          <p class="src">Source: "Risk Factors Summary," pp. 17–19, <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074944/anthropicpbc-424b4.htm">final prospectus</a> · <a href="https://pages.stern.nyu.edu/~aljungqv/courses/Amazon.com%20S-1A2.pdf">Amazon 1997 S-1/A</a>. The Amazon description is general background, not checked against the filing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 3 -->
+  <section id="ch3" class="reveal">
+    <div class="grid">
+      <div class="num y">03<small>Chapter</small></div>
+      <div>
+        <h2>Control and the bet</h2>
+        <p class="objective">Who controls Anthropic, and the assumptions behind its growth.</p>
+
+        <h3>Who controls Anthropic?</h3>
+        <div class="panel">
+          <div class="ctrl">
+            <div class="node t"><b>Long-Term Benefit Trust</b><span>5 financially disinterested trustees · holds Class T</span><em>Elects a <u>majority</u> of the board</em></div>
+            <div class="node f"><b>Founder LLC</b><span>7 co-founders · holds 1 Class F share</span><em><u>50.1%</u> of all shareholder votes</em></div>
+            <div class="node b"><b>Board of directors</b><span>Makes the company's decisions · majority independent</span><em>Must balance shareholders, people affected, and the mission</em></div>
+            <div class="node a"><b>You: Class A holders</b><span>1 vote per share</span><em>Outvoted on general matters by design</em></div>
+          </div>
+          <ul class="pts" style="margin-top:14px">
+            <li><b>The board</b> runs the company. As a <b>PBC</b>, it must balance shareholders' financial interests, the people affected by Anthropic's conduct, and the mission.</li>
+            <li><b>The LTBT</b> picks directors but has <b>no role in day-to-day management or strategy</b>. It is meant to pick directors who will strike that balance well.</li>
+            <li><b>The founders</b> control 50.1% of the vote on general matters through one Class F share. Together with the LTBT, they can elect the <b>entire board</b>.</li>
+            <li>Anthropic is a Nasdaq <b>"controlled company,"</b> so it can skip some governance rules. Its nominating and governance committee won't be fully independent.</li>
+          </ul>
+          <p class="src">Source: "Our Governance Structure and Its Goals," pp. 14–16, <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074944/anthropicpbc-424b4.htm">final prospectus</a>.</p>
+        </div>
+
+        <h3>Ownership and voting by share class</h3>
+        <div class="panel">
+          <div class="tblwrap"><table class="fin cls">
+            <tr><th></th><th>Class A</th><th>Class N</th><th>Class T</th><th>Class F</th></tr>
+            <tr><td>Held by</td><td>Public</td><td>Investors, benefit fund</td><td>LTBT</td><td>Founder LLC</td></tr>
+            <tr><td>Votes</td><td>1 / share</td><td class="neg">0</td><td>Elects board majority</td><td class="pos">50.1% of total</td></tr>
+            <tr><td>Dividends</td><td class="pos">Pro rata</td><td class="pos">Pro rata</td><td>None</td><td>None</td></tr>
+            <tr><td>Liquidation</td><td class="pos">Pro rata</td><td class="pos">Pro rata</td><td>Par value</td><td>Par value</td></tr>
+            <tr><td>Transfer</td><td>Free</td><td>Converts to A on sale</td><td>Trust approval</td><td>No</td></tr>
+          </table></div>
+          <p class="body" style="margin-top:12px"><b>Owning vs. controlling:</b> Class A and N hold essentially all the <b>economic value</b> (dividends, sale proceeds). Class T and F hold essentially all the <b>control</b> but almost none of the money. They're worth only par value. The usual link between owning a share and having a say is deliberately cut.</p>
+          <h4 class="sub">Why would Amazon and Google accept non-voting shares?</h4>
+          <ul class="pts">
+            <li><b>They're also partners.</b> Anthropic runs on AWS Trainium and Google TPUs, and Google has a commercial agreement with Anthropic. Their investments help secure business for their cloud and chip divisions.</li>
+            <li><b>The economic upside is real.</b> Google's notes converted into non-voting Series E-3 and E-4 preferred stock at <b class="mono">$44.87</b> and <b class="mono">$50.48</b> a share, compared with today's <b class="mono">$83</b> IPO price.</li>
+            <li><b>It may help with regulators (my inference, not in the filing).</b> A big tech company holding a voting stake in a rival AI lab could raise antitrust concerns. Non-voting shares may reduce that risk.</li>
+          </ul>
+          <div class="mytake">
+            <div class="mt-label">My take: owning without control</div>
+            <p>Yes, I'm okay owning shares I can't vote with. I feel a sense of protection with this.</p>
+          </div>
+          <p class="src">Sources: "Our Capital Structure," p. 17; Note 9 (Google convertible notes), p. F-41, <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074944/anthropicpbc-424b4.htm">final prospectus</a>. Class E is left out for simplicity.</p>
+        </div>
+
+        <h3>The technological bet</h3>
+        <div class="panel">
+          <div class="why-grid">
+            <div class="why-card">
+              <div class="why-tag l">Demonstrated</div>
+              <ul>
+                <li>Scaling laws: model performance has improved predictably as compute, data and model size grow.</li>
+                <li>Claude already helps build Claude: it runs experiments, generates training data, does evaluations and safety audits, and writes code.</li>
+                <li>Revenue has grown with capability: <b class="mono">$0 → $17.0B</b> a quarter.</li>
+                <li>Opus 5.5 cut cost per task by about <b class="mono">40%</b> compared with Opus 5.</li>
+              </ul>
+            </div>
+            <div class="why-card">
+              <div class="why-tag m">Expected (not yet shown)</div>
+              <ul>
+                <li>"Powerful AI" matching or beating top human experts in most fields, "within a few years."</li>
+                <li>Recursive self-improvement keeps speeding up rather than stalling.</li>
+                <li>"A country of geniuses in a data center."</li>
+                <li>Demand grows fast enough to cover <b class="mono">$900.9B</b> of compute commitments through 2045.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="mytake">
+            <div class="mt-label">My take: what has to be true</div>
+            <p>The models keep improving.</p>
+            <div class="mt-label" style="margin-top:12px">What would make me sell</div>
+            <p>Ethical concerns or a Taiwan crisis.</p>
+          </div>
+          <p class="src">Sources: Prospectus Summary, pp. 8–13, <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026074944/anthropicpbc-424b4.htm">final prospectus</a>.</p>
+        </div>
+        <p class="src">Sources:
+          <a href="https://www-cdn.anthropic.com/files/4zrzovbb/website/4ff80d7f8a98bf096cd543ec61ddc50de3ad8b16.pdf">Anthropic scaling research</a> ·
+          <a href="https://www.anthropic.com/institute/recursive-self-improvement">When AI builds itself</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4.1 — must stay last -->
+  <section id="decision" class="reveal">
+    <div class="verdict"><div class="verdict-in">
+      <div class="grid">
+        <div class="num l">04<small>Final decision</small></div>
+        <div>
+          <h2>Would I buy ANT?</h2>
+          <p class="objective">How much would I hypothetically invest ($0 is an option), what evidence supports that, what is the biggest risk to my decision, and what changed since my first answer.</p>
+          <div class="decide">
+            <div class="d-cell"><span>Decision</span><b class="l">Hold</b><em>Keep my IPO share</em></div>
+            <div class="d-cell"><span>Hypothetical investment</span><b class="c">$750</b><em>of $1,000 available</em></div>
+            <div class="d-cell"><span>Strongest risk</span><b class="m">Taiwan</b><em>TSMC chip concentration</em></div>
+          </div>
+          <div class="mytake">
+            <div class="mt-label">My decision</div>
+            <p>Yes, I would hold. If I had $1,000 available, I would put $750 into ANT.</p>
+          </div>
+          <div class="evid">
+            <div class="ev-label">Where this comes from in my report</div>
+            <ul class="pts">
+              <li><b>What has to be true:</b> the models keep improving. <a href="#ch3">Chapter 3</a></li>
+              <li><b>Biggest risk:</b> TSMC and Taiwan, through an attack, natural disaster, cyber attack or war. <a href="#ch2">Chapter 2</a></li>
+              <li><b>Where I changed my mind:</b> I picked compute efficiency as the strongest claim, but I think compute costs will overpower revenue, maybe to break-even. <a href="#ch2">Chapter 2</a></li>
+              <li><b>Control:</b> I'm okay without voting rights. It feels like protection. <a href="#ch3">Chapter 3</a></li>
+              <li><b>What would make me sell:</b> ethical concerns or a Taiwan crisis.</li>
+            </ul>
+          </div>
+          <div class="mytake">
+            <div class="mt-label">What changed since my first answer</div>
+            <p>I have more active concerns now. I will keep up with the news on Bloomberg.</p>
+          </div>
+          <div class="arc">
+            <div><span>Before research</span><p>"I would invest in Anthropic… I like taking on risk."</p></div>
+            <div class="arrow" aria-hidden="true">→</div>
+            <div><span>After research</span><p>Hold, and put $750 of $1,000 in, with more active concerns and an eye on the news.</p></div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="bar-glow"></div>
+  <div class="f-name">Prepared by <b>Sofia Troncone</b> · November 19, 2026</div>
+  <div>MGMT 342 · MANAGING AI AND EMERGING TECHNOLOGY · XAVIER UNIVERSITY</div>
+  <div class="f-note">Figures come from Anthropic, PBC's SEC filings (S-1, pricing FWP, 424(b)(4)) and AP. Values marked as derived are my own calculations. This is a class project, not investment advice.</div>
+</footer>
+
+<script>
+  var IPO = 83, OPEN = 111.5, BASE = 980000000;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Cursor spotlight
+  (function () {
+    var spot = document.getElementById('spot'), queued = false, x = 0, y = 0;
+    addEventListener('pointermove', function (e) {
+      x = e.clientX; y = e.clientY;
+      if (queued) return; queued = true;
+      requestAnimationFrame(function () {
+        spot.style.setProperty('--mx', x + 'px'); spot.style.setProperty('--my', y + 'px'); queued = false;
+      });
+    }, { passive: true });
+  })();
+
+  // Theme: light by default, remembers your choice
+  (function () {
+    var root = document.documentElement;
+    try { if (localStorage.getItem('ant-theme') === 'dark') root.setAttribute('data-theme', 'dark'); } catch (e) {}
+    document.getElementById('themeBtn').addEventListener('click', function () {
+      var dark = root.getAttribute('data-theme') === 'dark';
+      if (dark) root.removeAttribute('data-theme'); else root.setAttribute('data-theme', 'dark');
+      try { localStorage.setItem('ant-theme', dark ? 'light' : 'dark'); } catch (e) {}
+    });
+  })();
+  function money(n, d) { return (n < 0 ? '-$' : '$') + Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+
+  // Day-one pop + bars
+  (function () {
+    var pct = '+' + ((OPEN - IPO) / IPO * 100).toFixed(1) + '%';
+    document.getElementById('chip').textContent = '▲ ' + pct;
+    document.getElementById('table-money').textContent = '$' + ((OPEN - IPO) * BASE / 1e9).toFixed(2) + 'B';
+    setTimeout(function () {
+      document.querySelectorAll('.fill').forEach(function (f) { f.style.width = (parseFloat(f.dataset.v) / 120 * 100) + '%'; });
+    }, 250);
+  })();
+
+  // Ticker tape (content duplicated for a seamless loop)
+  (function () {
+    var items = [
+      '<b>ANT</b> <span class="up">$111.50 ▲ 34.3%</span>',
+      'IPO PRICE <b>$83.00</b>',
+      'DEAL SIZE <b>$81.34B</b>',
+      'SHARES <b>980,000,000</b>',
+      'GREENSHOE <b>147,000,000</b>',
+      'CLASS N PLACEMENT <b>$26.0B</b>',
+      'BOOKRUNNERS <b>GS · MS</b>',
+      'EXCHANGE <b>NASDAQ GS</b>',
+      'SETTLES <b>11.20.2026</b>'
+    ];
+    var html = items.map(function (t) { return '<span>' + t + '</span>'; }).join('');
+    document.getElementById('tape').innerHTML = html + html;
+  })();
+
+  // Position calculator
+  (function () {
+    var s = document.getElementById('qShares'), p = document.getElementById('qPaid'), n = document.getElementById('qNow');
+    function calc() {
+      var sh = +s.value || 0, paid = +p.value || 0, now = +n.value || 0;
+      var cost = sh * paid, val = sh * now, gain = val - cost;
+      var pct = cost > 0 ? gain / cost * 100 : 0;
+      document.getElementById('rCost').textContent = money(cost, 2);
+      document.getElementById('rVal').textContent = money(val, 2);
+      var g = document.getElementById('rGain');
+      g.textContent = (gain >= 0 ? '+' : '') + money(gain, 2) + ' (' + (pct >= 0 ? '+' : '') + pct.toFixed(1) + '%)';
+      g.className = 'value ' + (gain > 0 ? 'l' : gain < 0 ? 'm' : 'c');
+      var openGain = sh * (now - OPEN);
+      document.getElementById('rNote').textContent =
+        'Compare: someone who bought the same ' + sh + ' share' + (sh === 1 ? '' : 's') + ' at the $111.50 open would be ' +
+        (openGain >= 0 ? 'up ' : 'down ') + money(Math.abs(openGain), 2) + ' at this price. The allocation is worth ' +
+        money(sh * (OPEN - IPO), 2) + ' more.';
+    }
+    [s, p, n].forEach(function (el) { el.addEventListener('input', calc); });
+    calc();
+  })();
+
+  // Count-up numbers + split bar on reveal
+  function countUp(el) {
+    var target = parseFloat(el.dataset.count), pre = el.dataset.pre || '', suf = el.dataset.suf || '';
+    if (reduce) { el.textContent = pre + target.toFixed(2) + suf; return; }
+    var t0 = null;
+    function step(t) {
+      if (!t0) t0 = t;
+      var k = Math.min((t - t0) / 1200, 1), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = pre + (target * e).toFixed(2) + suf;
+      if (k < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Reading progress
+  (function () {
+    var bar = document.getElementById('progress');
+    function update() { var h = document.documentElement.scrollHeight - innerHeight; bar.style.width = (h > 0 ? scrollY / h * 100 : 0) + '%'; }
+    addEventListener('scroll', update, { passive: true }); update();
+  })();
+
+  // Reveal + active nav
+  (function () {
+    var secs = document.querySelectorAll('section'), links = document.querySelectorAll('#nav a');
+    function activate(sec) {
+      sec.classList.add('in');
+      sec.querySelectorAll('.split .a').forEach(function (a) { a.style.width = a.dataset.w + '%'; });
+    }
+    if (!('IntersectionObserver' in window)) { secs.forEach(activate); return; }
+    var rv = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { activate(e.target); rv.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    secs.forEach(function (s) { rv.observe(s); });
+    var spy = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) {
+          var on = a.getAttribute('href') === '#' + e.target.id;
+          a.classList.toggle('active', on);
+          if (on) {
+            // move only the nav strip sideways, never the page
+            var nav = a.parentNode;
+            var left = a.offsetLeft - nav.offsetLeft, right = left + a.offsetWidth;
+            if (left < nav.scrollLeft) nav.scrollLeft = left - 8;
+            else if (right > nav.scrollLeft + nav.clientWidth) nav.scrollLeft = right - nav.clientWidth + 8;
+          }
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    secs.forEach(function (s) { spy.observe(s); });
+  })();
+</script>
+</body>
+</html>
